@@ -1,0 +1,113 @@
+{
+  "title": "知识集锦",
+  "author": "Afauria",
+  "description": "知识集锦",
+  "language": "zh-hans",
+  "styles": {
+    "website": "./styles/website.css"
+  },
+  "structure": {
+    "readme": "README.md"
+  },
+  "links": {
+    "sidebar": {
+      "我的博客": "https://afauria.github.io"
+    }
+  },
+  "variables": {
+    "hello": "everyone"
+  },
+  "plugins": [
+    "-sharing",
+    "splitter",
+    "expandable-chapters-small",
+    "anchors",
+    "github",
+    "github-buttons",
+    "donate",
+    "sharing-plus",
+    "anchor-navigation-ex",
+    "favicon",
+    "atoc",
+    "pageview-count",
+    "lightbox",
+    "prism",
+    "prism-themes"
+  ],
+  "pluginsConfig": {
+    "github": {
+      "//": "右上角添加github图标",
+      "url": "https://github.com/Afauria"
+    },
+    "github-buttons": {
+      "buttons": [
+        {
+          "user": "Afauria",
+          "repo": "Afauria",
+          "type": "star",
+          "size": "small",
+          "count": true
+        }
+      ]
+    },
+    "donate": {
+      "alipay": "./source/images/donate.png",
+      "title": "",
+      "button": "赞赏",
+      "alipayText": " "
+    },
+    "sharing": {
+      "//": "true表示直接显示在顶端，all表示点击分享符号展开的",
+      "douban": false,
+      "facebook": false,
+      "google": false,
+      "hatenaBookmark": false,
+      "instapaper": false,
+      "line": false,
+      "linkedin": false,
+      "messenger": false,
+      "pocket": false,
+      "qq": false,
+      "qzone": false,
+      "stumbleupon": false,
+      "twitter": false,
+      "viber": false,
+      "vk": false,
+      "weibo": false,
+      "whatsapp": false,
+      "all": [
+        "google",
+        "facebook",
+        "weibo",
+        "twitter",
+        "qq",
+        "qzone",
+        "linkedin",
+        "pocket"
+      ]
+    },
+    "atoc": {
+      "//": "设置为false，禁用atoc右上角悬浮导航，页面内使用<!-- toc -->插入目录。",
+      "addClass": false,
+      "className": "atoc"
+    },
+    "prism": {
+      "css": [
+        "prism-themes/themes/prism-xonokai.css"
+      ]
+    },
+    "anchor-navigation-ex": {
+      "//": "anchor-navigation-ex插件默认也有右上角悬浮导航，页面内使用<extoc></extoc>插入目录",
+      "showLevel": false
+    },
+    "favicon": {
+      "shortcut": "./source/images/favicon.jpg",
+      "bookmark": "./source/images/favicon.jpg",
+      "appleTouch": "./source/images/apple-touch-icon.jpg",
+      "appleTouchMore": {
+        "120x120": "./source/images/apple-touch-icon.jpg",
+        "180x180": "./source/images/apple-touch-icon.jpg"
+      }
+    }
+  }
+}

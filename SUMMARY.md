@@ -1,0 +1,123 @@
+# Summary
+
+* [Introduction](README.md)
+
+## JAVA
+* 面向对象
+* 封装、继承、多态
+* 基本类型
+* 线程
+* IO
+* 泛型
+* JVM
+    * 引用类型
+    * JVM工作流程
+    * 运行时数据区
+    * 垃圾回收
+    * 类加载器
+* 集合框架
+* 反射
+* 线程
+* 锁
+* 动态代理
+* 注解
+
+## Android
+* 四大组件
+    * Activity
+    * Service
+    * BroadcastReceiver
+    * ContentProvider
+    * Fragment
+* 持久化
+* 序列化
+* View
+    * 事件分发
+    * 绘制流程
+    * 自定义View
+* IPC
+    * Binder
+    * AIDL
+    * Messenger
+    * 共享内存
+    * Socket
+    * 管道
+* 优化
+    * 分析工具
+    * 布局优化
+    * 内存优化
+    * 体积优化
+    * 启动优化
+    * 崩溃优化
+    * 卡顿优化
+    * 代码优化：静态检查Lint
+    * 编译优化：打包流程、混淆和压缩
+    * 存储优化
+    * 网络优化
+    * 耗电优化
+* Jetpack
+    * Lifecycle
+    * LiveData
+    * DataBinding
+    * ViewModel
+    * Room
+* 架构设计：MVC、MVP、MVVM
+* 组件化
+* 插件化
+
+## Android系统源码
+* Handler
+* RecyclerView
+* AMS
+* PMS
+* WMS
+* Binder
+* ANR
+* 应用启动流程、系统启动流程
+
+## 三方框架源码
+* OkHttp
+* Retrofit
+* Glide
+* RxJava
+* EventBus
+* ARouter
+* ButterKnife
+* Dagger
+* Hilt
+* LeakCanary
+* koin
+* anko
+* MMKV和SP
+
+## 设计模式
+* 面向对象六大原则
+* 单例模式
+* 工厂模式
+* 建造者模式
+* 代理模式
+* 装饰者模式
+* 责任链模式
+
+## 计算机网络
+* 分层结构
+* HTTP
+* HTTPS
+* TCP/IP
+* Socket
+
+## 数据结构和算法
+* 排序算法
+
+## 面经
+* [简历](./面经/简历.md)
+* [面试题](./面经/面试题.md)
+* [其他](./面经/其他.md)
+    * 自我介绍
+    * 项目介绍
+    * 遇到的难题
+    * 离职原因
+    * 职业规划
+    * 学习方法
+    * 薪资
+
