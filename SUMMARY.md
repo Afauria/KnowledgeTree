@@ -6,8 +6,8 @@
 * 面向对象
 * 封装、继承、多态
 * 基本类型
-* 线程
-* IO
+* String不可变性
+* 值传递or引用传递？
 * 泛型
 * JVM
     * 引用类型
@@ -16,9 +16,10 @@
     * 垃圾回收
     * 类加载器
 * 集合框架
+* IO读写、异步
 * 反射
 * 线程
-* 锁
+* 同步和锁
 * 动态代理
 * 注解
 
@@ -30,7 +31,14 @@
     * ContentProvider
     * Fragment
 * 持久化
+    * 数据库
+    * 文件
+    * SP
+    * MMKV
 * 序列化
+    * Serializable
+    * Parcelable
+    * Protobuf
 * View
     * 事件分发
     * 绘制流程
@@ -61,9 +69,11 @@
     * DataBinding
     * ViewModel
     * Room
+    * Compose
 * 架构设计：MVC、MVP、MVVM
 * 组件化
 * 插件化
+* 字节码Hook
 
 ## Android系统源码
 * Handler
@@ -100,6 +110,7 @@
 * 责任链模式
 
 ## 计算机网络
+* 网络起源
 * 分层结构
 * HTTP
 * HTTPS
