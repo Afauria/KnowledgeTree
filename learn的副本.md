@@ -2,7 +2,7 @@
 
 https://github.com/pengxurui/Android-NoteBook
 
-#####  
+PMS源码： https://mp.weixin.qq.com/s/eACbMYJ042YKglg7fpEb2w
 
 ##### **高频问题**
 

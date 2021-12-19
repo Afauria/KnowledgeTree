@@ -9,23 +9,28 @@
 * String不可变性
 * 值传递or引用传递？
 * 泛型
+* 异常
+* 集合框架
 * JVM
     * 引用类型
     * JVM工作流程
+    * 内存模型(GC)
     * 运行时数据区
     * 垃圾回收
     * 类加载器
-* 集合框架
 * IO读写、异步
+    * 字符流、字节流
+    * NIO
 * 反射
 * 线程
-* 同步和锁
+    * 同步和锁
+    * 线程池
 * 动态代理
 * 注解
 
 ## Android
 * 四大组件
-    * Activity
+    * Activity：启动模式
     * Service
     * BroadcastReceiver
     * ContentProvider
@@ -43,6 +48,9 @@
     * 事件分发
     * 绘制流程
     * 自定义View
+* 动画
+    * 分类
+    * 原理
 * IPC
     * Binder
     * AIDL
@@ -63,6 +71,7 @@
     * 存储优化
     * 网络优化
     * 耗电优化
+* JNI
 * Jetpack
     * Lifecycle
     * LiveData
@@ -73,19 +82,24 @@
 * 架构设计：MVC、MVP、MVVM
 * 组件化
 * 插件化
+* 跨平台
 * 字节码Hook
+* Kotlin
+* ADB
 
 ## Android系统源码
-* Handler
+* Handler：子线程刷新UI
 * RecyclerView
 * AMS
 * PMS
 * WMS
 * Binder
 * ANR
-* 应用启动流程、系统启动流程
+* 应用启动流程
+* 系统启动流程
+* ServiceManager
 
-## 三方框架源码
+## 开源框架
 * OkHttp
 * Retrofit
 * Glide
@@ -96,6 +110,8 @@
 * Dagger
 * Hilt
 * LeakCanary
+* BlockCanary
+* Bugly
 * koin
 * anko
 * MMKV和SP
@@ -119,16 +135,17 @@
 
 ## 数据结构和算法
 * 排序算法
+* 剑指Offer算法题
+
+## 其他
+* Git
 
 ## 面经
-* [简历](./面经/简历.md)
-* [面试题](./面经/面试题.md)
-* [其他](./面经/其他.md)
-    * 自我介绍
-    * 项目介绍
-    * 遇到的难题
-    * 离职原因
-    * 职业规划
-    * 学习方法
-    * 薪资
+* [简历](面经/简历.md)
+* [技术题（带答案）](面经/技术题.md)
+    * [Java](面经/Java.md)
+    * [Android](面经/Android.md)
+    * [架构和设计](面经/架构和设计.md)
+* [其他问题（不带答案）](面经/其他.md)
+* [面试官](面经/面试官.md)
 
