@@ -3,9 +3,10 @@
 * [Introduction](README.md)
 
 ## JAVA
-* 面向对象
+* [面向对象](Java/面向对象.md)
 * 封装、继承、多态
-* 基本类型
+* 重写和重载
+* [基本数据类型](Java/基本数据类型.md)
 * String不可变性
 * 值传递or引用传递？
 * 泛型
@@ -88,7 +89,7 @@
 * ADB
 
 ## Android系统源码
-* Handler：子线程刷新UI
+* [Handler](Android系统源码/Handler.md)
 * RecyclerView
 * AMS
 * PMS
