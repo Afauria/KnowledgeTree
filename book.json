@@ -3,6 +3,7 @@
   "author": "Afauria",
   "description": "知识集锦",
   "language": "zh-hans",
+  "root": "src",
   "styles": {
     "website": "./styles/website.css"
   },

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "serve": "gitbook serve",
+    "build": "gitbook build src ./build/dist",
+    "pdf": "gitbook pdf src ./build/pdf",
+    "epub": "gitbook epub src ./build/epub",
+    "mobi": "gitbook mobi src ./build/mobi"
+  }
+}
