@@ -14,11 +14,17 @@
     * [自动拆装箱](Java/基本数据类型.md#自动拆装箱)
     * [常见问题和注意事项](Java/基本数据类型.md#常见问题和注意事项)
     * [结语](Java/基本数据类型.md#结语)
-* [String不可变性](Java/String不可变性.md)
+* [Object类](Java/Object类.md)
+* [Java字符串](Java/Java字符串.md)
+    * [String对象](Java/Java字符串.md#String对象)
+    * [String不可变性](Java/Java字符串.md#String不可变性)
+    * [StringBuilder和StringBuffer](Java/Java字符串.md#StringBuilder和StringBuffer)
+    * [Switch支持String](Java/Java字符串.md#Switch支持String)
+* [泛型](Java/泛型.md)
 * 值传递or引用传递？
-* 泛型
 * [Java异常](Java/Java异常.md)
 * [集合框架](Java/集合框架.md)
+    * [HashMap](Java/集合框架.md#HashMap)
 * JVM
     * 引用类型
     * JVM工作流程
@@ -26,13 +32,13 @@
     * 运行时数据区
     * 垃圾回收
     * 类加载器
+* [反射](Java/反射.md)
+* [线程](Java/线程.md)
+    * 同步和锁
+    * 线程池
 * IO读写、异步
     * 字符流、字节流
     * NIO
-* 反射
-* 线程
-    * 同步和锁
-    * 线程池
 * 动态代理
 * 注解
 

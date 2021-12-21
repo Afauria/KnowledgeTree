@@ -40,7 +40,7 @@
 
 ### 词汇表文件
 
-将一些专业名词、术语放到列表中，文章中引用了词汇，鼠标悬浮会有提示，并且可以链接跳转查看。新建`Glossary.md`文件，配置如下
+将一些专业名词、术语放到列表中，文章中引用了词汇，鼠标悬浮会有提示，并且可以链接跳转查看。新建`GLOSSARY.md`文件，配置如下。（暂不支持中文）
 
 ```
 ## Git
@@ -93,6 +93,12 @@
 >
 > 注释掉下面三行代码：62、63、64行
 >
->   // fs.stat = statFix(fs.stat)
->   // fs.fstat = statFix(fs.fstat)
->   // fs.lstat = statFix(fs.lstat)
+> // fs.stat = statFix(fs.stat)
+> // fs.fstat = statFix(fs.fstat)
+> // fs.lstat = statFix(fs.lstat)
+
+# 参考资料
+
+主要参考资料引用，不在具体章节中单独说明。
+
+* [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)

@@ -78,6 +78,16 @@ String i2 = String.valueOf(i); //内部调用Integer.toString
 String i3 = Integer.toString(i);
 ```
 
+## String长度限制
+
+编译期限制：字符串字面量长度不能超过65535。否则javac会编译失败（常量字符串过长）。字面量长度为65534可以编译通过
+
+> javac将java文件编译成class文件，class文件是在JVM上运行的，因此要遵循JVM字符串常量池规范。
+
+运行期限制：不能超过int表示范围，否则会抛异常。
+
+> String内部使用char数组存储，长度不能超过int范围。
+
 # String不可变性
 
 ## 什么是不可变对象？
@@ -141,6 +151,12 @@ public int hashCode() {
 ```
 
 ## String常量池
+
+为了减少相同字符串重复创建，节省内存。JVM单独开辟了一块内存区域保存字符串常量，即字符串常量池。
+
+* JDK7以前，字符串常量池放在永久代中。
+* JDK7将字符串常量池放到了堆内存中。
+* JDK8中，使用元空间替代永久代，字符串常量池放到了元空间中。
 
 ```java
 String a = "123";
@@ -226,3 +242,39 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 ```
 
 `StringBuffer`：所有操作都加了`synchronized`关键字，因此是线程安全的
+
+# Switch支持String
+
+Java7之后switch支持字符串：编译时将字符串转为对应的hashCode，通过`equals()`方法比较hashCode值。
+
+如下：
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    String str = "hello";
+    switch (str) {
+      case "hello": break;
+      case "world": break;
+    }
+  }
+}
+//反编译查看代码如下（省略部分代码）
+public static void main(String[] var0) {
+    String var1 = "hello";
+    byte var3 = -1;
+    switch(var1.hashCode()) {
+    case 99162322:
+        if (var1.equals("hello")) {
+            var3 = 0;
+        }
+        break;
+    case 113318802:
+        if (var1.equals("world")) {
+            var3 = 1;
+        }
+    }
+}
+```
+
+> switch只支持整型，char、String、枚举都是转为整型之后进行比较

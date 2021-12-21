@@ -21,12 +21,12 @@ Java 通过面向对象的方法来处理异常：在一个方法的运行过程
 关键字：
 
 1. try：指定一段可能会产生异常的代码，后面需要跟catch或者finally捕获异常
-2. catch：紧跟在try后面，用来捕获异常。
+2. catch：紧跟在try后面，指定要捕获的异常。
 3. throw：手动抛出一个异常
 4. throws：用来标明一个函数内部可能抛出的各种异常，调用该函数需要捕获异常
-5. finally：try-catch结束之后，无论有没有发生异常都会执行
+5. finally：try-catch结束之后，无论有没有发生异常都会执行。会在方法return之前执行
 
-**try中return了也会执行finally，如果finally中也有return，会使用finally中的return**
+**try中return了也会执行finally，如果finally中也有return，会使用finally中的return的值**
 
 **子类不能比父类抛出更多异常（Runtime异常除外）**
 
@@ -43,10 +43,12 @@ Exception又分为运行时异常和非运行时异常：
 
 * 运行时异常（Runtime Exception）：也称为不检查异常（UnChecked Exception），一般是由程序逻辑错误引起。
   * 运行时发生，编译时不会检查。
-  * 程序中可以捕获，也可以不捕获。
+  * 程序中可以捕获，也可以不捕获。（如果需要对空指针异常处理的话，相当于所有代码都需要处理）
   * 如`NullPointerException`、`IndexOutOfBoundsException`等。
 * 非运行时异常：也称为检查异常（Checked Exception），除RuntimeException以外的异常。
-  * 可以被预测，程序需要进行处理，否则编译器会报错：捕获（try-catch）或者向上抛出（throws）。
+  * 可以被预测，程序需要进行处理，否则编译器会报错，处理方式
+    * 捕获（try-catch）自己处理
+    * 向上抛出（throws），交给调用者处理
   * 如IO异常、SQL异常等。
 
 
@@ -56,7 +58,14 @@ Exception又分为运行时异常和非运行时异常：
 
 > 异常如果没被处理，最终会抛到该线程run方法。因此在多线程情况下，子线程出现异常会导致该线程终止
 
-## Java7新特性：
+## 自定义异常
+
+开发人员自己定义异常类，继承自Exception。
+
+1. 可以自定义异常参数、名称、打印等，提高代码可读性。
+2. 对业务逻辑封装异常并手动抛出，强制提醒调用方进行处理。
+
+## Java7新特性
 
 1. 可以捕获多个异常
 
@@ -67,7 +76,7 @@ catch(IOException | SQLException | Exception ex){
 }
 ```
 
-2. `try-with-resources`：finally常用来关闭资源（如IO读写），使用新特性可以不用手动关闭（建议还是手动维护释放）
+2. `try-with-resources`：finally常用来关闭资源（如IO读写），使用新特性可以不用手动关闭（建议还是手动维护释放）。本质是个语法糖，编译器编译之后会转为普通语法。
 
 ```java
 //在try子句中能创建一个资源对象，当程序的执行完try-catch之后，运行环境自动关闭资源。
@@ -77,3 +86,4 @@ try (MyResource mr = new MyResource()) {
 	e.printStackTrace();
 }
 ```
+
