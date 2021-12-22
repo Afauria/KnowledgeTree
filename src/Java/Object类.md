@@ -1,6 +1,12 @@
 # Object类
 
-Object是所有类的父类，任何类都默认继承Object。
+## Object、Type和Class
+
+Object是所有类的父类，任何类都默认继承Object。包括Class类和数组。
+
+所有类都有Class对象，包含该类的信息。Class不能表示泛型，Type可以。
+
+Type是Class类的父接口，代表了Java中的所有类型：包括泛型、基本类型等
 
 ## Object类有哪些方法？
 
@@ -45,10 +51,6 @@ wait、notify、notifyAll要求当前线程是该对象的所有者，即持有�
  */
 protected native Object clone() throws CloneNotSupportedException;
 ```
-
-# Object和Type
-
-
 
 # 结语
 
