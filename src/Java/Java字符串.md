@@ -150,30 +150,108 @@ public int hashCode() {
 }
 ```
 
-## String常量池
+# String常量池
 
 为了减少相同字符串重复创建，节省内存。JVM单独开辟了一块内存区域保存字符串常量，即字符串常量池。
 
-* JDK7以前，字符串常量池放在永久代中。
-* JDK7将字符串常量池放到了堆内存中。
-* JDK8中，使用元空间替代永久代，字符串常量池放到了元空间中。
+> 缓存池基本都是解决频繁、重复创建问题的，让引用能够共用池中的对象。常量也是使用池实现。
+>
+> 如果一个类或方法从未被加载/调用，其中定义的任何常量将不会被加载到池中。
+>
+> 一般说的常量池一般指**运行时常量池**，不同于**字符串常量池**（也叫字符串池，String pool，String Table）
+
+* JDK7以前，**运行时常量池**（包括字符串常量池）放在方法区中，方法区的实现是永久代。永久代空间大小固定，不会被回收，频繁调用intern会导致永久代内存溢出（`java.lang.OutOfMemoryError: PermGen`）。
+* JDK7将字符串常量池放到了堆内存中，运行时常量池还在方法区。并且参与GC，回收重复的字符串对象。
+* JDK8中，方法区使用元空间实现（替代永久代），**运行时常量池在元空间中，字符串常量池还在堆中**。
 
 ```java
 String a = "123";
 String b = "123";
 System.out.println(a == b);//true：同一个对象。
-//使用双引号创建的是字符串常量，存储在常量池中
-//创建常量对象的时候会先判断常量池中是否已经存在，如果存在则直接引用
+//使用双引号（字符串字面量）创建的字符串对象存储在常量池中
+//创建字符串常量时会先判断常量池中是否已经存在，如果存在则直接引用
 
 String a = "123";
 String b = new String("123");
 System.out.println(a == b);//false
-//使用new String创建对象，存放在堆中，两个引用不相等
-//实际上是将常量池中的123复制到了堆中，如果常量池没有，会先再常量池中创建，如下
+//使用new String创建的是字符串对象，存放在堆中，两个引用不相等
+//实际上是将常量池中的123复制到了堆中，如果常量池没有，会先在常量池中创建，如下
 
 String a = new String("123");
 //实际上创建了两个对象，一个在常量池，一个在堆中
-//如果前面常量池已经有该字符串，则只创建一个对象。
+//如果常量池已经有该字符串，则只创建一个对象。
+```
+
+什么情况会将字符串加入常量池？
+
+> 1. 使用字符串字面量给变量赋值
+> 2. 使用intern方法
+
+`String str = new String("a") + new String("B");`会创建几个对象？
+
+`javap`反编译查看字节码如下
+
+```shell
+Compiled from "Main.java"
+public class Main {
+  #...
+  public static void main(java.lang.String[]);
+    Code:
+       0: new           #2                  // class java/lang/StringBuilder
+       3: dup
+       4: invokespecial #3                  // Method java/lang/StringBuilder."<init>":()V
+       7: new           #4                  // class java/lang/String
+      10: dup
+      11: ldc           #5                  // String a
+      13: invokespecial #6                  // Method java/lang/String."<init>":(Ljava/lang/String;)V
+      16: invokevirtual #7                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      19: new           #4                  // class java/lang/String
+      22: dup
+      23: ldc           #8                  // String B
+      25: invokespecial #6                  // Method java/lang/String."<init>":(Ljava/lang/String;)V
+      28: invokevirtual #7                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+      31: invokevirtual #9                  // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+      34: astore_1
+      35: return
+}
+```
+
+> 1. 创建一个StringBuilder对象：上面提到"+"号编译时改为StringBuilder拼接---->对应字节码行号0
+> 2. new String在堆中创建一个"a"对象---->7
+> 3. 字符串常量池中的创建一个"a"对象---->11，ldc表示load constant加载常量
+> 4. new String在堆中创建一个"b"对象---->19
+> 5. 字符串常量池中的创建一个"b"对象---->23
+> 6. toString()方法会调用new String("ab")，在堆中创建一个"ab"对象---->31
+>
+> **此时不会在字符串常量池中创建"ab"对象**
+
+## intern方法
+
+* JDK1.6中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则把字符串常量加到字符串池中，再返回池中对象的地址。
+* JDK1.7中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则将堆中的**字符串对象的地址**添加到常量池中，再返回池中对象的地址。（由于添加的是堆中对象的地址而不是字符串对象，即字符串常量池指向堆中对象的地址，因此返回的其实也是堆中对象的地址。）
+
+intern案例1：
+
+```java
+String s = new String("aa"); //先在字符串池中创建一个"aa"对象，再在堆中创建一个字符串"aa"对象(将"aa"从字符串池复制到堆中)，赋值给s
+String s1 = s.intern(); //检查字符串池中是否存在"aa"，此处存在，直接返回字符串池中的对象
+String s2 = "aa"; //使用双引号创建直接返回池中的对象
+System.out.println(s == s2);  // false，s引用的对象在堆中
+System.out.println(s1 == s2); // true，s1和s2引用的对象都在池中
+```
+
+intern案例2：
+
+```java
+String s1 = new String("a") + new String("b"); //上面提到过，此时不会在字符串池中创建"ab"对象
+String s2 = s1.intern(); //字符串池中不存在
+//jdk1.6在池中创建一个新的字符串对象"ab"，并返回
+//jdk1.7之后会把堆中的引用放到常量池中并返回，因此返回的也是堆中对象的地址
+String s3 = "ab"; //字符串池中的对象
+
+System.out.println(s1 == s3); // JDK1.7 true 1.6 false。s1是堆中对象，s3是池中对象。
+//1.7字符串池中对象指向堆中对象，因此相等
+System.out.println(s2 == s3);  // true，s2和s3都是返回池中的对象
 ```
 
 ## hashCode和identifyHashCode

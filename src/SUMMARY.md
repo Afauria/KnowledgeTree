@@ -15,16 +15,22 @@
     * [常见问题和注意事项](Java/基本数据类型.md#常见问题和注意事项)
     * [结语](Java/基本数据类型.md#结语)
 * [Object类](Java/Object类.md)
+    * [对象的clone](Java/Object类.md#对象的clone)
+    * [值传递和引用传递](Java/Object类.md#值传递和引用传递)
+
 * [Java字符串](Java/Java字符串.md)
     * [String对象](Java/Java字符串.md#String对象)
     * [String不可变性](Java/Java字符串.md#String不可变性)
+    * [String常量池](Java/Java字符串.md#String常量池)
     * [StringBuilder和StringBuffer](Java/Java字符串.md#StringBuilder和StringBuffer)
     * [Switch支持String](Java/Java字符串.md#Switch支持String)
 * [泛型](Java/泛型.md)
-* 值传递or引用传递？
+    * [泛型基础](Java/泛型.md#泛型基础)
+    * [泛型擦除](Java/泛型.md#泛型擦除)
+    * [限定通配符](Java/泛型.md#限定通配符)
+    * [其他细节](Java/泛型.md#其他细节)
+
 * [Java异常](Java/Java异常.md)
-* [集合框架](Java/集合框架.md)
-    * [HashMap](Java/集合框架.md#HashMap)
 * JVM
     * 引用类型
     * JVM工作流程
@@ -39,6 +45,8 @@
 * IO读写、异步
     * 字符流、字节流
     * NIO
+* [集合框架](Java/集合框架.md)
+    * [HashMap](Java/集合框架.md#HashMap)
 * 动态代理
 * 注解
 
