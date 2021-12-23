@@ -18,6 +18,73 @@ Java的类型分为
 
 > 通配符类型（WildcardType）：如`<?>`，也是Type的子接口，但不属于Java类型。
 
+## Object类是接口的父类吗？
+
+定义一个接口A
+
+```java
+interface A{}
+```
+
+可以直接使用匿名内部类创建A对象，然后可以重写Object类的方法，并且可以调用Object类的方法，编译器没有报错。
+
+```java
+class Main {
+    public static void main(String[] args) {
+        A a = new A() {
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
+            //省略重写Object类方法...
+        };
+        a.toString(); //调用Object类方法
+        a.equals("");
+    }
+}
+```
+
+`javap -v A`反编译查看汇编代码结果如下：#2表示超类的符号引用，即对应Object类
+
+```sh
+Classfile /A.class
+  Last modified 2021-12-24; size 86 bytes
+  MD5 checksum f3fccb658bd55901dae25bcaaf774b6a
+  Compiled from "A.java"
+interface A
+  minor version: 0
+  major version: 52
+  flags: ACC_INTERFACE, ACC_ABSTRACT
+Constant pool:
+  #1 = Class              #5              // A
+  #2 = Class              #6              // java/lang/Object
+  #3 = Utf8               SourceFile
+  #4 = Utf8               A.java
+  #5 = Utf8               A
+  #6 = Utf8               java/lang/Object
+{
+}
+SourceFile: "A.java"
+```
+
+但是如果我们运行时反射打印接口方法，输出为0，如下
+
+```java
+System.out.println(A.class.getMethods().length); //输出为0
+```
+
+针对接口是否继承Object类网上有不同的说法，而且都有理由和证据
+
+1. 继承：
+   1. 接口对象可以重写并且调用Object类中的方法
+   2. 反编译查看汇编代码中引用了Object类
+2. 不继承：
+   1. 从Java语法上讲，接口只能继承其他接口，无法继承类
+   2. 类需要有构造方法，javac编译会给类生成默认构造方法，但是从上面的汇编代码看，接口并没有生成构造方法。
+   3. 运行时反射获取接口类的方法，可以看到不包含Object类的方法
+
+结论：暂时认为接口不继承Object类把。
+
 ## Object类有哪些方法？
 
 1. `clone`：实现对象的浅拷贝。需要重写并且实现了`Cloneable`接口才可以调用该方法，否则抛出`CloneNotSupportedException`异常。

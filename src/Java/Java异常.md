@@ -28,7 +28,7 @@ Java 通过面向对象的方法来处理异常：在一个方法的运行过程
 
 **try中return了也会执行finally，如果finally中也有return，会使用finally中的return的值**
 
-**子类不能比父类抛出更多异常（Runtime异常除外）**
+**子类不能比父类抛出更多异常（Runtime异常除外，因为Runtime异常不受检查）**
 
 ## 异常类型
 
