@@ -2,9 +2,7 @@
 
 整理中...
 
-主要参考资料和引用，不在具体章节中单独说明。
-
-* [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
+有问题或者错误欢迎交流指正，可以提issue或者在博客中评论回复
 
 # GitBook说明
 
@@ -124,3 +122,8 @@ Failed to load prism syntax: shell
 >
 > prism插件用于显示Gitbook代码块样式，可以下载不同主题。
 
+# 参考资料
+
+具体的参考资料在章节中说明。主要的参考资料和引用，在此统一致谢，不在具体章节中单独说明。
+
+* [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
