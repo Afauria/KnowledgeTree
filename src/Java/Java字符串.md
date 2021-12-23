@@ -61,13 +61,22 @@ String var2 = "World";
 (new StringBuilder()).append(var1).append(var2).toString();
 ```
 
-如果是直接拼接字符串字面量，编译器会进行常量折叠。如下：
+如果是直接拼接字符串字面量或常量，编译器会进行常量折叠。如下：
 
 ```java
-String str = "Hello" + " World";
-//反编译结果如下
-String var1 = "Hello World";`
+int i1 = 2;
+final int i2 = 2;
+String str1 = "1" + i1; //StringBuilder拼接，不会加入字符串池
+String str2 = "1" + i2; //常量折叠，会加入字符串池
+String str3 = "Hello" + " World"; //常量折叠，，会加入字符串池
+//反编译结果如下：
+byte var1 = 2;
+(new StringBuilder()).append("1").append(var1).toString();
+String var4 = "12";
+String var5 = "Hello World";`
 ```
+
+> final常量不会变，编译器可以直接进行折叠。如果是变量，无法确定拼接之前会不会被修改，在运行的时候才能确定。
 
 ## int转String
 
@@ -191,7 +200,7 @@ String a = new String("123");
 
 `javap`反编译查看字节码如下
 
-```shell
+```sh
 Compiled from "Main.java"
 public class Main {
   #...
@@ -229,6 +238,10 @@ public class Main {
 
 * JDK1.6中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则把字符串常量加到字符串池中，再返回池中对象的地址。
 * JDK1.7中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则将堆中的**字符串对象的地址**添加到常量池中，再返回池中对象的地址。（由于添加的是堆中对象的地址而不是字符串对象，即字符串常量池指向堆中对象的地址，因此返回的其实也是堆中对象的地址。）
+
+> Java6上频繁调用intern会导致字符串池出现内存溢出（`java.lang.OutOfMemoryError: PermGen`）
+>
+> Java7之后字符串池在堆中，并且参与GC，回收重复的字符串对象。
 
 intern案例1：
 

@@ -1,4 +1,12 @@
-# GitBook说明文档
+# 知识体系
+
+整理中...
+
+主要参考资料和引用，不在具体章节中单独说明。
+
+* [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
+
+# GitBook说明
 
 源项目放到GitHub私有仓库，build之后的静态网页文件放到公共仓库，部署到GitHub Pages。
 
@@ -97,8 +105,22 @@
 > // fs.fstat = statFix(fs.fstat)
 > // fs.lstat = statFix(fs.lstat)
 
-# 参考资料
+Markdown文章内标题锚点不支持大写，需要写成小写，否则无法跳转
 
-主要参考资料引用，不在具体章节中单独说明。
+> 例如：标题XXX，锚点需要写成`文章.md#标题xxx`
 
-* [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
+编译提示`prism`不支持shell语法，如下
+
+```sh
+Failed to load prism syntax: shell
+{ Error: Cannot find module 'prismjs/components/prism-shell.js'
+#...
+'MODULE_NOT_FOUND' }
+```
+
+> 原因：Markdown代码块中使用shell代码块，但是prism插件还不支持。虽然不影响运行，但是报错很难受...
+>
+> 解决方案：代码块改为`sh`或`bash`
+>
+> prism插件用于显示Gitbook代码块样式，可以下载不同主题。
+
