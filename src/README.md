@@ -60,9 +60,9 @@
 
 `book.json`中`plugins`中是插件列表，前面加一个减号表示禁用。`pluginsConfig`是某一个插件的配置
 
-## 配置自定义样式
+### 配置自定义样式
 
-`book.json`中配置样式，新建`styles/website.css`文件，可以通过浏览器检查html元素来修改样式。如修改侧边栏宽度，修改代码块高度等
+`book.json`中配置样式，新建`styles/website.css`文件，可以通过浏览器检查html元素来修改样式。如修改侧边栏宽度，修改代码块高度、将未添加跳转链接的目录设置为粗体等
 
 ```json
 {
