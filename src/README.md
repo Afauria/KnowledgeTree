@@ -62,7 +62,7 @@
 
 ### 配置自定义样式
 
-`book.json`中配置样式，新建`styles/website.css`文件，可以通过浏览器检查html元素来修改样式。如修改侧边栏宽度，修改代码块高度、将未添加跳转链接的目录设置为粗体等
+`book.json`中配置样式，新建`styles/website.css`文件，可以通过浏览器检查html元素来修改样式。如修改侧边栏宽度，修改代码块高度、将未添加跳转链接的目录设置为粗体、标题添加下划线等。设置root之后，`styles`文件夹也要迁到相应的路径
 
 ```json
 {
@@ -90,6 +90,10 @@
 	}
 }
 ```
+
+### 插件列表
+
+[参考文章](http://gitbook.zhangjikai.com/plugins.html)
 
 ## 错误处理
 
@@ -121,6 +125,10 @@ Failed to load prism syntax: shell
 > 解决方案：代码块改为`sh`或`bash`
 >
 > prism插件用于显示Gitbook代码块样式，可以下载不同主题。
+
+GitBook mermaid渲染有问题
+
+> 添加`mermaid-gb3`插件（还是无法渲染，不过解决了报错问题）
 
 # 参考资料
 

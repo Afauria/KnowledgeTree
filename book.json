@@ -33,7 +33,8 @@
     "pageview-count",
     "lightbox",
     "prism",
-    "prism-themes"
+    "prism-themes",
+    "mermaid-gb3"
   ],
   "pluginsConfig": {
     "github": {
