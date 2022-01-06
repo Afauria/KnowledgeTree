@@ -2,7 +2,7 @@
 
 String不是基本数据类型，是引用类型。
 
-内部使用char数组存储，并且被final修饰，初始化的时候拷贝数组赋值，长度固定，之后不可修改。
+内部使用char数组存储，并且被final修饰，初始化的时候拷贝数组赋值，长度固定，之后不可修改，每次修改都会创建一个新的字符串对象。
 
 ```java
 private final char[] value;
@@ -22,7 +22,7 @@ String(int offset, int count, char value[]) {
     this.count = count;
 }
 public String substring(int beginIndex, int endIndex) {
-    return  new String(offset + beginIndex, endIndex - beginIndex, value);
+    return new String(offset + beginIndex, endIndex - beginIndex, value);
 }
 ```
 
@@ -67,7 +67,7 @@ String var2 = "World";
 int i1 = 2;
 final int i2 = 2;
 String str1 = "1" + i1; //StringBuilder拼接，不会加入字符串池
-String str2 = "1" + i2; //常量折叠，会加入字符串池
+String str2 = "1" + i2; //i2是常量，进行常量折叠，会加入字符串池
 String str3 = "Hello" + " World"; //常量折叠，，会加入字符串池
 //反编译结果如下：
 byte var1 = 2;
@@ -89,7 +89,7 @@ String i3 = Integer.toString(i);
 
 ## String长度限制
 
-编译期限制：字符串字面量长度不能超过65535。否则javac会编译失败（常量字符串过长）。字面量长度为65534可以编译通过
+编译期限制：字符串**字面量**长度不能超过65535。否则javac会编译失败（常量字符串过长）。字面量长度为65534可以编译通过
 
 > javac将java文件编译成class文件，class文件是在JVM上运行的，因此要遵循JVM字符串常量池规范。
 
@@ -134,12 +134,12 @@ public String concat(String var1) {
 
 ## 为什么String设计成不可变？
 
-> 基于线程安全、性能、缓存等方面考虑
->
-> 1. 线程安全：由于字符串不可变，因此多个线程访问的时候，如果线程修改了值，会创建一个新的字符串，而不是修改相同的值。
-> 2. 性能：通过字符串池和hashCode缓存，更加高效。
-> 3. 缓存：字符串使用广泛，频繁创建消耗资源。因此JVM专门开辟了一个空间存储字符串，即字符串常量池，对字符串进行缓存，可以节省堆空间。（两个相同的字符串变量，指向字符串池中的同一个对象）。如果字符串可变的话，修改了内容，所有引用都会跟着修改。
-> 4. hashCode缓存：HashMap、HashTable、HashSet等集合类，会调用hashCode计算hash值，由于字符串不可变，因此String可以重写hashCode方法，首次调用保存hash值，之后访问的时候直接返回缓存的hash值。
+基于线程安全、性能、缓存等方面考虑
+
+1. 线程安全：由于字符串不可变，因此多个线程访问的时候，如果线程修改了值，会创建一个新的字符串，而不是修改相同的值。
+2. 性能：通过字符串池和hashCode缓存，更加高效。
+3. 缓存：字符串使用广泛，频繁创建消耗资源。因此JVM专门开辟了一个空间存储字符串，即字符串常量池，对字符串进行缓存，可以节省堆空间，堆中字符串变量指向字符串池中的对象（两个相同的字符串变量，指向字符串池中的同一个对象）。如果字符串可变的话，修改了内容，所有引用都会跟着修改。
+4. hashCode缓存：HashMap、HashTable、HashSet等集合类，会调用hashCode计算hash值，由于字符串不可变，因此String可以重写hashCode方法，首次调用保存hash值，之后访问的时候直接返回缓存的hash值。
 
 hashCode缓存源码如下
 
@@ -163,14 +163,14 @@ public int hashCode() {
 
 为了减少相同字符串重复创建，节省内存。JVM单独开辟了一块内存区域保存字符串常量，即字符串常量池。
 
-> 缓存池基本都是解决频繁、重复创建问题的，让引用能够共用池中的对象。常量也是使用池实现。
+> 缓存池基本都是解决频繁、重复创建问题的，让引用能够共用池中的对象。常量本质也是使用池实现。
 >
 > 如果一个类或方法从未被加载/调用，其中定义的任何常量将不会被加载到池中。
 >
 > 一般说的常量池一般指**运行时常量池**，不同于**字符串常量池**（也叫字符串池，String pool，String Table）
 
 * JDK7以前，**运行时常量池**（包括字符串常量池）放在方法区中，方法区的实现是永久代。永久代空间大小固定，不会被回收，频繁调用intern会导致永久代内存溢出（`java.lang.OutOfMemoryError: PermGen`）。
-* JDK7将字符串常量池放到了堆内存中，运行时常量池还在方法区。并且参与GC，回收重复的字符串对象。
+* JDK7将字符串常量池放到了堆内存中，并且参与GC，回收重复的字符串对象。运行时常量池还在方法区。
 * JDK8中，方法区使用元空间实现（替代永久代），**运行时常量池在元空间中，字符串常量池还在堆中**。
 
 ```java
@@ -180,8 +180,8 @@ System.out.println(a == b);//true：同一个对象。
 //使用双引号（字符串字面量）创建的字符串对象存储在常量池中
 //创建字符串常量时会先判断常量池中是否已经存在，如果存在则直接引用
 
-String a = "123";
-String b = new String("123");
+String a = "123"; //池中对象
+String b = new String("123"); //堆中对象
 System.out.println(a == b);//false
 //使用new String创建的是字符串对象，存放在堆中，两个引用不相等
 //实际上是将常量池中的123复制到了堆中，如果常量池没有，会先在常量池中创建，如下
@@ -236,8 +236,8 @@ public class Main {
 
 ## intern方法
 
-* JDK1.6中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则把字符串常量加到字符串池中，再返回池中对象的地址。
-* JDK1.7中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则返回池中对象的地址。否则将堆中的**字符串对象的地址**添加到常量池中，再返回池中对象的地址。（由于添加的是堆中对象的地址而不是字符串对象，即字符串常量池指向堆中对象的地址，因此返回的其实也是堆中对象的地址。）
+* JDK1.6中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则**返回池中对象的地址**。否则把字符串常量加到字符串池中，再返回池中对象的地址。
+* JDK1.7中：字符串调用`intern`方法，会先去字符串常量池中查找是否存在，如果有则**返回池中对象的地址**。否则将堆中的**字符串对象的地址**添加到常量池中，再返回池中对象的地址。（由于添加的是堆中对象的地址而不是字符串对象，即字符串常量池指向堆中对象的地址，因此返回的其实也是堆中对象的地址。）
 
 > Java6上频繁调用intern会导致字符串池出现内存溢出（`java.lang.OutOfMemoryError: PermGen`）
 >
@@ -263,7 +263,7 @@ String s2 = s1.intern(); //字符串池中不存在
 String s3 = "ab"; //字符串池中的对象
 
 System.out.println(s1 == s3); // JDK1.7 true 1.6 false。s1是堆中对象，s3是池中对象。
-//1.7字符串池中对象指向堆中对象，因此相等
+//1.7字符串池中对象s3指向堆中对象，因此相等
 System.out.println(s2 == s3);  // true，s2和s3都是返回池中的对象
 ```
 
@@ -292,6 +292,8 @@ System.identifyHashCode(null); //返回0
 
 与String不同的是，char数组不是`final`的，内部有一个count变量表示已使用的字符个数。
 
+效率更高：通过数组扩容来拼接字符串，不需要创建新字符串对象
+
 ```java
 public final class StringBuilder extends AbstractStringBuilder implements Serializable, CharSequence {
   public StringBuilder() {
@@ -311,32 +313,59 @@ public final class StringBuilder extends AbstractStringBuilder implements Serial
 }
 //父类
 abstract class AbstractStringBuilder implements Appendable, CharSequence {
+  char[] value;
+  int count;
   //拼接字符串
-  public AbstractStringBuilder append(String var1) {
-    if (var1 == null) {
+  public AbstractStringBuilder append(String str) {
+    if (str == null) {
       return this.appendNull();
     } else {
-      int var2 = var1.length();
-      this.ensureCapacityInternal(this.count + var2);
-      var1.getChars(0, var2, this.value, this.count);
-      this.count += var2;
+      int len = str.length();
+      this.ensureCapacityInternal(this.count + len);
+      str.getChars(0, len, this.value, this.count);
+      this.count += len;
       return this;
     }
   }
   //数组扩容
-  private void ensureCapacityInternal(int var1) {
-    if (var1 - this.value.length > 0) {
-      this.value = Arrays.copyOf(this.value, this.newCapacity(var1));
+  private void ensureCapacityInternal(int minCapacity) {
+    //需要的长度大于数组容量才会扩容
+    if (minCapacity - this.value.length > 0) {
+      this.value = Arrays.copyOf(this.value, this.newCapacity(minCapacity));
     }
+  }
+  private int newCapacity(int minCapacity) {
+    // 默认扩容是原来的2倍+2
+    int newCapacity = (value.length << 1) + 2;
+    //如果默认的小于需要的，就使用实际需要的容量
+    if (newCapacity - minCapacity < 0) {
+      newCapacity = minCapacity;
+    }
+    //小于0或大于(Integer.MAX_VALUE-8)，扩充至最大值
+    return (newCapacity <= 0 || MAX_ARRAY_SIZE - newCapacity < 0)
+      ? hugeCapacity(minCapacity)
+      : newCapacity;
+  }
+  private int hugeCapacity(int minCapacity) {
+    if (Integer.MAX_VALUE - minCapacity < 0) { // 超过int容量，越界
+      throw new OutOfMemoryError();
+    }
+    //最大值为Integer.MAX_VALUE-8
+    return (minCapacity > MAX_ARRAY_SIZE)
+      ? minCapacity : MAX_ARRAY_SIZE;
   }
 }
 ```
 
 `StringBuffer`：所有操作都加了`synchronized`关键字，因此是线程安全的
 
+> 1. String适用于少量字符串操作
+> 2. StringBuilder适用单线程下进行大量字符串操作的情况
+> 3. StringBuffer使用多线程下进行大量字符串操作的情况
+
 # Switch支持String
 
-Java7之后switch支持字符串：编译时将字符串转为对应的hashCode，通过`equals()`方法比较hashCode值。
+Java7之后switch支持字符串：编译时将字符串生成hashCode方法调用，并且通过`equals()`方法比较字符串值，**防止hash碰撞**。
 
 如下：
 
@@ -368,4 +397,4 @@ public static void main(String[] var0) {
 }
 ```
 
-> switch只支持整型，char、String、枚举都是转为整型之后进行比较
+> **switch只支持整型**，char、String、枚举都是转为整型之后进行比较

@@ -113,6 +113,50 @@ wait、notify、notifyAll要求当前线程是该对象的所有者，即持有�
 
 一次只能有一个线程持有对象的锁
 
+### equals方法
+
+==对于基本数据类型，比较的是数值
+
+==对于非基本数据类型，比较的是对象的内存地址，用于判断是否是同一个对象
+
+Object的equals方法默认比较两个对象的内存地址（内部直接调用==判断），String重写了equals方法，比较字符串是否相等
+
+```java
+String a = new String("123");
+String b = new String("123");
+System.out.println(a==b);//false
+System.out.println(a.equals(b));//true
+```
+
+重写equals方法规范：
+
+1. 自反性：`x.equals(x)==true`
+2. 对称性：如果`x.equals(y)==true`，那么`y.equals(x)==true`
+3. 传递性：如果`x.equals(y)==true`，`y.equals(z)==true`，那么`x.equals(z)==true`
+4. 一致性：无论多少次调用`x.equals(y)`结果始终相同
+
+重写equals步骤：
+
+1. 使用==检查是否是同一个对象，如果是则返回true
+2. 使用instanceof检查是否是正确的类型，如果不是，返回false
+3. 将参数转换为对比的类型
+4. 比较对象中的属性、内容
+5. 检查是否符合上述规范
+
+### hashCode方法
+
+Object类hashCode方法默认返回对象内存地址。
+
+String重写了hashCode方法，根据字符串计算hash值
+
+### 为什么重写equals方法，也要重写hashCode方法？
+
+使用hashmap的时候，put插入元素会先计算hashCode，如果存在该key的hashCode，则遍历链表，再使用equals判断是否相等，如果相等则替换新的value。如果链表中没找到，则将新元素插入到链表头节点。
+
+如果不重写hashCode方法，则无法找到同一条拉链，此时重写equals没有意义，会插入重复元素
+
+<img src="Object类/重写hashCode方法.png" style="zoom:50%;" />
+
 # 对象的clone
 
 Java创建对象（为对象分配内存空间）的方式有两种：
@@ -172,8 +216,6 @@ public class Main {
 ```
 
 ![](Object类/浅拷贝和深拷贝.png)
-
-
 
 **为了避免浅拷贝修改引用对象，导致其他的引用也跟着变更**，Java限制了clone方法的调用：
 
