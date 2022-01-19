@@ -11,7 +11,7 @@
 源项目放到GitHub私有仓库，build之后的静态网页文件放到公共仓库，部署到GitHub Pages。
 
 * 公共仓库才能使用GitHub Pages，私有的要付费
-* GitHub Pages要求打包到docs目录
+* GitHub Pages要求打包到docs目录或者打包到根目录
 
 > //todo 目前先放到一起，完善之后再分仓库。放一起的时候需要打包到docs目录。分仓库之后可以配置为GitHub Pages根目录
 
@@ -134,6 +134,6 @@ GitBook mermaid渲染有问题
 
 # 参考资料
 
-具体的参考资料在章节中说明。主要的参考资料和引用，在此统一致谢，不在具体章节中单独说明。
+具体的参考资料在章节中说明。主要的参考资料和引用在此统一致谢，不在具体章节中单独说明。
 
 * [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
