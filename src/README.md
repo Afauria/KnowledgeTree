@@ -4,7 +4,7 @@
 
 设计模式篇源码[仓库位置](https://github.com/Afauria/DesignPattern)
 
-有问题或者错误欢迎交流指正，可以提issue或者在博客中评论回复
+有问题或者错误欢迎交流指正，可以提issue或者在[博客](https://blog.afauria.xyz/2021/04/04/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/)中评论回复
 
 # GitBook说明
 
