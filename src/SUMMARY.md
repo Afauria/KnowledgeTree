@@ -33,7 +33,7 @@
 * [Java异常](Java/Java异常.md)
 * [函数式接口](Java/函数式接口.md)
 * [JVM内存](Java/JVM内存.md)
-    * [引用类型](Java/JVM内存.md#引用类型)
+    * [四种引用和引用队列](Java/JVM内存.md#四种引用和引用队列)
     * JVM工作流程
     * 内存模型(GC)
     * 运行时数据区
@@ -96,6 +96,8 @@
     * ViewModel
     * Room
     * Compose
+    * App Startup
+    * WorkMannager
 * 架构设计：MVC、MVP、MVVM
 * 组件化
 * 插件化
@@ -104,8 +106,8 @@
 * Kotlin
 * ADB
 
-## Android系统源码
-* [Handler](Android系统源码/Handler.md)
+## Android源码
+* [Handler](Android源码/Handler.md)
 * RecyclerView
 * AMS
 * PMS
@@ -121,7 +123,7 @@
 * Retrofit
 * Glide
 * RxJava
-* EventBus
+* [EventBus](开源框架/EventBus.md)
 * ARouter
 * ButterKnife
 * Dagger
