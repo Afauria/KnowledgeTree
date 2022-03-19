@@ -1,0 +1,53 @@
+
+item点击事件：使用接口，holder中写
+
+recyclerview设置无边缘滑动效果android:overScrollMode="never"
+
+
+
+
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
+    private Context mContext;
+    private List<Fruit> mFruitList;
+//定义ViewHolder，并初始化
+    static class ViewHolder extends RecyclerView.ViewHolder{
+        CardView cardView;
+        ImageView fruitImage;
+        TextView fruitName;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            cardView=(CardView)itemView;
+            fruitImage=(ImageView) itemView.findViewById(R.id.fruit_image);
+            fruitName=(TextView) itemView.findViewById(R.id.fruit_name);
+        }
+    }
+
+    public FruitAdapter(List<Fruit> mFruitList) {
+        this.mFruitList = mFruitList;
+    }
+//context可在构造方法传入并获取
+//创建ViewHolder实例，并加载布局，布局可通过全局变量传入
+    @Override
+    public FruitAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(mContext==null){
+            mContext=parent.getContext();
+        }
+//LayoutInflater可定义为全局变量，在构造方法中初始化
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item,parent,false);
+        return new ViewHolder(view);
+    }
+//绑定ViewHolder，设置数据，每个子项进入屏幕时调用
+    @Override
+    public void onBindViewHolder(FruitAdapter.ViewHolder holder, int position) {
+        Fruit fruit=mFruitList.get(position);
+        holder.fruitName.setText(fruit.getName());
+        //glide加载图片，包括了图片压缩
+        Glide.with(mContext).load(fruit.getImageId()).into(holder.fruitImage);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mFruitList.size();
+    }
+}

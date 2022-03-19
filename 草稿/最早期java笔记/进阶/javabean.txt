@@ -1,0 +1,54 @@
+JavaBean可分为两种：一种是有用户界面（UI，User Interface）的JavaBean；还有一种是没有用户界面，主要负责处理事务（如数据运算，操纵数据库）的JavaBean。
+每个GUI类都是javabean组件，实现了事件监听
+
+
+Bean之间通过Java事件委托模型进行通信 
+事件委托模型可进行发送、接收、处理事件等任务
+事件委托模型包括 
+1.事件对象（Event）：一种信号 
+2.事件源对象（Subject）：事件发生的位置
+3.监听器对象（Observer）：事件处理的位置
+
+
+事件委托模型实现流程：
+1.自定义事件源
+（1）实现注册/注销监听器功能 
+	public void addXListener(XListener listener); 
+	public void removeXListener(XListener listener);
+（2）实现触发事件功能，检测到某种行为 
+	public void triggerXEvent(); 
+（3）实现通知监听器功能，发出消息
+	public void notifyXListener(XEvent event);
+
+2.自定义监听器 
+（1）须实现java.util.EventListener接口
+（2）实现处理事件功能
+	public void processXEvent(XEvent event); 
+
+3.自定义事件 
+须扩展自java.util.EventObject类 
+构造方法中须包含事件源对象。用于e.getSource();
+
+
+
+
+一个JavaBean由3部分组成：
+（1） 属性：包括get和set
+（2） 方法：公有，反映在事件和属性中国
+（3） 事件：发送事件
+bean是事件源，可以注册监听器对象，当事件源检测到发生某种事件时，调用事件监听器对象中的方法处理事件
+
+POJO：普通java对象，即普通javabean
+
+EJB：
+1.会话Bean（Session Bean）
+2.实体Bean（Entity Bean）方便进行ORM映射
+3.消息驱动Bean（MessageDriven Bean）发送和处理事件/消息
+
+
+
+
+
+
+
+

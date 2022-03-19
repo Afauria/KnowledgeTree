@@ -4,6 +4,8 @@
 
 设计模式篇源码[仓库位置](https://github.com/Afauria/DesignPattern)
 
+Android篇和源码篇还没来得及完善，存了很多草稿，需要慢慢整理。
+
 有问题或者错误欢迎交流指正，可以提issue或者在[博客](https://blog.afauria.xyz/2021/04/04/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/)中评论回复
 
 # GitBook说明
@@ -13,7 +15,9 @@
 * 公共仓库才能使用GitHub Pages，私有的要付费
 * GitHub Pages要求打包到docs目录或者打包到根目录
 
-> //todo 目前先放到一起，完善之后再分仓库。放一起的时候需要打包到docs目录。分仓库之后可以配置为GitHub Pages根目录
+> TODO
+>
+> 目前先放到一起，完善之后再分仓库。放一起的时候需要打包到docs目录。分仓库之后可以配置为GitHub Pages根目录
 
 ## 使用步骤
 
@@ -137,3 +141,4 @@ GitBook mermaid渲染有问题
 具体的参考资料在章节中说明。主要的参考资料和引用在此统一致谢，不在具体章节中单独说明。
 
 * [Java工程师成神之路](https://hollischuang.github.io/toBeTopJavaer/#/)
+* [C语言中文网-软件设计模式](http://c.biancheng.net/view/1317.html)

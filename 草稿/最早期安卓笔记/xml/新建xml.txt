@@ -1,0 +1,3 @@
+建不同大小尺寸系统版本的layout或value：
+先建文件夹，命名如values-v21，表示v21版本下的value
+再建xml文件，命名如style

@@ -1,0 +1,49 @@
+KeepAliveMessageFactory{
+	isRequest();
+	isResponse();
+	getRequest();
+	getResponse();
+}
+KeepAliveFilter{
+	sessionIdle();
+	messageReceived();
+	messageSent();	
+}
+
+mina心跳机制使用：我们需要做的是实现Factory接口方法
+1.创建KeepAliveMessageFactoryImpl类，实现KeepAliveMessageFactory接口方法
+2.创建拦截器
+	KeepAliveMessageFactoryImpl kamfi = new KeepAliveMessageFactoryImpl();
+	KeepAliveFilter kaf = new KeepAliveFilter(kamfi);
+3.设置心跳请求间隔，单位s，默认60秒
+	kaf.setRequestInterval(30);
+4.添加拦截器：
+acceptor.getFilterChain().addLast("heart", kaf);
+或者connector.getFilterChain().addLast("heart", kaf);
+
+mina的心跳包流程：
+1.服务端加入上述代码后，每隔30s调用一次sessionIdle方法
+2.idle方法中调用getRequest方法，如果该方法有返回值，则发送该返回值，即发送了一个请求的心跳包
+3.客户端加入上述类似代码，收到消息后（不管是什么消息），会调用messageReceived方法：
+该方法中调用了isRequest方法，客户端在该方法中实现判断收到的请求消息是否为请求心跳包：
+如果返回true，则表示收到的是心跳包，会调用getResponse方法，如果该方法有返回值，则发送该返回值给服务端，即发送了一个回复的心跳包
+返回false表示不是心跳包，不用做出响应，会将消息继续传递到Handler的received方法中。
+4.服务端收到消息后，同样调用messageReceived方法：
+该方法中还调用了isResponse方法，服务端在该方法中判断收到的消息是否为回复心跳包：
+如果返回true，则会重置状态
+如果返回false，则表示不是回复心跳包，会将消息继续传递到Handler的received方法中
+
+
+注意：
+1.设置超时时间要小于发送心跳间隔，默认interval为60，timeout为30
+2.acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);
+设置该方法后没10秒判断一下是否处于闲置状态，如果是会执行handler的idle方法
+kaf.setForwardEvent(true);
+设置是否forward到下一个filter,默认为false
+设置为false时则acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 10);会失效，因为消息会被拦截器拦截
+   if(this.forwardEvent) {
+            nextFilter.sessionIdle(session, status);
+   }
+3.心跳包可以是任何object，由两方规定协议，可以是一串字符，在另一端接收的时候需要判断字符是否正确。
+如果是自定义类的话需要继承Serializable
+

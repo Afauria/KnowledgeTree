@@ -1,0 +1,16 @@
+主服务器地址为baseUrl  单条服务  完整的url=baseUrl+url
+baseUrl就是所有接口方法的地址对应着RemoteApi，url就是一个接口方法的地址对应RemoteApi里的一个方法
+
+HttpHelper里面创建了retrofit，指定了接口地址url和转换格式，RemoteApi里面声明了很多条请求并指定post和get，RemoteOptionsImpl写了具体的方法向接口地址入参或者出参，然后在活动中只需要直接调用RemoteOptions的方法就可以了
+
+CustomCallback用来统一处理回调的resultCode
+
+RemoteOptionsImpl里面具体
+先实例化RemoteApi的一条请求服务，
+然后把要传入的数据转换成json对象入参作为完整的请求，
+然后入队列并且接收callback。
+
+
+
+
+

@@ -1,0 +1,100 @@
+1.字节流：InputStream、OutputStream
+2.字符流：Writer、Reader
+
+抽象类（不能实例化）：数据流InputStream，OutputStream
+派生类：
+文件数据流FileInputStream，FileOutputStream
+过滤器流：封装了对特殊数据的处理
+	1.缓冲器流BufferedInputStream，BuffereOutputStream（缓冲区数据流），
+	2.数据数据流DataInputStream，DataOutputStream，用于处理java标准数据
+	3.管道数据流PipedInputStream，PipedOutputStream，用于多线程之间流处理，两个线程形成管道
+	4.对象数据流ObjectInputStream，ObjectOutputStream
+
+抽象类：处理字符流，读写Reader，Writer
+字节流读写InputStreamReader,OutputStreamWriter,用在字节和字符之间作为中介
+派生类：
+缓冲区读者和写者BufferedReader,BufferedWriter
+文件读者和写者FileReader，FileWriter
+
+1.获取输入输出流,抽象类，由子类方法实现，获取二进制数据（字节）
+InputStream in=;
+OutputStream out=;
+
+2.读取，写入字节，转为字符
+BufferReader reader=new BufferReader(new BufferedInputStream(in));
+BufferWriter writer=new BufferWriter(out);
+操作
+reader.read();
+readLine();
+write();
+
+3.关闭流
+close();
+
+
+OutputStream的flush方法：刷新缓冲区，抽象类中没有实现，文件流中也没有实现。只有在使用到缓冲区的流中才实现了该方法
+
+
+
+FileInputStream与FileReader区别：
+FileInputStream是字节流，FileReader是字符流，用字节流读取中文的时候，可能会出现乱码，而用字符流则不会出现乱码，而且用字符流读取的速度比字节流要快；
+
+
+1字节等于8位二进制码，能表示0-255的ASCII码
+ASCII码有255个，因此一个ASCII码占一字节
+从流中读取的字节就是ASCII码
+
+
+InputStream.read(bytes);读取字节流，即将字节流中的字节赋给bytes
+OutputStream.write(bytes);写入字节流,即将bytes写入到字节流中
+
+File，Stream和bytes关系，Stream相当于file和bytes的管道进行传输
+File<--->Stream<--->bytes
+
+
+1、将File、FileInputStream 转换为byte数组：
+
+File file = new File("test.txt");
+InputStream input = new FileInputStream(file);
+byte[] byt = new byte[input.available()];
+input.read(byt);
+
+ 
+2、将byte数组转换为InputStream：
+
+byte[] byt = new byte[1024];
+InputStream input = new ByteArrayInputStream(byt);
+
+ 
+3、将byte数组转换为File：
+
+File file = new File('');
+OutputStream output = new FileOutputStream(file);
+BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
+bufferedOutput.write(byt);
+
+
+
+循环写bytes，每次写入1024个，因为bytes数组无法确定大小，为了不多开辟内存空间，分成1024一组
+通过查看源码可知read方法中会判断buffer长度，读到不能读的时候返回-1，否则返回读入的字节数量
+			try {
+                            byte[] buffer = new byte[1024];//字节缓存
+                            int len = 0;//实际缓存长度
+                            while ((len = ins.read(buffer)) > -1) {//循环读入缓存
+                                ous.write(buffer, 0, len);
+                            }
+                            out.println("已保存文件1" + file1.getAbsolutePath() + "<br/>");
+                        } finally {
+                            ous.close();
+                            ins.close();
+                        }
+
+
+
+readLine()只有在数据流发生异常或者另一端被close()掉时，才会返回null值。不是读完数据返回null
+
+小结，使用readLine()一定要注意：
+
+读入的数据要注意有/r或/n或/r/n
+没有数据时会阻塞，在数据流异常或断开时才会返回null
+使用socket之类的数据流时，要避免使用readLine()，以免为了等待一个换行/回车符而一直阻塞

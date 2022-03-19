@@ -1,0 +1,8 @@
+基于监听：
+1.内部类
+2.外部类
+3.匿名类
+4.直接再xml中绑定方法到标签，android:onClick="方法名"
+   再Activity里定义方法,-->public void 方法名(View source)
+基于回调：
+重写组件回调方法，xml加载自定义组件，不用监听

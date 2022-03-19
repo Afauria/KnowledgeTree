@@ -1,0 +1,8 @@
+<!--20px-->
+    <dimen name="text_size_micro">12sp</dimen>
+    <!--24px-->
+    <dimen name="text_size_small">14sp</dimen>
+    <!--30px-->
+    <dimen name="text_size_medium">18sp</dimen>
+    <!--36px-->
+    <dimen name="text_size_large">22sp</dimen>

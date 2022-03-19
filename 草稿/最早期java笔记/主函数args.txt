@@ -1,0 +1,6 @@
+程序运行前给他的参数，
+打开命令行提示符跳转到到程序目录
+输入java HelloWorld(主类名称) ceshi(参数1) ceshi1(参数2) ceshi2
+多个参数用空格隔开
+
+在IDE中可以通过run configuration配置argument

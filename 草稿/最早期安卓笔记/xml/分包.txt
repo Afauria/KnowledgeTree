@@ -1,0 +1,17 @@
+build.gradle文件加
+android{
+	…………
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/drawable/homepageicon',
+                            'src/main/res/drawable/testpic',
+                            'src/main/res/drawable/singlecorner',
+                            'src/main/res/drawable',
+                            'src/main/res'
+                    ]
+        }
+    }
+}
+新建文件夹名字相同

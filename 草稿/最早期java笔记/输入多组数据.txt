@@ -1,0 +1,2 @@
+while(scan.hasNext())
+while(scan.hasNext()&&scan.hasNext())

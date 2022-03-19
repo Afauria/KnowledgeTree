@@ -1,0 +1,20 @@
+1.view中的getWidth/Heigth，top，left等都是相对于父控件的
+
+2、获得状态栏的高度（状态栏相对Window的位置）：
+Rect frame = new Rect();
+getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+int statusBarHeight = frame.top;
+
+3、获得mView中显示内容的Top （不包括标题栏，指的是相对Window的位置，即：没有标题栏的时候，指的是状态栏的bottom在Window中的坐标；有标题栏的时候指的是标题栏的bottom在Window中的坐标）
+
+getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();  
+
+
+4.window中view的关系
+ViewRootimpl > DecorView > ContentView > 布局文件
+通过查看源码可知SetContentView后会加到ContentView中，ContentView再将布局文件添加到自己内部
+ContentView=(ViewGroup)mSubDecor.findViewById(android.R.id.content);
+
+ViewRoot对应于ViewRootImpl类，它是连接WindowManager和DecorView的纽带，View的三大流程均是通过ViewRoot来完成的。Activity对象创建完毕后，会将DecorView添加到window中
+
+状态栏+标题栏+contentview=decorview=phonewindow

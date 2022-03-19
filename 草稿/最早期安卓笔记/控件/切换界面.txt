@@ -1,0 +1,12 @@
+本质：导航按钮点击切换页面，页面滑动导航按钮改变
+
+导航按钮：1.碎片，
+	2.自定义布局导航栏，配合framelayout，或者viewpager切换碎片或布局，设置点击事件
+	3.tabhost的tabwidget，
+	4.BottomNavigationView，用menu做导航按钮。
+	5.BottomNavigationBar等，可用additem方法
+	6.design包的tablayout，可与viewpager关联，setupwith方法
+内容页面：1.碎片，用碎片事务进行切换内容所在的布局，如framelayout
+	2.tabhost的tabcontent
+	3.viewpager，可设置滑动事件改变导航按钮，也可与tablayout关联，自动改变导航按钮
+	

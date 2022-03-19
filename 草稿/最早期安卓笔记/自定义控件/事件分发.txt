@@ -1,0 +1,42 @@
+（1）public boolean dispatchTouchEvent(MotionEvent ev) 
+用来进行事件的分发。
+如果事件能够传递给当前View，那么此方法一定会被调用，
+返回结果受当前View的onTouchEvent和下级View的dispatchTouchEvent方法的影响，表示是否消耗当前事件。
+ACTION_DOWN的dispatchTouchEvent()返回true，后续事件（ACTION_MOVE、ACTION_UP）会再传递，
+如果返回false，dispatchTouchEvent()就接收不到ACTION_UP、ACTION_MOVE。
+简单的说，就是当dispatchTouchEvent在进行事件分发的时候，只有前一个action返回true，才会触发后一个action。
+
+
+（2）public boolean onInterceptTouchEvent(MotionEvent event) 
+这个方法是在dispatchTouchEvent方法中调用的，用来拦截某个事件的。
+如果当前View拦截了某个事件，那么在同一个事件序列中，此方法不会被再次调用，返回的结果表示是否拦截当前事件。
+它是ViewGroup提供的方法，默认返回false。
+
+
+（3）public boolean onTouchEvent(MotionEvent event) 
+在dispatchTouchEvent方法中调用，用来处理点击事件，
+返回结果表示是否消耗掉当前事件（true表示消耗，false表示不消耗），如果不消耗，则在同一个事件序列中，当前View无法再次接收到事件。View和ViewGroup都有该方法，View默认返回true，表示消费了这个事件。
+
+public boolean diapatchTouchEvent(MotionEvent event){
+   
+	boolean consume = false;
+   //判断是否拦截
+   
+	if(onIntercetTouchEvent(ev)){ //拦截
+      
+		consume = onTouchEvent(ev);//消费事件
+   
+	}else{
+      
+		consume = child.dispatchTouchEvent(ev);//chileView开始事件分发
+   
+	}
+   
+	return consume;  //返回事件拦截结果 默认为false
+
+}
+
+作者：英勇青铜5
+链接：https://www.jianshu.com/p/eb21fc5ebf4e
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。

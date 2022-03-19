@@ -1,0 +1,95 @@
+Thread是线程会开启新线程，Thread继承runnable
+Runnable实际不开启新线程，runnable只规定了新线程将执行的任务
+推荐使用,将线程和线程任务区分开来
+new Thread(new Runnable(){
+	public void run(){	
+	}
+}).start();
+
+
+下面是Thread类中常用的方法：
+
+　　以下是关系到线程运行状态的几个方法：
+
+　　1）start方法
+
+　　start()用来启动一个线程，当调用start方法后，系统才会开启一个新的线程来执行用户定义的子任务，在这个过程中，会为相应的线程分配需要的资源。
+
+　　2）run方法
+
+　　run()方法是不需要用户来调用的，当通过start方法启动一个线程之后，当线程获得了CPU执行时间，便进入run方法体去执行具体的任务。注意，继承Thread类必须重写run方法，在run方法中定义具体要执行的任务。
+
+　　3）sleep方法
+
+　　sleep方法有两个重载版本：
+
+sleep(long millis)     //参数为毫秒
+sleep(long millis,int nanoseconds)    //第一参数为毫秒，第二个参数为纳秒
+
+sleep相当于让线程睡眠，交出CPU，让CPU去执行其他的任务。
+
+sleep方法不会释放锁，也就是说如果当前线程持有对某个对象的锁，则即使调用sleep方法，其他线程也无法访问这个对象。
+即当一个线程执行完后释放了对象锁，另一个线程才开始执行
+
+
+
+
+
+thread和runnable
+thread类实现runnable接口
+两种实现方式的区别和联系：
+在程序开发中只要是多线程肯定永远以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类有如下好处：
+避免点继承的局限，一个类可以继承多个接口。
+适合于资源的共享
+以卖票程序为例，通过Thread类完成：
+package org.demo.dff;  
+class MyThread extends Thread{  
+private int ticket=10;  
+public void run(){  
+for(int i=0;i<20;i++){  
+if(this.ticket>0){  
+System.out.println("卖票：ticket"+this.ticket--);  
+}  
+}  
+}  
+}; 
+下面通过三个线程对象，同时卖票：
+package org.demo.dff;  
+public class ThreadTicket {  
+public static void main(String[] args) {  
+MyThread mt1=new MyThread();  
+MyThread mt2=new MyThread();  
+MyThread mt3=new MyThread();  
+mt1.start();//每个线程都各卖了10张，共卖了30张票  
+mt2.start();//但实际只有10张票，每个线程都卖自己的票  
+mt3.start();//没有达到资源共享  
+}  
+} 
+如果用Runnable就可以实现资源共享，下面看例子：
+package org.demo.runnable;  
+class MyThread implements Runnable{  
+private int ticket=10;  
+public void run(){  
+for(int i=0;i<20;i++){  
+if(this.ticket>0){  
+System.out.println("卖票：ticket"+this.ticket--);  
+}  
+}  
+}  
+}  
+package org.demo.runnable;  
+public class RunnableTicket {  
+public static void main(String[] args) {  
+MyThread mt=new MyThread();  
+new Thread(mt).start();//同一个mt，但是在Thread中就不可以，如果用同一  
+new Thread(mt).start();//个实例化对象mt，就会出现异常  
+new Thread(mt).start();  
+}  
+}; 
+虽然现在程序中有三个线程，但是一共卖了10张票，也就是说使用Runnable实现多线程可以达到资源共享目的。
+
+
+或者用匿名类
+new Thread(new Runnable){
+public void run(){}
+}

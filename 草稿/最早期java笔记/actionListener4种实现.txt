@@ -1,0 +1,71 @@
+public class A
+{
+   A()
+  {
+   button1.addActionlistener(new actionlistener)
+   {
+      void actionPerformed(atctionEvent e)
+      {} 
+   }
+  }
+}
+
+
+public class A
+{
+   A()
+  {
+   B b=new B();
+   button1.addActionListener(b);
+   button2.addActionListener(b);
+   }
+   class B  implements ActionListener
+  {
+     void   actionPerformed(actionEvent e)
+        {
+           if()
+         }
+   }
+}
+
+
+public class A
+{
+   A()
+  {
+   button1.addActionListener(new B());
+   button2.addActionListener(new C());
+   }
+   class B  implements ActionListener
+  {
+     void   actionPerformed(actionEvent e)
+        {
+         }
+   }
+   class C  implements ActionListener
+  {
+     void   actionPerformed(actionEvent e)
+        {
+         }
+   }
+}
+
+
+
+
+
+
+public class A implements actionListener
+{
+   A()
+  {
+   button1.addActionListener(this);
+   button2.addActionListener(this);
+   }
+   void   actionPerformed(actionEvent e)
+    {
+    }
+  
+}
+
+

@@ -1,0 +1,20 @@
+创建画笔：
+要想绘制内容，首先需要先创建一个画笔，如下：
+
+// 1.创建一个画笔
+private Paint mPaint = new Paint();
+
+// 2.初始化画笔
+private void initPaint() {
+	mPaint.setColor(Color.BLACK);       //设置画笔颜色
+	mPaint.setStyle(Paint.Style.FILL);  //设置画笔模式为填充
+	mPaint.setStrokeWidth(10f);         //设置画笔宽度为10px
+}
+
+// 3.在构造函数中初始化
+public SloopView(Context context, AttributeSet attrs) {
+   super(context, attrs);
+   initPaint();
+}
+
+在canvas对象上绘制

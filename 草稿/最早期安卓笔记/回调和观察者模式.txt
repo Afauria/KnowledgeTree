@@ -1,0 +1,149 @@
+观察者模式的本质：被观察者持有观察者的引用（通过订阅），以便被观察者随时调用观察者的方法（被观察者做出什么事情的时候通知观察者执行某些操作）
+回调：A调用B的方法，B反过来调用A的方法。
+A持有B的引用，B也有A的引用
+实现方法:调用B的方法的时候把A中定义的方法作为参数传给B的方法
+常见的做法是在B中声明接口，在A中定义方法，传给B的方法
+class B{
+	void call(Callback callback){
+		if(触发事件)
+			callback.event1(e1);//响应回调事件
+		else{
+			callback.event2(e2);
+		}
+	}
+}
+绑定回调事件（关联，订阅）
+class A{
+	interface Callback{
+		void event1(e);
+		void event2(e);
+	}
+	B b;
+	Callback callback;
+	b.call(callback);
+}
+A去商店B买东西call，没有货，留下电话号码callback，并设置好有货则去取，没货则不去，B持有A的电话号码
+B有货时触发事件event1(有货,来取)，否则触发event2(没货)
+
+AcallB问问题，B不在，A留下电话号码callback，并预先设置好接收答案和未接到答案的回调方法。B收到后能解答触发event1(答案)，告诉A答案，不会则触发event2(我不会)
+
+B到酒店A住，A提供叫醒服务callback和多种叫醒方式event，A取得B的要求call，B设置叫醒时间，如8点触发打电话叫醒，9点触发敲门叫醒
+
+
+观察者模式:被观察者和观察者绑定，一旦被观察者触发事件，立即通知观察者，以便观察者立即做出响应
+
+view通过set订阅和OnEventListener观察者绑定，一旦view被点击，立即通知OnEventListener,做出响应执行event1()。view会预先设置好通知Listener采取不同的event
+view.setOnEventListener(new OnClickListener(){
+	void event1(e){}
+	void event2(e){}
+});
+被观察者持有观察者的实例
+被观察者{
+void 订阅(观察者){
+	if(触发事件)
+		观察者.响应事件1();
+	else
+		观察者.响应事件2();
+}
+}
+被观察者.订阅(观察者{
+	响应事件1(){}
+	响应事件2(){}
+});
+
+
+
+1.
+	observable=new Observable();
+	observable.subscribe(new observer(){
+		public  void handle(){
+			……
+		}
+	});
+
+interface Observer{
+	void handle/update();
+}
+class Observable{
+	Observer o;
+	public Observable(OnSubscribe o){
+		onSubscribe=o;
+	}
+	public void subscribe(Observer o){
+		this.o=o;
+		trigger();
+	}
+	void trigger(){
+		o.handle();
+	}
+
+}
+
+
+2.
+	observable=new Observable(new OnSubscribe(){
+		//订阅后执行
+		public void call(Observer o){o.handle();}
+	});
+	observable.subscribe(new observer(){
+		public  void handle(){
+			……
+		}
+	});
+
+interface Observer{
+	void handle/update();
+}
+class Observable{
+	Observer o;
+	OnSubscribe onSubscribe;
+	interface OnSubscribe{
+		void call(Observer o);
+	}
+	public Observable(OnSubscribe o){
+		onSubscribe=o;
+	}
+	public void subscribe(Observer o){
+		onSubscribe.call(o);
+	}
+
+}
+
+
+Android 开发中一个比较典型的例子是点击监听器 OnClickListener 。对设置 OnClickListener 来说， View 是被观察者， OnClickListener 是观察者，二者通过 setOnClickListener() 方法达成订阅关系。
+observable=new Observable(new OnSubscribe(){
+//订阅后执行
+public void call(Observer o){o.handle();}
+})
+observable.subscribe(new observer(){
+public  void handle(){
+……
+}
+})
+
+ interface Observer{
+void handle/update();
+
+}
+class Observable{
+Observer o;
+OnSubscribe onSubscribe;
+interface OnSubscribe{
+void call(Observer o);
+}
+public Observable(OnSubscribe o){
+onSubscribe=o;
+}
+public void subscribe(Observer o){
+this.o=o;
+trigger();
+onSubscribe.call(o);
+}
+void trigger(){
+o.handle();
+}
+
+}
+
+
+

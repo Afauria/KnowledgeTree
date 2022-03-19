@@ -1,0 +1,27 @@
+获取屏幕宽高
+
+1.
+DisplayMetrics dm = getResources().getDisplayMetrics();
+width = dm.widthPixels;
+height = dm.heightPixels;
+
+
+2.
+WindowManager manager = this.getWindowManager();
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		manager.getDefaultDisplay().getMetrics(outMetrics);
+		int width2 = outMetrics.widthPixels;
+		int height2 = outMetrics.heightPixels;
+
+
+3.//过时方法
+WindowManager wm1 = this.getWindowManager();
+		int width1 = wm1.getDefaultDisplay().getWidth();
+		int height1 = wm1.getDefaultDisplay().getHeight();
+
+
+4.
+WindowManager wm = (WindowManager) this
+				.getSystemService(Context.WINDOW_SERVICE);
+		int width = wm.getDefaultDisplay().getWidth();
+		int height = wm.getDefaultDisplay().getHeight();

@@ -1,0 +1,6 @@
+ScrollView嵌套RecyclerView，RecyclerView总是把它上面的控件顶出页面
+scrollview子控件加上
+ android:focusable="true"
+ android:focusableInTouchMode="true" 
+或
+android:descendantFocusability="blocksDescendants"

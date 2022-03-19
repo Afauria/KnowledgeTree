@@ -1,0 +1,5 @@
+gson进行json格式和java对象间的转换，tojson(),fromjson()
+注解
+@SerializedName("")
+如设置了@SerializedName，则gson键名为SerializedName设置的内容
+如未设置，则键名为属性名

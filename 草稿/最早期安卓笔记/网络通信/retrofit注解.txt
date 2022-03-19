@@ -1,0 +1,112 @@
+@Get指定http请求方式为Get
+@Get("路径")可以指定路径url，
+@Get("users/{user}/repos"),{}为路径替换块
+	与@Path("")配合使用,传入的参数会替换{}的内容
+public interface DemoService {
+    @GET("users/{user}/repos")
+    Call<ResponseInfo> testHttpGet(@Path("user") String apiAction);
+}
+
+
+@Get方式可以直接传入请求参数
+如@GET("api/retrofitTesting?param=value")，传入键值对param:value
+为避免耦合，使用@Query注解，传入的参数即为键值
+public interface DemoService {
+    @GET("api/retrofitTesting")
+    Call<ResponseInfo> testHttpGet(@Query("param") String param);
+}
+
+复杂参数使用@QueryMap
+public interface DemoService {
+    @GET("api/retrofitTesting")
+    Call<ResponseInfo> testHttpGet(@QueryMap Map<String,String> params);
+}
+ Map<String,String> params =new HashMap<>();
+ params.put("param1","value1");
+ params.put("param2","value2");
+ Call<ResponseInfo> call = service.testHttpGet(params);
+
+
+
+
+
+
+@Post指定http请求为post，发送数据
+@Body封装请求体，传入java对象，retrofit自动封装为json数据
+public interface DemoService {
+    @POST("api/users")
+    Call<ResponseInfo> uploadNewUser(@Body User user);
+}
+使用@Body服务器无法通过request.getParameter("")读取参数信息
+
+
+@FormUrlEncoded：以表单形式上传数据
+public interface DemoService {
+    @FormUrlEncoded
+    @POST("api/users")
+    Call<ResponseInfo> uploadNewUser(@Field("username") String username,@Field("gender") String male,@Field("age") int age);
+}
+
+为了避免传入多个参数，使用@FieldMap注解
+
+
+
+
+输入中文信息，需要对数据进行编码，服务器再进行解码
+ String name =  URLEncoder.encode("张德帅","UTF-8");
+ Call<ResponseInfo> call = service.uploadNewUser(name,"male",24);
+也可以设置请求头的charset编码信息
+ @Headers("Content-type:application/x-www-form-urlencoded;charset=UTF-8")
+@Header可以动态添加请求头信息
+Call<ResponseInfo> uploadNewUser(@Header("Content-Type") String contentType,@Field("username") String username,@Field("gender") String male,@Field("age") int age);
+将头信息作为参数传入
+
+
+
+response header
+response.headers()获取响应头
+response.raw()可以将retrofit的response转换为okhttp的response
+okhttp的response可以调用.header("")方法获取单个请求头
+
+
+
+
+interceptor拦截器的使用，属于okhttp
+创建okhttpclient对象，添加拦截器，使用retrofit的client()方法添加client
+Request request = chain.request();
+Response response = chain.proceed(request);
+通过chain的request()方法，可以返回Request对象。
+通过chain的proceed()方法，可以返回此次请求的响应对象。
+如果想为所有request或reponse添加header信息，可以通过拦截器获取到request和response进行添加
+
+
+自己写格式工厂，解析服务器数据
+例如解析的字符串username=张三&male=男性
+   public static CustomConverterFactory create() {
+        return new CustomConverterFactory();
+    }
+
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        return new CustomConverter();
+    }
+
+    class CustomConverter implements Converter<ResponseBody,Map<String,String>>{
+
+        @Override
+        public Map<String,String> convert(ResponseBody body) throws IOException {
+            Map<String,String> map = new HashMap<>();
+            String content = body.string();
+            String [] keyValues = content.split("&");
+
+            for (int i = 0;i<keyValues.length;i++){
+                String keyValue = keyValues[i];
+                int postion = keyValue.indexOf("=");
+                String key  = keyValue.substring(0,postion);
+                String value = keyValue.substring(postion+1,keyValue.length());
+                map.put(key,value);
+            }
+            return map;
+        }
+    }
+}

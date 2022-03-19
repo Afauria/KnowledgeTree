@@ -1,0 +1,13 @@
+边框布局
+BorderLayout(int hgap,int vgap)：
+hgap - 水平间距。vgap - 垂直间距。
+
+
+用了布局之后不能再用setsize，要用setprefferedsize
+frame.GridLayout（3，3）；
+add一次往下一行。
+行满了之后加列
+用panel加列，panel1.add（）加3次（3列），用frame.add()加panel1、2、3，即3X3
+
+
+给面板加的box布局的时候只要，new BoxLayout(panel,BoxLayout.Y_AXIS);而给顶层容器加box布局的时候，要用new BoxLayout(frame.getContentPane(),BoxLayout.YAXIS);

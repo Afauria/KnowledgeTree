@@ -1,0 +1,71 @@
+ 列表的显示需要三个元素：
+
+1．ListVeiw 用来展示列表的View。
+
+2．适配器 用来把数据映射到ListView上的中介。
+
+3．数据    具体的将被映射的字符串，图片，或者基本组件。
+
+根据列表的适配器类型，列表分为三种，ArrayAdapter，SimpleAdapter和SimpleCursorAdapter
+
+其中以ArrayAdapter最为简单，只能展示一行字。SimpleAdapter有最好的扩充性，可以自定义出各种效果。SimpleCursorAdapter可以认为是SimpleAdapter对数据库的简单结合，可以方面的把数据库的内容以列表的形式展示出来。
+
+
+
+
+
+
+
+上面代码使用了ArrayAdapter(Context context, int textViewResourceId, List<T> objects)来装配数据，要装配这些数据就需要一个连接ListView视图对象和数组数据的适配器来两者的适配工作，ArrayAdapter的构造需要三个参数，依次为this,布局文件（注意这里的布局文件描述的是列表的每一行的布局，android.R.layout.simple_list_item_1是系统定义好的布局文件只显示一行文字，数据源(一个List集合)。同时用setAdapter（）完成适配的最后工作。
+
+
+
+
+
+
+SimpleAdapter
+
+simpleAdapter的扩展性最好，可以定义各种各样的布局出来，可以放上ImageView（图片），还可以放上Button（按钮），CheckBox（复选框）等等。下面的代码都直接继承了ListActivity，ListActivity和普通的Activity没有太大的差别，不同就是对显示ListView做了许多优化，方面显示而已。
+
+下面的程序是实现一个带有图片的类表。
+
+首先需要定义好一个用来显示每一个列内容的xml
+
+public class MyListView3 extends ListActivity {
+ 
+ 
+    // private List<String> data = new ArrayList<String>();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+ 
+        SimpleAdapter adapter = new SimpleAdapter(this,getData(),R.layout.vlist,
+                new String[]{"title","info","img"},
+                new int[]{R.id.title,R.id.info,R.id.img});
+        setListAdapter(adapter);
+    }
+ 
+    private List<Map<String, Object>> getData() {
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+ 
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("title", "G1");
+        map.put("info", "google 1");
+        map.put("img", R.drawable.i1);
+        list.add(map);
+ 
+        map = new HashMap<String, Object>();
+        map.put("title", "G2");
+        map.put("info", "google 2");
+        map.put("img", R.drawable.i2);
+        list.add(map);
+ 
+        map = new HashMap<String, Object>();
+        map.put("title", "G3");
+        map.put("info", "google 3");
+        map.put("img", R.drawable.i3);
+        list.add(map);
+         
+        return list;
+    }
+}

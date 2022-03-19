@@ -1,0 +1,10 @@
+alt +Enter，导入包
+alt+insert，补全方法
+ctrl+alt+L：规范格式
+ctrl+shfit+F8：打开断点界面
+ctrl+alt+空格：自动补全
+ctrl+p:方法参数提示
+ctrl+alt+B：跳转抽象方法或接口方法的实现位置
+ctrl+alt+H：打开hierarchy窗口，可查看类继承关系，方法定义位置等
+ctrl+alt+F：Find in path，在路径中查找字符
+ctrl+F：在本文件中查找字符

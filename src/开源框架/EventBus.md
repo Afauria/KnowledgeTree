@@ -4,11 +4,11 @@
 2. 注册`EventBus.getDefault().register();`
 3. post发送消息，根据参数找到对应的方法，反射调用
 
-旧版本通过方法名，反射前缀未onEvent的方法注册：onEvent、onEventMainThread、onEventBackgroundThread和onEventAsync
+旧版本通过方法名，反射找到注册类的前缀为onEvent的方法注册：onEvent、onEventMainThread、onEventBackgroundThread和onEventAsync
 
 EventBus3.0使用注解：运行时注解，注册的时候反射解析注解，生成SubscribeMethod方法，存入`Subsctiption(方法所在的类的对象，SubscribeMethod)`，再存入Map中`<eventType, Subscriptions>`
 
-发送事件的时候根据参数存储类型找到对应的订阅者列表，反射调用方法，传入类的对象
+发送事件的时候根据参数类型（eventType）找到对应的订阅者列表，反射调用方法，传入类的对象
 
 ```java
 @Documented

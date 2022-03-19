@@ -1,0 +1,15 @@
+tab键和空格键不同：如在引号内打tab键不会显示间距
+
+String str = “Hello World”;if( str.charAt(0) == ‘h’ ) 	// 只能够访问
+str.charAt(0) = ‘h’; 	// 错误
+
+要修改字符串得用StringBuffer类或改成字符数组
+具有String类的大部分功能
+charAt()，length()等
+append()	//字符串末尾添加新字符串
+insert(int index, String s)  // 插入字符
+setCharAt(int index, char c) // 设置字符
+deleteCharAt(int index) // 删除字符
+toString(); 			// 转换成字符串
+String.valueOf(i)，将数字转换为字符串
+1+""  //将数字转换为字符串

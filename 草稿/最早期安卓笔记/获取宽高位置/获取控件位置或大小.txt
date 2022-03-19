@@ -1,0 +1,49 @@
+控件的大小是在View的measure的过程计算出来的，在onCreate中取值可能取不到
+
+获取控件大小:
+View在执行measure()方法之后:
+1.使用Activity的view.callback方法
+public void onWindowFocusChanged(boolean hasFocus){  
+    if(hasFocus){  
+        int height = view.getHeight();  
+        int width = view.getWidth();  
+    }  
+}  
+
+
+2.使用ViewTreeObserver的很多的回调接口。例如使用OnGlobalLayoutListener，当View树的状态发生变化或者View叔内部的View的可见性发生改变时。（PS：View树改变的时候，onGlobalLayout会被调用多次），推荐使用
+@Override  
+protected void onStart() {  
+    super.onStart();  
+    textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {    
+        @Override  
+        public void onGlobalLayout() {  
+             int height = view.getHeight();  
+            int width = view.getWidth();                     
+        }  
+    });  
+}  
+
+3.通过View的post()方法将一个runnable发送到消息队列尾部，当该runnable执行的时候，此时的View已经初始化好了，可以得出View的大小。
+@Override  
+protected void onStart() {  
+    super.onStart();  
+    textView.post(new Runnable() {  
+        @Override  
+        public void run() {  
+            int width = textView.getMeasuredWidth();  
+            int height = textView.getMeasuredHeight();  
+            System.out.println("Egos" + width + " " + height);  
+        }  
+    });  
+}  
+
+View在执行measure()方法之前,也就是说一定要在onCreate()等方法中来获取控件的大小，可以知道View的measure过程是得到控件的大小，所以思路是可以通过手动measure来获取控件的大小。但其实手动measure的方式得到控件的大小不一定每次都是正确的。需要根据布局文件中控件设置的大小的情况来讨论。
+
+int w = View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED);
+		int h = View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED);
+		imageView.measure(w, h);
+		int height = imageView.getMeasuredHeight();
+		int width = imageView.getMeasuredWidth();

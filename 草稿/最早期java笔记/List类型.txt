@@ -1,0 +1,1 @@
+list类型可以add任何类型的数据，除非加了泛型:List<String>--->只能add字符串型

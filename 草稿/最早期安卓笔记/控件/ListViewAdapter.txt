@@ -1,0 +1,52 @@
+
+public class FruitAdapter extends ArrayAdapter<Fruit>
+{
+	private int resourceId;
+	
+	public FruitAdapter(Context context,int textViewResourceId,List<Fruit> objects)
+	{
+		super(context,textViewResourceId,objects);
+		resourceId=textViewResourceId;
+	}
+	
+	//getView()方法:用来刷新它所在的ListView的。就是在每一次item从屏幕外滑进屏幕内的时候
+	public View getView(int position,View convertView,ViewGroup parent)
+	{
+		Fruit fruit=getItem(position);
+		View view;
+		//提高效率,不用每次重新加载布局
+		ViewHolder viewHolder;
+		//提高效率，不用每次获取控件的实例
+		if(convertView==null)
+		{
+			view=LayoutInflater.from(getContext()).inflate(resourceId,null);
+			viewHolder=new ViewHolder();
+			viewHolder.fruitImage=(ImageView)view.findViewById(R.id.fruit_image);
+			viewHolder.fruitName=(TextView)view.findViewById(R.id.fruit_name);
+			view.setTag(viewHolder);
+		}
+		else
+		{
+			view=convertView;
+			viewHolder=(ViewHolder)view.getTag();
+		}
+		viewHolder.fruitImage.setImageResource(fruit.getImageId());
+		viewHolder.fruitName.setText(fruit.getName());
+		//或直接viewHolder.fruitName.setText(fruit.name);
+		//viewHolder.fruitName.setText(fruit.imageId);
+		/*
+		ImageView fruitImage=(ImageView)view.findViewById(R.id.fruit_image);
+		TextView fruitname=(TextView)view.findViewById(R.id.fruit_name);
+		fruitImage.setImageResource(fruit.getImageId());
+		fruitname.setText(fruit.getName());
+		*/
+		
+		Log.d(getClass().toString(), "刷新");
+		return view;
+	}
+	class ViewHolder
+	{
+		ImageView fruitImage;
+		TextView fruitName;
+	}
+}

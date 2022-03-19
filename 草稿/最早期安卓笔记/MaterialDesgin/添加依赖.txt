@@ -1,0 +1,11 @@
+一。
+下载MaterialDesignLibrary
+进入AS，File->Import Project，然后找到MaterialDesignLibrary目录，双击该目录下的build.gradle即可导入项目。
+MaterialDesign的build.gradle文件第一行为：apply plugin: ‘com.android.library‘，表示这是一个Library。
+MaterialDesignDemo的build.gradle文件第一行为：apply plugin: ‘com.android.application‘，表示这是一个应用。
+setting.gradle里面是include ‘:MaterialDesign‘, ‘:MaterialDesignDemo‘。表示以上两个文件夹都是module。
+
+二。
+网络导入包
+build.gradle中的dependencies
+compile ‘com.github.navasmdc:MaterialDesign:1.5@aar‘

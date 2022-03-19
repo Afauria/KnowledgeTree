@@ -1,0 +1,6 @@
+java类名只能是Main
+
+
+test in top 100 lines//输入
+test out top 100 lines//正确输出
+user out top 100 lines//用户输出

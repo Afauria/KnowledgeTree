@@ -1,0 +1,9 @@
+.java为代码源文件，被javac编译生成二进制文件.class，class文件可以用java运行
+java程序运行会启动java虚拟机，在java虚拟机上运行，因此可以移植到不同平台
+
+
+命令行中
+javac 1.java----自动生成  类名.class文件
+java 类名（.class）运行
+
+类名要是用了public，则文件名也必须为该类名

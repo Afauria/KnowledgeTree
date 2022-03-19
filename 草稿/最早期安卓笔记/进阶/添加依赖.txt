@@ -1,0 +1,20 @@
+导入本地模块module
+import moudle之后在dependencies处添加module dependency
+
+jar需要放在libs里面添加
+
+现有module A 和module B两个工程，现在把A作为主工程，把B作为library给A来使用。编译之后会报错：
+Error:Dependency MaterialDesignTest:mine:unspecified on project app resolves to an APK archive which is not supported as a compilation dependency.
+出现该问题的原因如下：
+在B工程的build.gradle中出现了语句：
+	apply plugin: 'com.android.application'
+此时，编译器会把module B编译成apk。解决方案是把application换成library，如下：
+	apply plugin: 'com.android.library'
+如果module B是在Android studio中新建项目，则还需要将defaultConfig下的
+	applicationId "com.example.mine"
+语句删掉。至于原因，因为之前需要把module B编译成application，就需要制定applicationgID。现如今，我们的是把module B作为library来使用，自然不需要画蛇添足的给它制定applicationgID。否则会报如下错误：
+Error: Library projects cannot set applicationId. applicationId is set to "XXXXXXXXX" in default config
+
+
+compile fileTree(include: ['*.jar'], dir: 'libs')，添加lib下的jar包
+compile project(":mylibrary")	添加其他module

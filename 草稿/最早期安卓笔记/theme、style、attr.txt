@@ -1,0 +1,27 @@
+android:theme="@style/**"可以用于application和activity主题，5.0以上可以用于view主题，并且作用于子view
+
+style="@style/**"，作用于view，优先级大于theme
+
+attr属性值标签，给view设置属性，
+用format规定属性值格式，如reference可填入资源引用，string只能填入字符串
+<enum>标签不能进行或运算，<flag>标签能进行或运算，即属性值1|属性值2
+如layout_width属性 android:layout_width="wrap_content"
+<declare-styleable name="ViewGroup_Layout">
+    <attr name="layout_width" format="dimension">
+        <enum name="fill_parent" value="-1" />
+        <enum name="match_parent" value="-1" />
+        <enum name="wrap_content" value="-2" />
+    </attr>
+    ...
+</declare-styleable>
+
+textStyle属性   android:textStyle="normal|bold|italic"
+<attr name="textStyle">
+    <flag name="normal" value="0" />
+    <flag name="bold" value="1" />
+    <flag name="italic" value="2" />
+</attr>
+
+
+<attr name="" format="">
+<style name="" parent="">标签

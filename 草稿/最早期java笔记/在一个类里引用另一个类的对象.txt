@@ -1,0 +1,25 @@
+class A
+{
+  static JFrame frame；
+}
+class B
+{
+ frame.dispose();
+}//加static
+
+
+class A
+{
+ JFrame frame;
+ B b=new B(this);
+}
+class B
+{
+ A a;
+  B(A a)
+ {
+   this.a=a;
+ }
+ a.frame.dispose();
+}
+//构造B类方法，传入A类，在A类创建对象，传入本身

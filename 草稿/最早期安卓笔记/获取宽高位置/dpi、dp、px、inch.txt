@@ -1,0 +1,10 @@
+inch:英寸，屏幕尺寸
+px:像素，像素数量
+dpi:像素密度：每英寸显示多少像素
+dp:为了让开发者设置的长度能够根据设备dpi转换成不同px数量而创造的单位
+
+dpi=px/inch
+dp=dpi/160
+即当dpi等于160时1dp=1px
+
+例如100dp的imageview在mdpi中应该放100px的图片。hdpi是150px，xhdpi是200px，xxhdpi是300px

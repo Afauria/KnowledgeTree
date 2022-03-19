@@ -1,0 +1,45 @@
+1.计算某一月份的最大天数
+
+Calendar time=Calendar.getInstance();
+time.clear();
+time.set(Calendar.YEAR,year); //year 为 int 
+time.set(Calendar.MONTH,i-1);//注意,Calendar对象默认一月为0           
+int day=time.getActualMaximum(Calendar.DAY_OF_MONTH);//本月份的天数
+注：在使用set方法之前，必须先clear一下，否则很多信息会继承自系统当前时间
+
+2.Calendar和Date的转化
+
+(1) Calendar转化为Date
+Calendar cal=Calendar.getInstance();
+Date date=cal.getTime();
+
+(2) Date转化为Calendar
+Date date=new Date();
+Calendar cal=Calendar.getInstance();
+cal.setTime(date);
+
+3.把字符串转化为java.util.Date
+方法一：
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+java.util.Date dt=sdf.parse("2005-2-19");
+System.out.print(sdf.format(dt));    //输出结果是：2005-2-19
+
+方法二：
+java.util.Date dt=null;
+DateFormat df=DateFormat.getDateInstance();
+dt=df.parse("2005-12-19");
+System.out.println(dt);              //输出结果为：Mon Dec 19 00:00:00 CST 2005
+System.out.println(df.format(dt)); //输出结果为：2005-2-19
+
+4.把字符串转化为java.sql.Date
+字符串必须是"yyyy-mm-dd"格式，否则会抛出IllegalArgumentException异常
+java.sql.Date sdt=java.sql.Date.valueOf("2005-9-6");
+System.out.println(sdt);          //输出结果为：2005-9-6
+
+
+5.格式化输出日期时间 （这个用的比较多）
+
+Date date=new Date();
+SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+String time=df.format(date);
+System.out.println(time);

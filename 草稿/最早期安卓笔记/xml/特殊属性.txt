@@ -1,0 +1,2 @@
+android:clipChildren的意思：是否限制子View在其范围内，默认为true，
+用途：让viewpager的子view显示在旁边

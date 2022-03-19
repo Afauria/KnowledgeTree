@@ -1,0 +1,6 @@
+1、context转换为activity 
+Activity activity = (Activity) context;
+
+2、从activity得到context
+在activity的方法中用context = getBaseContext();
+而在activity中用context = this即可.

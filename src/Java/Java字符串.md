@@ -95,7 +95,7 @@ String i3 = Integer.toString(i);
 
 运行期限制：不能超过int表示范围，否则会抛异常。
 
-> String内部使用char数组存储，长度不能超过int范围。
+> String内部使用char数组存储，数组长度不能超过int范围。
 
 # String不可变性
 

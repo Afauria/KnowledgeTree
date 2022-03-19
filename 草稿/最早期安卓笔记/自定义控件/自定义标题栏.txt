@@ -1,0 +1,6 @@
+1.可以通过include其他layout
+点击事件处理：创建一个activity引入标题栏布局，实现View监听接口，引用（include）标题栏的activity继承该activity
+
+2.自定义view，使用Layoutinflater.inflate(view,this);设置父布局为自定义的view，添加点击事件，其他界面即可使用该View
+
+3.自定义view全部绘制

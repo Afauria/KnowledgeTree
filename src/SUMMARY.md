@@ -18,7 +18,7 @@
 * [Object类](Java/Object类.md)
     * [Object类](Java/Object类.md#object类)
     * [对象的clone](Java/Object类.md#对象的clone)
-    * [值传递和引用传递](Java/Object类.md#值传递和引用传递)
+* [值传递和引用传递](Java/值传递和引用传递.md)
 * [Java字符串](Java/Java字符串.md)
     * [String对象](Java/Java字符串.md#string对象)
     * [String不可变性](Java/Java字符串.md#string不可变性)
@@ -32,6 +32,7 @@
     * [其他细节](Java/泛型.md#其他细节)
 * [Java异常](Java/Java异常.md)
 * [函数式接口](Java/函数式接口.md)
+* [类的加载和初始化](Java/类的加载和初始化.md)
 * [JVM内存](Java/JVM内存.md)
     * [四种引用和引用队列](Java/JVM内存.md#四种引用和引用队列)
     * JVM工作流程

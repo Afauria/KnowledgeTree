@@ -1,0 +1,5 @@
+e.getActionCommand().equals("字符串");
+e.getSource().equals(地址);
+e.getActionCommand()=="字符串"
+e.getSource()==地址
+注：getText不能==字符串，要用equal。getText.equals("");

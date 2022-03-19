@@ -1,0 +1,13 @@
+全屏/透明状态栏
+if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+//全屏状态栏，状态栏覆盖ContentView背景，让ContentView包含状态栏空间
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+//设置状态栏颜色透明，即可看见ContentView所设置的背景
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+
+为了不让ContentView内容插入状态栏，
+在xml设置fitSystemWindows属性为true，本质是给view设置padding属性让出状态栏位置

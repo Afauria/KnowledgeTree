@@ -1,0 +1,59 @@
+显示方式
+1.showAtLocation()显示在指定位置，有两个方法重载：
+public void showAtLocation(View parent, int gravity, int x, int y)
+public void showAtLocation(IBinder token, int gravity, int x, int y) 
+
+2.showAsDropDown()显示在一个参照物View的周围，有三个方法重载：
+public void showAsDropDown(View anchor)
+public void showAsDropDown(View anchor, int xoff, int yoff)
+public void showAsDropDown(View anchor, int xoff, int yoff, int gravity)
+
+3.如果有背景，则会在contentView外面包一层PopupViewContainer之后作为mPopupView，如果没有背景，则直接用contentView作为mPopupView。
+　　而这个PopupViewContainer是一个内部私有类，它继承了FrameLayout，在其中重写了Key和Touch事件的分发处理：
+由于PopupView本身并没有重写Key和Touch事件的处理，所以如果没有包这个外层容器类，点击Back键或者外部区域是不会导致弹框消失的。
+
+
+
+private void showPopupWindow(View view) {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(mContext).inflate(
+                R.layout.pop_window, null);
+        // 设置按钮的点击事件
+        Button button = (Button) contentView.findViewById(R.id.button1);
+        button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "button is pressed",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+
+        popupWindow.setTouchable(true);
+
+        popupWindow.setTouchInterceptor(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.i("mengdd", "onTouch : ");
+
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.selectmenu_bg_downward));
+
+        // 设置好参数之后再show
+        popupWindow.showAsDropDown(view);
+
+    }

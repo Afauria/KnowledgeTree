@@ -1,0 +1,167 @@
+MVC模式：
+Model：业务逻辑层，包括普通javabean(POJO)和获取数据逻辑
+Controller：控制层，Activity和Fragment，控制生命周期，通知view更新
+View:视图层，即xml，只负责视图显示，不控制生命周期
+缺点：
+1.controller层功能过于复杂，
+2.model和view存在耦合，view直接获取model，更改业务逻辑需要同时改变view和model
+
+MVP模式：
+Model：业务逻辑层，包括普通javabean(POJO)和获取数据逻辑（耗时操作）
+Presenter：主持层，接收view请求，通知model获取数据，返回数据给view
+View：视图层，包括xml和activity或fragment,view控制生命周期,presenter可以绑定view生命周期
+
+Model 《------》Presenter《------》View
+1.View和Model不交互
+2.Presenter持有Model和View的引用
+3.View持有Presenter的引用，可以与view的生命周期绑定
+4.Model持有Presenter的引用，一般用于执行完耗时操作后将数据传递到presenter的回调方法中
+
+View感冒了，不去药店Model，叫Presenter帮忙去药店拿药，Presenter去药店告诉老板View感冒了，Model拿出感冒药给Presenter，Presenter把药带给View
+Class View{
+	Presenter p;
+	void 我感冒了(){//如点击事件触发
+		p.帮我去药店("感冒"); //1.向Presenter发出请求
+	}
+	void 吃药(e){	//6.接收到数据响应
+		病好了
+	}
+}
+Class Presenter{
+	View view;
+	Model model;
+	void 帮我去药店(e){
+		model.看病开药("感冒");//2.向Model请求数据
+		或者view.吃药(Model.药());
+	};
+	void 拿药(e){	//4.接收到model返回的数据
+		view.吃药("感冒药");//5.Presenter返回数据给View
+	}
+}
+Class Model{
+	//单例
+	Model mModel=null;
+	public Model instance(){
+		if(mModel==null){
+			synchronized(Model.class){
+				if(mModel==null){
+					mModel=new Model();
+				}
+			}
+		}
+	}
+	
+	Presenter p;
+	void 看病开药(e){
+		……//业务逻辑：获取数据
+		p.拿药("感冒药");//3.Model返回数据给Presenter
+	}
+	或者 String 药(){
+		……//业务逻辑：获取数据
+		return "感冒药";	
+	}
+}
+
+presenter和view不应该任意调用：
+可以定义接口IContract规定调用协议，View和Presenter两者互相不认识,只需要实现接口
+实现了面向接口编程的目的
+
+例：
+public interface IContract(){
+	interface View{
+		void 吃药(String medicine);
+	}
+	interface Presenter{		
+		//接收view请求
+		void 帮我去药店(String sick);
+		void destory();
+		//从model获取到数据
+		void 拿药(String medicine);
+	}
+	interface Model{
+		void 看病开药(String sick,IContract.Presenter p);
+	}
+}
+
+Class View implement IContract.View{
+	IContract.Presenter p;//View不知道Presenter具体是什么，只知道实现了Presenter接口
+	void OnCreate(){
+		p=new Presenter(this);
+	}
+	void 我感冒了(){//如点击事件触发
+		p.帮我去药店("感冒"); //1.向Presenter发出请求
+	}
+	@Override
+	void 吃药(e){		//6.View接收到数据响应
+		病好了
+	}
+}
+Class Presenter implement IContract.Presenter{
+	View view;
+	Model model;
+	public Presenter(IContract.View view){//Presenter不知道view具体是什么，只要实现了View接口
+		this.view=view;
+		model=Model.instance();
+	}
+	@Override
+	void 帮我去药店(e){
+		model.看病开药("感冒"，this);//2.向Model请求数据
+		或者view.吃药(Model.药());
+	};
+	@Override
+	void 拿药(e){		//4.获取Model返回的数据
+		view.吃药("感冒药");//5.Presenter返回数据给View
+	}
+	@Oveerride
+	void destroy(){
+		this.view=null;
+		this.model=null;
+	}
+}
+Class Model implement IContract.Model{
+	//单例
+	Model mModel=null;
+	public Model instance(){
+		if(mModel==null){
+			synchronized(Model.class){
+				if(mModel==null){
+					mModel=new Model();
+				}
+			}
+		}
+	}
+	@Override
+	void 看病开药(String sick,IContract.Presenter p){//model不知道Presenter具体是什么，由Presenter传递回调对象
+		……//业务逻辑：获取数据
+		p.拿药("感冒药");//3.Model返回数据给Presenter
+	}
+	或者 String 药(){
+		……//业务逻辑：获取数据
+		return "感冒药";	
+	}
+}
+
+
+Presenter接口作用：声明了请求方法，View调用请求方法向Presenter发出请求，声明了回调方法，在具体Presenter中定义方法，在Model中调用，Model返回数据到Presenter中
+1.在view和presenter之间：view不知道具体的Presenter，只知道他实现了Presenter接口，具体的Presenter由相应的构造方法决定
+2.在model和presenter之间：model不知道具体的Presenter，IContract.Presenter起到回调接口的作用，Model将数据传递到Presenter接口的回调方法的参数中，具体的实现方法由继承了该接口的Presenter定义，也可以使用匿名类新建该接口
+
+View接口的作用：声明了回调方法，在具体View中定义方法，在presenter中调用，Presenter返回数据到View中
+1.起到回调接口的作用，View向Presenter发出请求，Presenter返回数据(Presenter再请求model)传递到View接口的回调方法的参数中，具体实现由继承了该接口的View定义
+
+
+
+View一直持有Presenter的引用，可以将其跟生命周期进行绑定
+Presenter一直持有View和Model的引用，直到View销毁，调用Presenter的销毁方法，一起销毁
+Model不一直持有Presenter的引用，而是将Presenter对象作为参数传到Model方法中：当然也可以一直持有，不过需要定义model的destroy方法，在presenter销毁方法中调用model的销毁方法，达到和view绑定的效果
+
+
+
+
+
+
+
+
+
+
+

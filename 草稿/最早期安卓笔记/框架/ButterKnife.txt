@@ -1,0 +1,75 @@
+//使用方法
+project的build.gradle中加上
+buildscript {
+  repositories {
+    mavenCentral()
+   }
+  dependencies {
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+  }
+}
+
+module的build.gradle中加上
+
+apply plugin: 'com.neenbedankt.android-apt'
+
+dependencies {
+  compile 'com.jakewharton:butterknife:8.0.1'
+  apt 'com.jakewharton:butterknife-compiler:8.0.1'
+}         
+
+@Bind
+@BindView
+@BindString
+@BindColor
+@BindDrawable
+
+1.
+@Bind**(R.id/string/color/mimap/drawable**.**)
+View/int 对象;
+相当于View 对象=(View)findViewById(R.id.**);
+
+2.
+@OnClick(R.id.**)
+public void 方法名(参数){
+	
+}
+相当于view.setOnClickListener();
+
+3.
+@OnClick({ R.id.**1, R.id.**2, R.id.**3 })
+public void 方法名(参数){
+	
+}
+绑定同一个监听器，也可以用switch判断
+
+
+4.自定义的view，绑定自己的监听，不用指定id
+public class FancyButton extends Button {  
+  @OnClick  
+  public void onClick() {  
+    // TODO do something!  
+  }  
+}  
+
+5.
+给EditText加addTextChangedListener（即添加多回调方法的监听的使用方法），利用指定回调，实现想回调的方法即可，哪个注解不会用点进去看下源码上的注释就会用了
+
+@OnTextChanged(value = R.id.mobileEditText, callback = OnTextChanged.Callback.BEFORE_TEXT_CHANGED)  
+void beforeTextChanged(CharSequence s, int start, int count, int after) {  
+  
+}  
+@OnTextChanged(value = R.id.mobileEditText, callback = OnTextChanged.Callback.TEXT_CHANGED)  
+void onTextChanged(CharSequence s, int start, int before, int count) {  
+  
+}  
+@OnTextChanged(value = R.id.mobileEditText, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)  
+void afterTextChanged(Editable s) {  
+  
+}  
+
+
+6.
+@Bind({ R.id.first_name, R.id.middle_name, R.id.last_name })  
+List<EditText> nameViews;
+

@@ -1,0 +1,37 @@
+litepal主键从1开始，0表示不存在
+
+数据库是关系型数据库，java是面向对象。建立映射关系
+1.导入包complie 'org.litepal.android:core:1.5.1'
+2.在main目录下New -》Directory，创建assets目录，新建litepal.xml文件
+3.定义<dbname value=""/><version value=""/>
+4.manifest文件<application  android:name:"org.litepal.LitePalApplication">
+5.创建表对应的类，设置get和set方法
+6.在litepal.xml文件中的list里配置映射模型类<mapping class="包名+类名"></mapping>
+7.执行LitePal.getDatabase()或其他任意数据库操作表自动创建完成
+
+升级数据库：
+1.往表里添加列：修改表对应的类
+2.往数据库添加表：新建类并配置进litepal.xml。
+3.修改版本号
+
+CRUD操作，
+1.模型类继承DataSupport
+2.添加数据：创建模型类对象，用set方法设置数据，最后调用DataSupport父类方法save()即可添加数据
+3.更新数据：创建模型类对象，用set方法设置数据，调用sava保存数据，set修改数据，再次调用save由于对象已存储，会替换掉原来的数据
+4.更新数据：创建模型类对象，用set方法设置数据，调用updateAll()方法，可指定条件约束("name=?","jj")，可用占位符，表示更新name为jj的行
+5.更新数据：setToDefault("name")设置name列为默认值，调用updateAll()方法保存，可指定约束条件，不指定则默认删除所有行的name列
+6.删除数据：DataSupport.deleteAll(类名.class,"price<?","15")。删除price小于15的行。不指定默认删除所有行
+7.查询数据：DataSupport.findAll(类名.class)表示查询所有数据。返回list多行。遍历list获取每一行，调用get方法获取每一行的某个数据
+8.查询数据：DataSupport.findFirst返回第一行。DataSupport.findLast返回最后一行。
+9.查询数据：DataSupport.select("要查询的列","要查询的列").find(类名.class)表示查询指定表中的某一列或几列
+10.查询数据:DataSupport.where("pages>?","400").find(类名.class);指定查询的约束条件
+11.查询数据:DataSupport.limit(3).find(类名.class)表示只查表中前三条数据
+12.查询数据:DataSupport.limit(3).offset(1).find(类名.class),指定查询结果偏移量，offset(1)表示偏移一条，即查询第2，3，4条数据
+13.将查询结果排序：DataSupport.order("price desc").find(类名.class)按价格降序排列。默认升序asc，返回排序后的List
+
+
+litepal主键自增长
+news对象在执行“news.save()”之前是没有持久化的，执行save操作后就会在news表中新增一条数据，同时将news对象持久化。
+如果news对象是持久化的，执行save操作就相当于更新这条数据
+当不确定一个对象是否是持久化的时候，可以通过boolean temp = news.isSaved()来判断该对象是否持久化，temp为真，表示已持久化。
+执行save操作（如save,saveAll等）和find操作（如find，findAll等）之后的对象都是持久化了的。

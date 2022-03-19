@@ -1,0 +1,51 @@
+编程中经常用到List<Map<String,Object>>这种集合，如何遍历这种数据呢？
+
+Map<String, Object> map = new HashMap<String, Object>();
+map.put("key1", "value1");
+map.put("key2", "value2");
+List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+list.add(map);
+  
+for (Map<String, Object> m : list) {
+    for (String k : m.keySet()) {
+        System.out.println(k + " : " + m.get(k));
+    }
+}
+
+
+
+其他方式
+for(Map<String,Object> map:list){
+        for(Map.Entry<String,Object> e:map){
+                  //e.getKey() 和 e.getValue() 就是你想要的
+    }
+ 
+}
+
+
+对List的遍历有三种方式 
+ 
+ List<A> list = new ArrayList<A>(); 
+ list.add(new A()); 
+ list.add(new A()); 
+ ... 
+ 
+ 第一种: 
+ for(Iterator<A> it = list.iterator(); it.hasNext(); ) { 
+ .... 
+ } 
+ 这种方式在循环
+执行过程中会进行数据锁定, 性能稍差, 同时,如果你想在循环过程中去掉某个元素,只能调用it.remove方法, 不能使用list.remove方法, 否则一定出并发访问的错误. 
+ 
+ 第二种: 
+ for(A a : list) { 
+ ..... 
+ } 
+ 内部调用第一种, 换汤不换药, 这种循环方式还有其他限制, 不建议使用它 
+ 
+ 第三种: 
+ for(int i=0; i<list.size(); i++) { 
+ A a = list.get(i); 
+ ... 
+ } 
+ 内部不锁定, 效率最高, 但是当写多线程时要考虑并发操作的问题

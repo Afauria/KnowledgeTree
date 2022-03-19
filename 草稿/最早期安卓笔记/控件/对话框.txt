@@ -1,0 +1,11 @@
+ View headview = LayoutInflater.from(getActivity()).inflate(R.layout.view_image,
+                        null);
+                ImageView pic = (ImageView) headview.findViewById(R.id.pic_watch);
+                pic.setImageDrawable(personheadpic.getDrawable());
+                Dialog dialog = new AlertDialog.Builder(getActivity()).setView(headview)
+                        .create();
+                dialog.show();
+
+
+
+DialogFragment

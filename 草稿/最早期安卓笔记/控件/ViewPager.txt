@@ -1,0 +1,183 @@
+ViewPager與Fragment結合使用，超过三个界面会自动销毁
+ //viewpager超过3个页面时，会自动销毁相隔的页面，设置缓存页面数，则可扩大缓存数量
+        homeContent.setOffscreenPageLimit(4);
+
+1.xml布局viewPager控件
+2.加载要显示的页卡
+	1.可以加載xml文件，多个xml文件
+	listViews = new ArrayList<>();  
+        LayoutInflater mInflater = getLayoutInflater();  
+        newsView = mInflater.inflate(R.layout.fragment_news, null);  
+        sportView = mInflater.inflate(R.layout.fragment_sport, null);  
+        funView = mInflater.inflate(R.layout.fragment_fun, null);  
+        listViews.add(newsView);  
+        listViews.add(sportView);  
+        listViews.add(funView);  
+
+	2.也可以加載fragment，fragment加載了xml佈局
+	fragment加載佈局
+	public class NewsFragment extends Fragment {  
+   	 	@Nullable  
+   		@Override  
+   		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
+        		View view = inflater.inflate(R.layout.fragment_news, container, false);  
+        		return view;  
+		    }  
+	} 
+	加載fragment 
+	list_fragment = new ArrayList<>();  
+        nFragment = new NewsFragment();  
+        sFragment = new SportsFragment();  
+        fFragment = new FunFragment();  
+        list_fragment.add(nFragment);  
+        list_fragment.add(sFragment);  
+        list_fragment.add(fFragment);
+	fAdapter = new fragmentAdapter(getSupportFragmentManager(),list_fragment,list_title);  
+        vp_pager.setAdapter(fAdapter);  
+	//将tabLayout与viewpager连起来  
+        tab_title.setupWithViewPager(vp_pager);  
+
+	3.用同一个xml文件，动态改变图片
+	View view1=mInflater.inflate(R.layout.pics_workpage, null);
+        View view2=mInflater.inflate(R.layout.pics_workpage, null);
+        View view3=mInflater.inflate(R.layout.pics_workpage, null);
+	view1.setBackground(***);
+	view1.setBackground(***);
+	view1.setBackground(***);
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+
+
+          
+
+	
+3.创建pagerAdapter或FragmentAdapter或自定义adapter,必须实现4个方法，设置adapter
+
+
+
+design包提供TabLayout控件
+1.xml佈局加上TabLayout，屬性可設置字體顔色，選中顔色，下劃綫標記顔色等
+2.活動中獲取
+3.與ViewPager建立聯係，tabLayout.setupWithViewPager(viewPager);//封装了下面三步，需要写在设置adapter下面，因为要先获取viewpager的adapter
+  原理	1.点击tab时viewpager切换
+	mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+	2.切换viewpager时tab点击状态改变
+	final TabLayout.TabLayoutOnPageChangeListener listener =
+         	new TabLayout.TabLayoutOnPageChangeListener(mTabLayout);
+	mViewPager.addOnPageChangeListener(listener);
+	3.设置tab的标题来自PagerAdapter.getPageTitle()
+	mTabLayout.setTabsFromPagerAdapter(mAdapter);
+设置tablayout模式，也可以在xml文件里设置
+mTabLayout.setTabMode(TabLayout.MODE_FIXED);  
+TabLayout.MODE_SCROLLABLE：滚动，一行显示不下时
+TabLayout.MODE_FIXED：充满，默认值
+
+
+pager標題：-----》下面不常用。design包提供了TabLayout控件可以結合ViewPager使用
+PagerTabStrip:可点击切换，底部有当前标记，pagerTabStrip.setTabIndicatorColor设置
+PagerTitleStrip:不可点击切换
+
+1.修改PagerTabStrip中的背景颜色
+
+我们在布局中直接设置background属性即可：
+
+<android.support.v4.view.ViewPager
+		android:id="@+id/pager"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" >
+		<android.support.v4.view.PagerTabStrip
+			android:id="@+id/pts"
+			android:layout_width="wrap_content"
+			android:layout_height="50dp"
+			android:layout_gravity="top"
+			android:background="#a05c5ccc" />
+	</android.support.v4.view.ViewPager>
+2.修改指示条的颜色
+我们可以在java代码中调用
+
+pagertabstrip的setTabIndicatorColorResource(R.color.green_complete);方法进行设置
+
+3.修改设置标题字体的样色，颜色，以及为标题添加图标，我们可以重写FragmentStatePagerAdapter的getPageTitle方法：
+
+@Override
+	public CharSequence getPageTitle(int pos) {
+		SpannableStringBuilder ssb = new SpannableStringBuilder(" "
+				+ topics[pos]); // space added before text for
+		Drawable myDrawable = context.getResources().getDrawable(
+				R.drawable.card_visited_like);
+		myDrawable.setBounds(0, 0, myDrawable.getIntrinsicWidth(),
+				myDrawable.getIntrinsicHeight());
+		ImageSpan span = new ImageSpan(myDrawable, ImageSpan.ALIGN_BASELINE);
+		
+		ForegroundColorSpan fcs = new ForegroundColorSpan(Color.GREEN);//字体颜色设置为绿色
+		ssb.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);//设置图标
+		ssb.setSpan(fcs, 1, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);//设置字体颜色
+		ssb.setSpan(new RelativeSizeSpan(1.2f), 1, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		return ssb;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+循环翻页
+1.不流畅
+@Override
+public void onPageScrollStateChanged(int state) {
+                switch (state) {
+                    case 1:// 手势滑动
+                        isAutoPlay = false;
+                        break;
+                    case 2:// 滑动完毕
+                        isAutoPlay = true;
+                        break;
+                    case 0:// 滑动结束，即切换完毕或者加载完毕
+                        // 当前为最后一张，此时从右向左滑，则切换到第一张,isAutoPlay变为true
+                        if (viewPager.getCurrentItem() == viewPager.getAdapter().getCount() - 1 && !isAutoPlay) {
+                            viewPager.setCurrentItem(0,false);
+                        }
+                        // 当前为第一张，此时从左向右滑，则切换到最后一张，isAutoPlay变为true
+                        else if (workpageViewpager.getCurrentItem() == 0 && !isAutoPlay) {
+                            viewPager.setCurrentItem(viewPager.getAdapter.getCount()-1,false);
+                        }
+                        break;
+                }
+            }
+
+2.设无限边界，从中间开始，currentItem取余，从第一张图片开始，position取余设置点变化
+
+//设从中间开始，左右无边界
+int currentItem=Integer.MAX_VALUE/2;
+//设置从第一张图片开始
+while(currentItem%viewList.size()!=1){
+     currentItem++;
+ }
+

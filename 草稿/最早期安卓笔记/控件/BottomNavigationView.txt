@@ -1,0 +1,5 @@
+设置menu文件
+app:menu="@menu/"
+app:itemIconTint="@drawable/bottom_navigation_selector" 为icon着色，写个selector即可。
+
+app:itemTextColor="@drawable/bottom_navigation_selector"该属性为文字着色，同样写个selector实现点击颜色切换的效果。

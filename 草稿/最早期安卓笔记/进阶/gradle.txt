@@ -1,0 +1,23 @@
+implementation 
+这个指令的特点就是，对于使用了该命令编译的依赖，对该项目有依赖的项目将无法访问到使用该命令编译的依赖中的任何程序，也就是将该依赖隐藏在内部，而不对外部公开。
+
+api 
+完全等同于compile指令。
+
+
+compile 
+这种是我们最常用的方式，使用该方式依赖的库将会参与编译和打包。
+
+
+testCompile 
+testCompile 只在单元测试代码的编译以及最终打包测试apk时有效。
+
+debugCompile 
+debugCompile 只在debug模式的编译和最终的debug apk打包时有效。
+
+releaseCompile 
+releaseCompile 仅仅针对Release模式的编译和最终的Release apk打包
+
+
+使用gradle命令行需要安装gradle。
+没安装的话可以使用gradlewrapper命令。./gradlew

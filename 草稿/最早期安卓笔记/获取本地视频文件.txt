@@ -1,0 +1,123 @@
+String progress[]={
+
+MediaStore.Video.Media.DISPLAY_NAME,//视频的名字
+MediaStore.Video.Media.SIZE,//大小
+MediaStore.Video.Media.DURATION,//长度
+MediaStore.Video.Media.DATA,//播放地址
+};
+
+//获取数据提供者,this是上下文
+ContentResolver cr = this.getContentResolver();
+
+if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+{
+//有sd卡的情况
+Cursor cursor = cr.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,progress,null,null,null);
+while(cursor.moveToNext()){
+// 到视频文件的信息
+String name = cursor.getString(0);//得到视频的名字
+long size = cursor.getLong(1);//得到视频的大小
+long durantion = cursor.getLong(2);//得到视频的时间长度
+String data = cursor.getString(3);//得到视频的路径，可以转化为uri进行视频播放
+//使用静态方法获取视频的缩略图
+Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(data, MediaStore.Video.Thumbnails.MINI_KIND);
+VideoInfo videoInfo = new VideoInfo();
+//创建视频信息对象
+videoInfo.setVedioName(name);
+videoInfo.setData(data);
+videoInfo.setDuration(durantion);
+videoInfo.setSize(size);
+videoInfo.setThumImage(thumbnail);
+
+temp.add(videoInfo);
+}
+}
+//不论是否有sd卡都要查询手机内存
+Cursor cursor = cr.query(MediaStore.Video.Media.INTERNAL_CONTENT_URI,progress,null,null,null);
+while(cursor.moveToNext()){
+// 到视频文件的信息
+String name = cursor.getString(0);//得到视频的名字
+long size = cursor.getLong(1);//得到视频的大小
+long durantion = cursor.getLong(2);//得到视频的时间长度
+String data = cursor.getString(3);//得到视频的路径，可以转化为uri进行视频播放
+//使用静态方法获取视频的缩略图
+Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(data, MediaStore.Video.Thumbnails.MINI_KIND);
+VideoInfo videoInfo = new VideoInfo();
+//创建视频信息对象
+videoInfo.setData(data);
+videoInfo.setVedioName(name);
+videoInfo.setDuration(durantion);
+videoInfo.setSize(size);
+videoInfo.setThumImage(thumbnail);
+
+temp.add(videoInfo);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+List<Video> list = null;  
+        if (context != null) {  
+            Cursor cursor = context.getContentResolver().query(  
+                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null,  
+                    null, null);  
+            if (cursor != null) {  
+                list = new ArrayList<Video>();  
+                while (cursor.moveToNext()) {  
+                    int id = cursor.getInt(cursor  
+                            .getColumnIndexOrThrow(MediaStore.Video.Media._ID));  
+                    String title = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));  
+                    String album = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.ALBUM));  
+                    String artist = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST));  
+                    String displayName = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME));  
+                    String mimeType = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));  
+                    String path = cursor  
+                            .getString(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));  
+                    long duration = cursor  
+                            .getInt(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));  
+                    long size = cursor  
+                            .getLong(cursor  
+                                    .getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));  
+                    Video video = new Video(id, title, album, artist, displayName, mimeType, path, size, duration);  
+                    list.add(video);  
+                }  
+                cursor.close();  
+            }  
+        }  
+

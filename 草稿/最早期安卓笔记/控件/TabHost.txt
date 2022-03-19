@@ -1,0 +1,97 @@
+TabHost必备组件：
+	TabWidget　　　必须设置android:id为@android:id/tabs
+	FrameLayout　  必须设置android:id为@android:id/tabcontent
+
+层次
+<TabHost  android:id="@android:id/tabhost">
+	<TabWidget  android:id="@android:id/tabs">选项卡切换按钮</TabWidget>
+	<FrameLayout  android:id="@android:id/tabcontent">选项卡视图
+		<LinearLayout>第一个tab内容</LinearLayout>
+		<LinearLayout>第二个tab内容</LinearLayout>
+		<LinearLayout>第三个tab内容</LinearLayout>
+	</FrameLayout>
+</TabHost>
+
+
+1.继承TabActivity
+	TabHost：必须设置android:id为@android:id/tabhost  ----》可用getTabHost()方法获取
+2.不继承TabActivity
+	TabHost的android:id可设置为任意id（@+id/），活动中调用findViewById()获取	
+
+@android:id/tabhost:安卓自带的id
+@+id/tabhost:自己添加的id编号
+
+继承tabactivity可以用gettabhost方法获取tabhost，不用设置tabwidget和framelayout以及自带id。
+用findviewbyid获取tabhost需要加setup，setup中获取了tabwidget和tabcontent，所以id要用自带的id
+
+java代码：
+
+//两种方法获取tabhost
+//TabHost tabhost=getTabHost();
+
+/*
+TabHost tabhost=(TabHost)findViewById(R.id.);
+tabhost.setup();*/
+
+//添加标签
+tabhost.addTab(tabhost
+ .newTabSpec("one")	//标签名，唯一标识
+ .setIndicator("红色")	//显示名称，可以设置图片
+ .setContent(R.id.widget_layout_red));
+//或者
+ TabHost.TabSpec tab1 = tabhost.newTabSpec("one");
+ tab1.setIndicator("红色");
+ tab1.setContent(R.id.widget_layout_red);       
+ tabhost.addTab(tab1);
+
+
+
+	
+3.
+每个选项卡布局分开用不同xml写，主布局层次不变
+<TabHost  android:id="@android:id/tabhost">
+	<TabWidget  android:id="@android:id/tabs">选项卡切换按钮</TabWidget>
+	<FrameLayout  android:id="@android:id/tabcontent">选项卡视图
+	</FrameLayout>
+</TabHost>
+
+java代码：
+//加载主布局
+setContentView(R.layout.activity_main);  
+//载入不同选项卡
+LayoutInflater i=LayoutInflater.from(this);
+i.inflate(R.layout.tab1, m.getTabContentView());  
+i.inflate(R.layout.tab2, m.getTabContentView());//动态载入XML，而不需要Activity  
+
+
+
+
+4.
+继承TabActivity，布局文件不加TabHost标签，最顶层FrameLayout显示内容，
+//加载布局
+TabHost tabhost=getTabHost();
+LayoutInflater.from(this).inflate(R.layout.tabhost_layout,
+                tabHost.getTabContentView(), true);
+
+//设置响应事件
+tabHost.setOnTabChangedListener(new OnTabChangeListener(){    
+            @Override  
+            public void onTabChanged(String tabId) {  
+                if (tabId.equals("tab1")) {   //第一个标签  
+                }  
+                if (tabId.equals("tab2")) {   //第二个标签  
+                }  
+                if (tabId.equals("tab3")) {   //第三个标签  
+                }  
+            }              
+        });   
+
+
+
+
+
+
+获取tabWidget文字图像并设置属性，获取系统自带的id
+TextView tv=(TextView)tabWidget.getChildAt(i).findViewById(android.R.id.title);
+ImageView iv=(ImageView)tabWidget.getChildAt(i).findViewById(android.R.id.icon);
+

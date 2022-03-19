@@ -1,0 +1,10 @@
+//获取屏幕宽高
+DisplayMetrics dm = getResources().getDisplayMetrics();
+width = dm.widthPixels;
+height = dm.heightPixels;
+
+imageView=(ImageView)findViewById(R.id.imageView);//获取当前控件的对象
+LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) imageView.getLayoutParams();
+//获取当前控件的布局对象
+params.height=width/2;//设置当前控件布局的高度
+imageView.setLayoutParams(params);//将设置好的布局参数应用到控件中

@@ -1,0 +1,20 @@
+第一种方法：在xml文件中设置背景颜色。
+Xml代码  收藏代码android <wbr>设置控件的透明度
+android:background="#ff6495ED"	前两个值表示透明度，ff为不透明，00为完全透明  
+android:alpha="0.5"	//0到1
+前两位表示透明度，后面依次为RGB，透明度从0到255，0为完全透明，255为不透明。
+
+
+第二种方法：在java文件中获取该控件的Drawable，设置透明度
+Java代码  收藏代码android <wbr>设置控件的透明度
+convertView.getBackground().setAlpha(80);  //0到255
+
+convertView为视图控件，80表示透明度。
+
+setBackgroundColor(0xaa3388ff)	//16进制颜色
+setBackgroundColor(Color.WHITE);	//自带颜色
+setBackgroundColor(Color.parseColor("#ffffff"));	//网页颜色转换为int
+setBackgroundColor(Color.argb(int,int,int,int));	//RGB方法
+
+<color name="my_color">#ccc</color>  
+setBackgroundColor(getResources().getColor(R.color.my_color)); //资源引用，也可以是一张图片R.drawable.my_color

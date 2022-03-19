@@ -1,0 +1,37 @@
+1.创建请求体RequestBody，设置数据和ContentType
+	1.实例化抽象类RequestBody
+	2.多态实例化RequestBody的子类，如FormBody等，子类使用builder模式
+	3.requestBody的create方法
+   添加数据，post数据包含在请求体里
+2。创建请求Request，builder模式
+   指定请求方式post，get等，指定url
+	post传入requestBody
+3.创建请求客户端Client对象，相当于一个浏览器，OkHttpClient
+4.客户端创建Call对象，传入请求，
+	Call call=mOkHttpClient.newCall(request);
+	
+5.执行call，可直接执行也可加入调度队列
+	1.call.execute()直接返回response响应对象
+	2.设置回调函数
+	call.enqueue(new Callback(){
+		//失败处理
+		//成功处理
+	})
+
+
+
+retrofit：服务器地址为baseUrl，文件路径为url，加起来为完整的路径
+1.将request以注解形式创建，指定请求方式，url等，
+	并将request传给Call<T>，同时指定了响应数据类型的java泛型，
+	由于传给客户端的是json格式的数据，需要使用gson转换为java对象，
+	形成一条条Call<T>类型
+2.创建retrofit对象，指定baseUrl，设置gson转换工厂。使用builder模式
+	可以指定OkHttpClient，用来设置拦截器等
+3.创建retrofit服务，将服务器对应的java接口实例化为一个对象，接口对应baseUrl（java接口不能被实例化，通过retrofit实例化）
+4.创建Retrofit的Call<T>对象，由retrofit创建的服务方法返回Call对象
+5.执行call，加入调度队列，设置回调函数，返回的Response<T>和Call<T>指定的泛型对应
+
+
+retrofit对okhttp的改进，底层用的还是okhttp
+1.retrofit将返回数据通过gson解析为java对象
+2.将请求以注解形式创建

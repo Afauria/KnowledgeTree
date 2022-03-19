@@ -1,0 +1,66 @@
+什么是 JavaFX ？
+
+JavaFX 包含了一些列图形和媒体包，允许程序员设计、创建、测试、调试、和部署富客户端应用并且保持跨平台的操作一致性。
+
+JavaFX 应用程序
+
+JavaFX 应用程序由 Java API 编写，可以调用任何 Java API 包。例如，可以调用 Java API 访问本地操作系统，并且与服务器进行连接。
+
+JavaFX 的外观可以自定义。层叠样式表（CSS）将应用的外观与功能分离，让程序员可以更专注于编码。美工可以简单地通过 CSS 来自定义应用程序的外观。
+
+如果你有 Web 设计的背景，或者你想将 UI 和后台逻辑分离，那么你还可以将 UI 放入到 FXML 标记语言中，用 Java 
+编写业务逻辑。如果你只想编码，那么可以将编写 UI 的工作交给 JavaFX Scene Builder。在支持 JavaFX 
+的集成开发环境（IDE）中，可以使用 JavaFX Scene Builder 来编写 FXML 标记语言。
+
+可用性
+
+从 JavaFX 2.2 以后，JavaFX 已经集成在 JRE 7 和 JDK 7 以及以后的 Java 版本中了。因为 JDK 
+可以很好地运行在主流桌面系统上（Windows, Mac OS X, and Linux），因此 JavaFX 
+也可以运行在这些主流的桌面系统上。跨平台兼容性，可以让 JavaFX 的开发者和用户得到一致的体验。
+
+在 JDK 的下载页面，可以获取 JavaFX 例子的 Zip 包。这些例子应用程序提供了很多代码来演示如何使用 JavaFX。
+
+主要特性
+
+JavaFX 2.2 和之后的版本都包含以下主要特性：
+
+Java API
+
+JavaFX 是一个 Java 包，由 Java 类和 Java 接口等原始的 Java 代码编写而成。这些 API 在设计上可以很友好的替代为 Java VM 语言，例如 JRuby 或 Scala。
+
+FXML and Scene Builder
+
+FXML 是基于 XML 的标记语言，用来创建 JavaFX UI。设计者可以直接编写 FXML 或者使用 IDE 的 Scence Builder 来编写 FXML。
+
+WebView
+
+Web 组件可以使用 WebKitHTML 技术将 Web 页面嵌入到 JavaFX 应用程序中。在 WebView 中运行的 
+JavaScript 可以调用 Java API，并且 Java API 也可以调用 WebView 中运行的 JavaScript。
+
+Swing 集成
+
+旧有的 Swing 应用程序可以更行 JavaFX 的新特性，比如丰富的图形媒体播放功能和嵌入 Web 页面的功能。
+
+丰富的自有控件和CSS
+
+JavaFX 提供了桌面应用程序需要用到的主要控件。并且控件的外观可以使用标准的 Web CSS 来进行控制。
+
+画布（Canvas）API
+
+Canvas API 允许在可以包含一个作图元素的 JavaFX scene 直接绘制图形。
+
+支持多点触控
+
+基于平台的底层能力，JavaFX 支持多点触控功能。
+
+硬件加速的图形通道
+
+JavaFX 图形渲染基于 Prism。如果使用了支持 Prism 的显卡或 GPU，JavaFX 可以很快的进行平滑渲染。如果系统不支持 Prism，那么默认值将会变为 Java 2D。
+
+高性能的媒体引擎
+
+媒体通道支持 Web 多媒体内容的播放，基于 GStreamer 媒体框架，提供了稳定的、低延迟的媒体播放框架。
+
+自包含的应用程序部署模式
+
+自包含的应用程序，可以包含所有的应用程序资源、Java 运行时以及 JavaFX 运行时。应用程序发布后，可以在操作系统本地安装，获得操作系统一致的安装和加载体验。

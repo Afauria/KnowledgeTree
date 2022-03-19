@@ -1,0 +1,29 @@
+getWidth/Height和getMeasuredWidth/Height的区别：
+getWidth,和getLeft等这些函数都是View相对于其父View的位置。而getMeasuredWidth,getMeasuredHeight是测量后该View的实际值
+
+实际上在当屏幕可以包裹内容的时候，他们的值是相等的，只有当view超出屏幕后，才能看出他们的区别：
+getMeasuredHeight()是实际View的大小，与屏幕无关，而getHeight的大小此时则是屏幕的大小。
+当超出屏幕后，getMeasuredHeight()等于getHeight()加上屏幕之外没有显示的大小
+
+
+如果只需要测量单个View，则单独测量它自己就行。如果需要测量的View其下还有子View，则需要测量其所有的子View。
+@Override  
+protected void onLayout(boolean changed, int l, int t, int r, int b) {  
+  
+       // 循环所有子View  
+       for (int i=0; i<getChildCount(); i++) {  
+           View child = getChildAt(i);  
+           // 取出当前子View长宽  
+           int width = child.getMeasuredWidth();  
+           int height = child.getMeasuredHeight();  
+  
+           // 计算当前的mLeft和mTop值（r,b为传递进来的父View的mRight和mBottom值）  
+           int mLeft = (r - width) / 2;  
+           int mTop = (b - height) / 2;  
+  
+           // 调用layout并传递计算过的参数为子view布局  
+           child.layout(mLeft, mTop, mLeft + width, mTop + height);  
+       }  
+   }  
+
+无论你如何Measure这个View的大小，最后的决定权永远在onLayout手中，onLayout会决定具体View的大小和位置。当然onMeasure也很重要，有的情况控件的宽高不确定或者需要自定义，这时候需要我们人工Measure它。而在复杂的自定义View时，很多计算也需要在onMeasure中完成，并且些值会记录下来在onLayout中使用

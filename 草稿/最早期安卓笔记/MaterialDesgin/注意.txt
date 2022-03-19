@@ -1,0 +1,8 @@
+elevation必须设置背景颜色才有阴影
+
+recyclerview和scrollview结合使用会默认显示recyclerview的第一项，设置focusable等2个属性
+
+滑动冲突
+Recyclerview设置setNestNo***
+
+recyclerview外套linearlayout

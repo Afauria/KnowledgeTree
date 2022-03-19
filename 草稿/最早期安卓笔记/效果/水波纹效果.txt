@@ -1,0 +1,2 @@
+5.0以上水波纹效果
+android:background = "?attr/selectableItemBackground"

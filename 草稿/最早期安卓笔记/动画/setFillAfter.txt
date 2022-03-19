@@ -1,0 +1,4 @@
+setFillBefore和setFillAfter
+
+setFillAfter：在动画animation执行完后控件不回到原来的位置，实际上物体坐标大小等并没有改变
+当有两个动画的时候使用setFillAfter，则会执行完两个动画控件才回到原来位置，若不加，则一个动画一个动画分开执行

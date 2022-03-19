@@ -1,0 +1,25 @@
+LayoutInflater类的inflate方法适用于所有需要进行布局填充的场景，是Android中专门进行布局填充的方法，Android中其他需要
+
+使用布局填充的地方，都会调用本方法
+
+获取LayoutInflater对象：
+1. LayoutInflater inflater = getLayoutInflater();  //调用Activity的getLayoutInflater()
+
+2. LayoutInflater localinflater =  (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+3. LayoutInflater inflater = LayoutInflater.from(context);   
+
+inflate方法：
+public View inflate (int resource, ViewGroup root, boolean attachToRoot)
+第一个参数，就是我们要填充的xml文件
+
+第二个参数，这个要和第三个参数有关系。
+若是第三个参数为true，那么第二个参数的意义是，从第一个参数填充成的view对象的父控件；
+若是第三个参数为false，那么第二个参数的意义是，可以为第一个参数生成的view对象的根布局提供一系LayoutParams参数的控件。
+
+第三个参数，从第一个参数填充成的view对象是否要附着到第二个参数指定的空间上作为子控件。
+
+两个参数的方法
+public View inflate(@LayoutRes int resource, @Nullable ViewGroup root) {
+        return inflate(resource, root, root != null);
+}

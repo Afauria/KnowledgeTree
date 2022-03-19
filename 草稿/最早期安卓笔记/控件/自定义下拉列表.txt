@@ -1,0 +1,32 @@
+自定义下拉列表控件：
+
+布局文件：
+包含展开列表ListView的xml，popupwindow
+包含列表项的xml，可以自定义单条列表内容样式（如图片加文字）
+列表未展开外观xml，可以定义为文字加下拉图片
+主界面，可加载自定义控件<com.example.administrator.MyDropDownListView   />
+
+类文件:
+自定义类继承LinearLayout布局
+构造方法
+初始化：加载未展开外观，监听响应展开列表事件
+展开列表方法：
+ 	// 加载popupWindow的布局文件
+        String infServie = Context.LAYOUT_INFLATER_SERVICE;
+        LayoutInflater layoutInflater;
+        layoutInflater =  (LayoutInflater) getContext().getSystemService(infServie);
+        View contentView  = layoutInflater.inflate(R.layout.dropdownlist_popupwindow, null,false);
+        ListView listView = (ListView)contentView.findViewById(R.id.listView1);
+	//加载适配器
+        listView.setAdapter(new MyDropDownListAdapter(getContext(), dataList));
+	popupWindow = new PopupWindow(contentView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.color.dropdownlist_press));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAsDropDown(this);
+关闭列表方法：
+	popupWindow.dismiss();
+        popupWindow = null;
+定义设置数据方法，传入list参数
+定义适配器类继承BaseAdapter：
+	定义获取列表项方法（便于修改）
+	实现父类方法getView()，列表刷新，设置列表项点击事件

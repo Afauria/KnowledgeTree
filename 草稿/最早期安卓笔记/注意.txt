@@ -1,0 +1,14 @@
+file-》new创建的android project：包是建在gen文件夹里的，而不是src里，gen文件夹主要有R类
+
+
+asset，res都是放资源文件，res里的文件，R类会定义id
+
+资源文件不能用中文名
+
+
+再manifest的activity里加入这句话android:windowSoftInputMode="adjustPan"输入法不会将控件挤掉
+
+Fragment中的onActivityResult不会被调用，得在activity的onActivityResult里手动调用fragment的onActivityResult
+
+
+fitWindowSystem=true会使popupwindow里的padding属性失效

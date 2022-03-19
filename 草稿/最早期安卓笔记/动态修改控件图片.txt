@@ -1,0 +1,18 @@
+这是其中的一个方法，参数resld是这样：
+ImageView.setImageResource(R.drawable.icon);
+
+
+
+ImageView iv; 
+
+String fileName = "/data/data/com.test/aa.png; 
+Bitmap bm = BitmapFactory.decodeFile(fileName); 
+iv.setImageBitmap(bm); 
+
+ImageView iv = new ImageView(context); 
+iv.setImageResource(iv[position]); 
+iv.setScaleType(ImageView.ScaleType.FIT_XY); 
+iv.setLayoutParams(new Gallery.LayoutParams(136,88)); 
+
+mImageView = (ImageView)this.findViewById(R.id.myImageView1); 
+mImageView.setImageDrawable(getResources().getDrawable(R.drawable.right)

@@ -1,0 +1,5 @@
+setForeground(Color.white)	//前景色/字体色
+setBackground(Color.black)	//背景色
+setFont(new Font("",1,20))	//文本字体、大小
+颜色：Color.颜色
+	new Color（R,G,B）；
