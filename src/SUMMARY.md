@@ -33,13 +33,11 @@
 * [Java异常](Java/Java异常.md)
 * [函数式接口](Java/函数式接口.md)
 * [类的加载和初始化](Java/类的加载和初始化.md)
-* [JVM内存](Java/JVM内存.md)
+* [JVM内存模型](Java/JVM内存模型.md)
     * [四种引用和引用队列](Java/JVM内存.md#四种引用和引用队列)
-    * JVM工作流程
-    * 内存模型(GC)
+    * JVM内存模型
     * 运行时数据区
     * 垃圾回收
-* [类加载机制](Java/ClassLoader.md)
 * [反射](Java/反射.md)
 * [线程](Java/线程.md)
     * 同步和锁
@@ -54,7 +52,7 @@
 
 ## Android
 * 四大组件
-    * Activity：启动模式
+    * Activity
     * Service
     * BroadcastReceiver
     * ContentProvider
@@ -83,31 +81,41 @@
     * 共享内存
     * Socket
     * 管道
-* 性能
-    * 性能分析大全-工具篇
-    * 性能分析大全-方法篇
-    * 性能分析大全-优化篇
-    * 性能分析大全-ANR
-    * 性能分析大全-LMK
 * JNI
-* Jetpack
-    * Lifecycle
-    * LiveData
-    * DataBinding
-    * ViewModel
-    * Room
-    * Compose
-    * App Startup
-    * WorkMannager
 * 架构设计：MVC、MVP、MVVM
 * 组件化
 * 插件化
 * 跨平台
 * 字节码Hook
-* Kotlin
 * ADB
 
+## Android性能
+
+* 性能分析大全-工具篇
+* 性能分析大全-方法篇
+* 性能分析大全-优化篇
+* 性能分析大全-ANR
+* 性能分析大全-LMK
+* [布局优化](Android性能/布局优化.md)
+
+## Jetpack
+
+* Lifecycle
+* LiveData
+* DataBinding
+* ViewModel
+* Room
+* Compose
+* App Startup
+* WorkMannager
+
+## Kotlin
+
+* 语法
+* 协程
+
 ## Android源码
+
 * [Handler](Android源码/Handler.md)
 * RecyclerView
 * AMS
@@ -135,6 +143,7 @@
 * koin
 * anko
 * MMKV和SP
+* Tangram
 
 ## 设计模式
 
@@ -163,16 +172,17 @@
 
 ### 行为型模式
 
+* 策略模式
+* 观察者模式
 * 责任链模式
 * 命令模式
 * 迭代器模式
 * 中介者模式
 * 备忘录模式
-* 观察者模式
 * 状态模式
 * 空对象模式
-* 策略模式
 * 模版方法模式
+* 解释器模式
 * [访问者模式](设计模式/访问者模式.md)
 
 ## 计算机网络

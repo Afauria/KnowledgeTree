@@ -1,14 +1,16 @@
 # Android
 
-Android中的四大组件是什么？
+Android四大组件
 
 > Activity Service Brocast ContentProvider
 
-Activity的生命周期回调是怎么样的？
+## Activity
+
+Activity的生命周期
 
 > onCreate()->onStart()->onResume()->onPause()->onStop()->onDestory()
 
-一个Activity A已经显示在前台了，现在启动一个新的Activity B，这两个Activity的生命周期回调的顺序是怎样的
+Activity A启动B，生命周期顺序是怎样的
 
 > A.onPause() —> B.onCreate() —>B.onStart() —>B.onResume() —>视情况回调A.onStop
 
@@ -28,13 +30,32 @@ onStart()和onResume()的区别
 
 > onWindowFocusChanged()在activity能获取到焦点时调用，此时activity的布局都绘制完成，能获取到view的宽高，界面真正能显示到前台
 
-Activity的有几种启动方式？
+Activity的onNewIntent()方法什么时候会执行
 
-> standard、singleTop、singleTask、singleInstance
+> Activity复用的时候。例如singleTop和singleTask
+
+显式启动和隐式启动
+
+> 显式启动：指定包名和类名，明确启动哪个组件
 >
-> standard：标准模式，每次启动一个Activity都会重新创建一个新实例 singleTop：栈顶复用模式，如果新Activity已经位于任务栈的栈顶，那么Activity不会被重建，同时onNewIntent会被调用 singleTask：栈内复用模式，这是一种单实例模式，只要Activity在一个栈中存在，那么多次启动此Activity都不会重新创建实例，同时onNewIntent会被调用 singleInstance：单实例模式，这是一种加强的singleTask模式，它除了具有singleTask模式的所有特性外，还加强了一点，那就是具有此种模式的Activity只能单独地位于一个任务栈中
+> 隐式启动：指定Action、Flag、Data，系统自动找到合适的组件启动
 
-Service有几种启动方式？
+Activity启动方式
+
+> * standard：标准模式，每次启动一个Activity都会重新创建一个新实例
+> * singleTop：栈顶复用模式，如果新Activity已经位于任务栈的栈顶，那么Activity不会被重建，同时onNewIntent会被调用。
+> * singleTask：栈内复用模式，只要Activity在一个栈中存在，那么多次启动此Activity都不会重新创建实例，同时onNewIntent会被调用。例如Home页
+> * singleInstance：单实例模式，Activity单独位于一个任务栈中。例如Launcher
+
+scheme使用场景，协议格式，如何使用
+
+> URI（Universal Resource Identifier，统一资源标识符）：`scheme://authority/path?param`
+>
+> 1. 访问本地资源
+> 2. FileProvider
+> 3. deeplink直接跳转到APP某个页面：例如打电话、发短信、打开视频、网页等
+
+Service启动方式
 
 > startService()和bindService()
 >
