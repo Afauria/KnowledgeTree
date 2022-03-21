@@ -1,29 +1,33 @@
 # Summary
 
-* [知识体系](README.md)
+* [首页](README.md)
+* [使用说明](GUIDE.md)
 
 ## JAVA
 
-* [面向对象（干货）](Java/面向对象.md)
-* [基本数据类型（干货）](Java/基本数据类型.md)
+* [面向对象🔥](Java/面向对象.md)
+* [基本数据类型🔥](Java/基本数据类型.md)
 * [Object类](Java/Object类.md)
-* [值传递和引用传递（干货）](Java/值传递和引用传递.md)
-* [Java字符串（干货）](Java/Java字符串.md)
-* [泛型（干货）](Java/泛型.md)
+* [值传递和引用传递🔥](Java/值传递和引用传递.md)
+* [Java字符串🔥](Java/Java字符串.md)
+* [泛型🔥](Java/泛型.md)
 * [Java异常](Java/Java异常.md)
 * [函数式接口](Java/函数式接口.md)
 * [类的加载和初始化](Java/类的加载和初始化.md)
 * [JVM内存模型](Java/JVM内存模型.md)
 * [反射](Java/反射.md)
+* [进程](Java/进程.md)
 * [线程](Java/线程.md)
-* [线程池](Java/线程池.md)
-* [IO模型（干货）](Java/IO模型.md)
+* [线程池🔥](Java/线程池.md)
+* [异步](Java/异步.md)
+* [IO模型🔥](Java/IO模型.md)
 * IO读写
 * [集合框架](Java/集合框架.md)
 * 动态代理
 * 注解
 
 ## Android
+
 * 四大组件
     * [Activity](Android/Activity.md)
     * [Service](Android/Service.md)
@@ -64,7 +68,7 @@
 
 ## Android性能
 
-* [性能分析大全-工具篇（干货）](Android性能/README.md)
+* [性能分析大全-工具篇🔥](Android性能/README.md)
 * [性能分析大全-方法篇](Android性能/README.md)
 * [性能分析大全-优化篇](Android性能/README.md)
 * [性能分析大全-ANR](Android性能/README.md)
@@ -121,7 +125,7 @@
 ## 设计模式
 
 * [写在前头](设计模式/写在前头.md)
-* [面向对象基本原则（干货）](设计模式/面向对象基本原则.md)
+* [面向对象基本原则🔥](设计模式/面向对象基本原则.md)
 * [UML](设计模式/UML.md)
 
 ### 创建型模式
@@ -156,7 +160,7 @@
 * 空对象模式
 * 模版方法模式
 * 解释器模式
-* [访问者模式（干货）](设计模式/访问者模式.md)
+* [访问者模式🔥](设计模式/访问者模式.md)
 
 ## 计算机网络
 

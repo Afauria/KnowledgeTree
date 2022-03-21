@@ -5,15 +5,26 @@ pre {
 	overflow-y: auto;
 	max-height: 300px;
 }
-h1{
+h1 {
     border-bottom: 1px solid #EFEAEA;
     color: #0288C1;
 }
-h2{
+h2 {
     border-bottom: 1px solid #EFEAEA;
     color: #039FE5;
 }
-li.chapter span{
+li.chapter span {
 	font-weight: bold;
 	color: #333333 !important;
+}
+.book-anchor-body {
+	max-height:  400px;
+}
+.header-nav {
+    font-size: large;
+    font-weight: normal;
+    font-family: emoji;
+}
+.book-header .btn {
+    font-size: 20px !important;
 }

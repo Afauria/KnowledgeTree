@@ -1,7 +1,7 @@
 {
-  "title": "知识集锦",
+  "title": "Day Day Up",
   "author": "Afauria",
-  "description": "知识集锦",
+  "description": "好好学习，天天向上",
   "language": "zh-hans",
   "root": "src",
   "styles": {
@@ -12,13 +12,49 @@
   },
   "links": {
     "sidebar": {
-      "我的博客": "https://afauria.github.io"
     }
   },
   "variables": {
-    "hello": "everyone"
+    "hello": "everyone",
+    "themeLou": {
+      "nav": [
+        {
+          "target": "_self",
+          "url": "/",
+          "name": "首页"
+        },
+        {
+          "target": "_self",
+          "url": "/GUIDE.html",
+          "name": "使用说明"
+        },
+        {
+          "target": "_blank",
+          "url": "https://afauria.github.io",
+          "name": "我的博客"
+        },
+        {
+          "target": "_blank",
+          "url": "https://github.com/Afauria",
+          "name": "GitHub"
+        }
+      ],
+      "footer": {
+        "donate": {
+          "button": "赞赏",
+          "avatar": "./static/avatar.png",
+          "nickname": "Afauria",
+          "message": "随意打赏，但不要超过一顿早餐钱！",
+          "text": "『 欢迎加V 🌹 互相学习 』",
+          "wxpay": "./static/wx_pay.jpg",
+          "alipay": "./static/ali_pay.jpg"
+        },
+        "copyright": true
+      }
+    }
   },
   "plugins": [
+    "theme-lou",
     "-sharing",
     "splitter",
     "expandable-chapters-small",
@@ -27,19 +63,35 @@
     "github-buttons",
     "-donate",
     "sharing-plus",
-    "anchor-navigation-ex",
     "favicon",
-    "atoc",
     "pageview-count",
     "lightbox",
     "prism",
     "prism-themes",
-    "mermaid-gb3"
+    "mermaid-gb3",
+    "back-to-top-button",
+    "copy-code-button"
   ],
   "pluginsConfig": {
+    "theme-lou": {
+      "color": "#FF4848",
+      "favicon": "./src/static/favicon.ico",
+      "logo": "./src/static/logo.png",
+      "appleTouchIconPrecomposed152": "./src/static/avatar.png",
+      "copyrightLogo": "./src/static/copyright.png",
+      "forbidCopy": false,
+      "search-placeholder": "搜索",
+      "book-summary-title": "好好学习，天天向上",
+      "book-anchor-title": "大纲",
+      "hide-elements": [".summary .gitbook-link", ".summary .divider", ".summary>:first-child", ".summary>:nth-child(2)"],
+      "copyright": {
+        "author": "Afauria"
+      }
+    },
     "github": {
       "//": "右上角添加github图标",
-      "url": "https://github.com/Afauria"
+      "url": "https://github.com/Afauria",
+      "size": "large"
     },
     "github-buttons": {
       "buttons": [
@@ -47,7 +99,7 @@
           "user": "Afauria",
           "repo": "KnowledgeTree",
           "type": "star",
-          "size": "small",
+          "size": "large",
           "count": true
         }
       ]
@@ -88,19 +140,10 @@
         "pocket"
       ]
     },
-    "atoc": {
-      "//": "设置为false，禁用atoc右上角悬浮导航，页面内使用<!-- toc -->插入目录。",
-      "addClass": false,
-      "className": "atoc"
-    },
     "prism": {
       "css": [
         "prism-themes/themes/prism-xonokai.css"
       ]
-    },
-    "anchor-navigation-ex": {
-      "//": "anchor-navigation-ex插件默认也有右上角悬浮导航，页面内使用<extoc></extoc>插入目录",
-      "showLevel": false
     },
     "favicon": {
       "shortcut": "./source/images/favicon.jpg",
