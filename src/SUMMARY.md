@@ -4,57 +4,30 @@
 
 ## JAVA
 
-* [面向对象](Java/面向对象.md)
-    * [面向对象和面向过程](Java/面向对象.md#面向对象和面向过程)
-    * [三大特性](Java/面向对象.md#三大特性)
-    * [类的初始化](Java/面向对象.md#类的初始化)
-    * [面向对象设计基本原则](Java/面向对象.md#面向对象设计基本原则)
-* [基本数据类型](Java/基本数据类型.md)
-    * [8种基本数据类型](Java/基本数据类型.md#8种基本数据类型)
-    * [包装类型](Java/基本数据类型.md#包装类型)
-    * [自动拆装箱](Java/基本数据类型.md#自动拆装箱)
-    * [常见问题和注意事项](Java/基本数据类型.md#常见问题和注意事项)
-    * [结语](Java/基本数据类型.md#结语)
+* [面向对象（干货）](Java/面向对象.md)
+* [基本数据类型（干货）](Java/基本数据类型.md)
 * [Object类](Java/Object类.md)
-    * [Object类](Java/Object类.md#object类)
-    * [对象的clone](Java/Object类.md#对象的clone)
-* [值传递和引用传递](Java/值传递和引用传递.md)
-* [Java字符串](Java/Java字符串.md)
-    * [String对象](Java/Java字符串.md#string对象)
-    * [String不可变性](Java/Java字符串.md#string不可变性)
-    * [String常量池](Java/Java字符串.md#string常量池)
-    * [StringBuilder和StringBuffer](Java/Java字符串.md#stringbuilder和stringbuffer)
-    * [Switch支持String](Java/Java字符串.md#switch支持string)
-* [泛型](Java/泛型.md)
-    * [泛型基础](Java/泛型.md#泛型基础)
-    * [泛型擦除](Java/泛型.md#泛型擦除)
-    * [限定通配符](Java/泛型.md#限定通配符)
-    * [其他细节](Java/泛型.md#其他细节)
+* [值传递和引用传递（干货）](Java/值传递和引用传递.md)
+* [Java字符串（干货）](Java/Java字符串.md)
+* [泛型（干货）](Java/泛型.md)
 * [Java异常](Java/Java异常.md)
 * [函数式接口](Java/函数式接口.md)
 * [类的加载和初始化](Java/类的加载和初始化.md)
 * [JVM内存模型](Java/JVM内存模型.md)
-    * [四种引用和引用队列](Java/JVM内存.md#四种引用和引用队列)
-    * JVM内存模型
-    * 运行时数据区
-    * 垃圾回收
 * [反射](Java/反射.md)
 * [线程](Java/线程.md)
-    * 同步和锁
-    * [线程池](Java/线程池.md)
-* IO读写、异步
-    * 字符流、字节流
-    * NIO
+* [线程池](Java/线程池.md)
+* [IO模型（干货）](Java/IO模型.md)
+* IO读写
 * [集合框架](Java/集合框架.md)
-    * [HashMap](Java/集合框架.md#HashMap)
 * 动态代理
 * 注解
 
 ## Android
 * 四大组件
-    * Activity
-    * Service
-    * BroadcastReceiver
+    * [Activity](Android/Activity.md)
+    * [Service](Android/Service.md)
+    * [BroadcastReceiver](Android/Broadcast.md)
     * ContentProvider
     * Fragment
 * 持久化
@@ -91,10 +64,10 @@
 
 ## Android性能
 
-* 性能分析大全-工具篇
-* 性能分析大全-方法篇
-* 性能分析大全-优化篇
-* 性能分析大全-ANR
+* [性能分析大全-工具篇（干货）](Android性能/README.md)
+* [性能分析大全-方法篇](Android性能/README.md)
+* [性能分析大全-优化篇](Android性能/README.md)
+* [性能分析大全-ANR](Android性能/README.md)
 * 性能分析大全-LMK
 * [布局优化](Android性能/布局优化.md)
 
@@ -130,14 +103,14 @@
 ## 开源框架
 * OkHttp
 * Retrofit
-* Glide
+* [Glide](开源框架/Glide.md)
 * RxJava
-* [EventBus](开源框架/EventBus.md)
+* [EventBus](Android性能/README.md)
 * ARouter
-* ButterKnife
+* [ButterKnife]()
 * Dagger
 * Hilt
-* LeakCanary
+* [LeakCanary](开源框架/LeakCanary.md)
 * BlockCanary
 * Bugly
 * koin
@@ -148,7 +121,7 @@
 ## 设计模式
 
 * [写在前头](设计模式/写在前头.md)
-* [面向对象基本原则](设计模式/面向对象基本原则.md)
+* [面向对象基本原则（干货）](设计模式/面向对象基本原则.md)
 * [UML](设计模式/UML.md)
 
 ### 创建型模式
@@ -183,7 +156,7 @@
 * 空对象模式
 * 模版方法模式
 * 解释器模式
-* [访问者模式](设计模式/访问者模式.md)
+* [访问者模式（干货）](设计模式/访问者模式.md)
 
 ## 计算机网络
 
@@ -209,4 +182,3 @@
     * [架构和设计](面经/架构和设计.md)
 * [其他问题（不带答案）](面经/其他.md)
 * [面试官](面经/面试官.md)
-
