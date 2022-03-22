@@ -50,9 +50,21 @@ WeakReference<String> wr = new WeakReference<String>(new String("Weak"), rq);
 * 堆：线程共享，存放实例对象。
   * JVM只有一个堆区，被所有线程共享。
   * GC回收的主要区域，分为新生代、老年代。
-* 方法区：线程共享，存放的都是程序运行中唯一的元素，例如被JVM加载过的类的信息（方法名、变量名、代码等）、静态变量、静态方法、常量、JIT编译后的代码等。包括运行时常量池。
-  * JDK 1.8之前的实现是永久代（Permanent）
+* 方法区：线程共享，存放的都是程序运行中唯一的元素，例如被JVM加载过的类的信息（方法名、变量名、代码等）、静态变量、静态方法、常量、JIT编译后的代码等。**包括运行时常量池**。
+  * JDK 1.8之前的实现是永久代（Permanent）。
   * JDK 1.8之后的实现是元空间
+
+> 永久代 ≠ 方法区，方法区是JVM规范，永久代是HotSpot VM对于方法区的具体实现。
+>
+> 在Java 6中，方法区中包含的数据，除了JIT编译生成的代码存放在native memory的CodeCache区域，其他都存放在永久代；
+>  在Java 7中，Symbol的存储从PermGen移动到了native memory，并且把静态变量从instanceKlass末尾（位于PermGen内）移动到了java.lang.Class对象的末尾（位于普通Java heap内）；
+>  在Java 8中，永久代被彻底移除，取而代之的是另一块与堆不相连的本地内存——元空间（Metaspace）,‑XX:MaxPermSize 参数失去了意义，取而代之的是-XX:MaxMetaspaceSize。
+>
+> 存储位置不同，永久代是堆的一部分，和新生代，老年代地址是连续的，而元空间属于本地内存；
+>
+> 存储内容不同，元空间存储类的元信息，静态变量和常量池等并入堆中。相当于永久代的数据被分到了堆和元空间中。
+>
+> 永久代中的元数据的位置也会随着一次full GC发生移动，比较消耗虚拟机性能。同时，HotSpot虚拟机的每种类型的垃圾回收器都需要特殊处理永久代中的元数据。将
 
 字符串常量池：使用StrignTable的Hash表
 
@@ -65,17 +77,13 @@ WeakReference<String> wr = new WeakReference<String>(new String("Weak"), rq);
 
 # Java GC
 
+GC（Garbage Collection，垃圾回收）是一种内存管理机制。VM会自动回收不需要的对象，不需要程序员手动释放。
+
 ## 什么时候发生GC
 
-GC执行时机不可控，手动调用`System.gc()`并不会立马GC，而是建议执行GC。
+GC执行时机不可控，手动调用`System.gc()`并不会立马GC，而是向JVM发送执行GC的请求，不保证一定会执行。
 
-## GC类型
-
-* `minor gc`：回收新生代（新生代空间不足）
-* `major gc`：回收年老代（年老代空间不足，或对新生代分配担保不足）
-* `full gc`：回收所有
-
-## 回收对象
+## 什么对象会被回收
 
 主要回收没有引用的对象，判断方式：
 
@@ -88,6 +96,10 @@ GC执行时机不可控，手动调用`System.gc()`并不会立马GC，而是建
 2. 方法区中类静态属性引用的对象。
 3. 方法区中常量引用的对象。
 4. 本地方法栈中JNI（即一般说的Native方法）引用的对象。
+
+GC Root都是线程中正在使用的对象，因此被GC Root引用的对象不能回收。
+
+<img src="JVM内存模型/GCRoot.png" style="zoom:50%;" />
 
 ## 回收机制
 
@@ -104,7 +116,30 @@ GC扫描Edan和SurvivorA，把幸存的对象移到SurvivorB，下次扫描Edan�
 
 在GC之前会调用对象的`finalize`方法，可以重写该方法阻止GC。
 
+## GC类型
+
+* `minor gc`：回收新生代（新生代空间不足）
+* `major gc`：回收年老代（老年代空间不足，或对新生代分配担保不足）
+* `full gc`：回收所有
+
+新生代（Young Generation）
+
+- 所有new的对象.
+- 该区域的内存管理使用minor garbage collection(小GC).
+- 更进一步分成Eden space, Survivor 0 和 Survivor 1 三个部分.
+
+老年代（Old Generation）
+
+- 新生代中执行小粒度的GC幸存下来的"老"对象.
+- 该区域的内存管理使用major garbage collection(大GC).
+
+持久代（Permanent Generation）
+
+- 包含应用的类/方法信息, 以及JRE库的类和方法信息.
+
 https://www.cnblogs.com/itplay/p/11137526.html
 https://blog.islinjw.cn/2017/11/10/%E6%88%91%E4%B9%9F%E6%9D%A5%E8%B0%88%E4%B8%80%E8%B0%88Java-GC/
 
 https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
+
+https://www.jianshu.com/p/5db05db4f5ab
