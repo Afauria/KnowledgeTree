@@ -19,38 +19,28 @@
 * [进程](Java/进程.md)
 * [线程](Java/线程.md)
 * [线程池🔥](Java/线程池.md)
-* [异步](Java/异步.md)
+* [异步🔥](Java/异步.md)
 * [IO模型🔥](Java/IO模型.md)
 * IO读写
 * [集合框架](Java/集合框架.md)
-* 动态代理
+* Java动态代理
 * 注解
 
 ## Android
 
-* 四大组件
-    * [Activity](Android/Activity.md)
-    * [Service](Android/Service.md)
-    * [BroadcastReceiver](Android/Broadcast.md)
-    * ContentProvider
-    * Fragment
-* 持久化
-    * 数据库
-    * 文件
-    * SP
-    * MMKV
-* 序列化
-    * Serializable
-    * Parcelable
-    * Protobuf
+* [Activity](Android/Activity.md)
+* [Service](Android/Service.md)
+* [BroadcastReceiver](Android/Broadcast.md)
+* ContentProvider
+* Fragment
+* [持久化](Android/持久化.md)
+* [序列化](Android/序列化.md)
 * [XML解析](Android/XML解析.md)
 * View
     * 事件分发
     * 绘制流程
     * 自定义View
-* 动画
-    * 分类
-    * 原理
+* [动画](Android/动画.md)
 * IPC
     * Binder
     * AIDL
@@ -59,10 +49,9 @@
     * Socket
     * 管道
 * JNI
-* 架构设计：MVC、MVP、MVVM
-* 组件化
-* 插件化
-* 跨平台
+* [组件化](Android/组件化.md)
+* [插件化](Android/插件化.md)
+* [跨平台](Android/跨平台.md)
 * 字节码Hook
 * ADB
 
@@ -90,16 +79,16 @@
 
 * 语法
 * 协程
+* anko
 
 ## Android源码
 
 * [Handler](Android源码/Handler.md)
-* RecyclerView
+* [RecyclerView](Android源码/RecyclerView.md)
 * AMS
 * PMS
 * WMS
 * Binder
-* ANR
 * 应用启动流程
 * 系统启动流程
 * ServiceManager
@@ -118,9 +107,12 @@
 * BlockCanary
 * Bugly
 * koin
-* anko
 * MMKV和SP
 * Tangram
+
+## 架构设计
+
+* [架构设计：MVC、MVP、MVVM](架构设计/架构设计.md)
 
 ## 设计模式
 
@@ -164,11 +156,14 @@
 
 ## 计算机网络
 
-* 网络起源
-* 分层结构
+* [自底向上学习](计算机网络/自底向上学习.md)
+* 自顶向下学习
+* OSI分层结构
+* TCP/IP
+* [UDP](计算机网络/UDP.md)
 * HTTP
 * HTTPS
-* TCP/IP
+* 流媒体传输：RTP、RTSP、RTMP
 * Socket
 
 ## 数据结构和算法

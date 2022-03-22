@@ -1,10 +1,3 @@
-
-
-https://www.cnblogs.com/itplay/p/11137526.html
-https://blog.islinjw.cn/2017/11/10/%E6%88%91%E4%B9%9F%E6%9D%A5%E8%B0%88%E4%B8%80%E8%B0%88Java-GC/
-
-https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
-
 # 四种引用和引用队列
 
 1. 强引用（StrongReference）：普通的引用，如果对象存在强引用，则不会被GC回收
@@ -36,7 +29,7 @@ System.out.println(pr.get());
 Reference<? extends String> ref = rq.poll();
 ```
 
-软引用和弱引用一般用于缓存一些不重要的数据，防止内存泄漏，也可以配合引用队列使用
+软引用和弱引用一般用于缓存一些不重要的数据，防止内存泄漏，**同样可以配合引用队列使用**
 
 > 例如加载大量图片，每次都从磁盘读取影响性能，一次全部读取又可能会造成内存不足。使用Map+软引用可以避免这个问题，内存不足时自动释放。
 
@@ -46,7 +39,7 @@ SoftReference<String> sr = new SoftReference<String>(new String("Soft"), rq);
 WeakReference<String> wr = new WeakReference<String>(new String("Weak"), rq);
 ```
 
-引用队列：关联了引用队列之后，GC会将要回收的对象放入引用队列，因此如果对象在引用队列中，则表示被回收了。用于跟踪GC过程，观察哪些对象被GC回收了，可以做相应的处理。
+**引用队列：关联了引用队列之后，GC会将要回收的对象放入引用队列，因此如果对象在引用队列中，则表示被回收了。用于跟踪GC过程，观察哪些对象被GC回收了，可以做相应的处理。**
 
 # JVM内存模型
 
@@ -110,3 +103,8 @@ GC执行时机不可控，手动调用`System.gc()`并不会立马GC，而是建
 GC扫描Edan和SurvivorA，把幸存的对象移到SurvivorB，下次扫描Edan和SurvivorB，幸存的移到SurvivorA，多次之后还幸存的移到Tenured。客户端新生代和年老代是1:2，服务端是1:8，Edan和Survivor是32:1:1，不同算法有不同的分配比例
 
 在GC之前会调用对象的`finalize`方法，可以重写该方法阻止GC。
+
+https://www.cnblogs.com/itplay/p/11137526.html
+https://blog.islinjw.cn/2017/11/10/%E6%88%91%E4%B9%9F%E6%9D%A5%E8%B0%88%E4%B8%80%E8%B0%88Java-GC/
+
+https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
