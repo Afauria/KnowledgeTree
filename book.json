@@ -61,10 +61,8 @@
     "anchors",
     "github",
     "github-buttons",
-    "-donate",
     "sharing-plus",
     "favicon",
-    "pageview-count",
     "lightbox",
     "prism",
     "prism-themes",
@@ -104,12 +102,6 @@
         }
       ]
     },
-    "donate": {
-      "alipay": "./source/images/donate.png",
-      "title": "",
-      "button": "赞赏",
-      "alipayText": " "
-    },
     "sharing": {
       "//": "true表示直接显示在顶端，all表示点击分享符号展开的",
       "douban": false,
@@ -146,12 +138,12 @@
       ]
     },
     "favicon": {
-      "shortcut": "./source/images/favicon.jpg",
-      "bookmark": "./source/images/favicon.jpg",
-      "appleTouch": "./source/images/apple-touch-icon.jpg",
+      "shortcut": "./static/favicon.jpg",
+      "bookmark": "./static/favicon.jpg",
+      "appleTouch": "./static/favicon.jpg",
       "appleTouchMore": {
-        "120x120": "./source/images/apple-touch-icon.jpg",
-        "180x180": "./source/images/apple-touch-icon.jpg"
+        "120x120": "./static/favicon.jpg",
+        "180x180": "./static/favicon.jpg"
       }
     }
   }

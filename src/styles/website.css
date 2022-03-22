@@ -3,7 +3,7 @@
 }
 pre {
 	overflow-y: auto;
-	max-height: 300px;
+	max-height: 400px;
 }
 h1 {
     border-bottom: 1px solid #EFEAEA;
@@ -27,4 +27,20 @@ li.chapter span {
 }
 .book-header .btn {
     font-size: 20px !important;
+}
+strong {
+    color: #FF4848;
+}
+.poem-side {
+    width: 70%;
+    margin: 0px 15%;
+    color: #FF4848;
+}
+.poem-side div#hitokoto {
+    font-size: 20px;
+    text-align: left;
+}
+.poem-side div#hitokotofrom {
+    font-size: 16px;
+    text-align: right;
 }

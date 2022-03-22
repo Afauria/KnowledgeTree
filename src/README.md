@@ -1,8 +1,26 @@
+<div class="poem-side">
+  <div id="hitokoto">loading...</div>
+  <div id="hitokotofrom"></div>
+  <script defer>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+       	hitokoto.innerHTML = data.hitokoto
+    	if(data.from_who != null) {
+      	  hitokotofrom.innerHTML ='——' + data.from_who + ' 《' + data.from + '》'
+      	} else {
+	  hitokotofrom.innerHTML ='——《' + data.from + '》' 
+      }
+    })
+    .catch(console.error) 
+</script>
+</div>
+
 # 知识体系
 
 整理中...（粗体表示暂未整理）
 
-包含大量容易忽略的细节，尽可能通俗地解释。
+精心整理，原创发布。包含大量容易忽略的细节，尽可能通俗、简短，不说废话。
 
 设计模式篇源码[仓库位置](https://github.com/Afauria/DesignPattern)
 

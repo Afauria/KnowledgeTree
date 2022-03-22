@@ -57,7 +57,6 @@ WeakReference<String> wr = new WeakReference<String>(new String("Weak"), rq);
 * 堆：线程共享，存放实例对象。
   * JVM只有一个堆区，被所有线程共享。
   * GC回收的主要区域，分为新生代、老年代。
-
 * 方法区：线程共享，存放的都是程序运行中唯一的元素，例如被JVM加载过的类的信息（方法名、变量名、代码等）、静态变量、静态方法、常量、JIT编译后的代码等。包括运行时常量池。
   * JDK 1.8之前的实现是永久代（Permanent）
   * JDK 1.8之后的实现是元空间
