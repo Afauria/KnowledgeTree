@@ -3,17 +3,44 @@
 }
 pre {
 	overflow-y: auto;
-	max-height: 300px;
+	max-height: 400px;
 }
-h1{
+h1 {
     border-bottom: 1px solid #EFEAEA;
     color: #0288C1;
 }
-h2{
+h2 {
     border-bottom: 1px solid #EFEAEA;
     color: #039FE5;
 }
-li.chapter span{
+li.chapter span {
 	font-weight: bold;
 	color: #333333 !important;
+}
+.book-anchor-body {
+	max-height:  400px;
+}
+.header-nav {
+    font-size: large;
+    font-weight: normal;
+    font-family: emoji;
+}
+.book-header .btn {
+    font-size: 20px !important;
+}
+strong {
+    color: #FF4848;
+}
+.poem-side {
+    width: 70%;
+    margin: 0px 15%;
+    color: #FF4848;
+}
+.poem-side div#hitokoto {
+    font-size: 20px;
+    text-align: left;
+}
+.poem-side div#hitokotofrom {
+    font-size: 16px;
+    text-align: right;
 }
