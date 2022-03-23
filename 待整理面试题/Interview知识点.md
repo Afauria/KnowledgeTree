@@ -19,9 +19,7 @@
 
    * Timer和TimerTask
    * 有一种线程，它是后面运行的，它的任务是为其他线程提供服务，这种线程被称为“后台”线程，又称为“守护线程”或“精灵线程”。JVM的垃圾回收线程就是典型的后台线程。后台线程有个特征：如果所有的前台线程都死亡，后台线程会自动死亡，调用Thread对象的setDaemon(true)方法可将指定线程设置成后台线程，所有的前台线程都死亡时，后台线程随之死亡。当整个虚拟机中只剩下后台线程时，程序就没有继续运行的必要了，虚拟机也就退出了。
-
 2. 假设界面上有一个开关，可以控制这个后台线程的开启和关闭，可以怎么改进？
-
 3. 通用问题：
    1. 加锁的方式有哪些，差别是什么
       1. Lock和synchronized区别：
@@ -65,11 +63,6 @@
       5. 死亡状态(Dead)    : 线程执行完了或者因异常退出了run()方法，该线程结束生命周期。
 
    5. 同步方式：闭锁、同步屏障、wait、synchronized、阻塞队列
-6. NIO和BIO
-   
-      1. NIO主要涉及Channel、Selector、Buffer
-   2. selector.select是阻塞的：NIO 是同步非阻塞 这句话指的是对于一个IO来看，是同步非阻塞，非阻塞的意思是拥有这次IO的线程没有阻塞，而在NIO中实际上是一条线程拥有很多的IO，有任何一个IO有数据 ，selector就被唤醒。假设在这条线程中，当IOA没有数据处于等待时，IOB可能正在被处理，所以这条线程并没有被这个IOA阻塞。Selector实际是指单线程多路复用
-   
 7. 信号量（Semaphore）：控制多线程（进程）访问共享资源的同步机制
    
    * 信号量S：整型变量，需要初始化值大于0
@@ -77,11 +70,8 @@
       * P原语：表示减少信号量，该操作必须是原子的。原子减少，然后如果`S < 0`，则阻塞当前线程
       * V原语：表示增加信号量，该操作必须是原子的。原子增加，然后如果`S <= 0`，则唤醒一个阻塞的线程
    * 用途：用于限流（控制可访问共享资源的线程数量）、实现互斥锁（S=1的时候，不可重入锁）
-   
-8. 同步屏障（CyclicBarrier）：若有多条线程，他们到达屏障时将会被阻塞，只有当所有线程都到达屏障时才能打开屏障，所有线程同时执行，若有这样的需求可以使用同步屏障。此外，当屏障打开的同时还能指定执行的任务。
-   
-9. 闭锁（CountDownLatch）：若有多条线程，其中一条线程需要等到其他**所有**线程准备完所需的资源后才能运行，这样的情况可以使用闭锁。
-   
+5. 同步屏障（CyclicBarrier）：若有多条线程，他们到达屏障时将会被阻塞，只有当所有线程都到达屏障时才能打开屏障，所有线程同时执行，若有这样的需求可以使用同步屏障。此外，当屏障打开的同时还能指定执行的任务。
+6. 闭锁（CountDownLatch）：若有多条线程，其中一条线程需要等到其他**所有**线程准备完所需的资源后才能运行，这样的情况可以使用闭锁。
 10. 同步屏障和闭锁的区别
    
       * 闭锁只会阻塞一条线程，目的是为了让该条任务线程满足条件后执行；
@@ -91,102 +81,9 @@
 
 1. 代理模式、静态代理和动态代理、动态代理实现（如果要代理的对象比较多，需要写大量的代理类）
 
-### 数据结构算法
+## Android基础
 
-1. 迭代器和for循环
-   1. for循环不能修改集合
-   2. for循环适合访问顺序结构,可以根据下标快速获取指定元素.而Iterator 适合访问链式结构,因为迭代器是通过next()和Pre()来定位的.可以访问没有顺序的集合.
-   3. 迭代器不用考虑集合类内部实现，方便替换数据结构，如List换位Set。
-2. 链表和数组各自的优缺点，使用场景分别是？
-   * 数组需要申请连续内存空间，大小固定。
-
-   * 数组应用场景：数据比较少；经常做的运算是按序号访问数据元素；数组更容易实现，任何高级语言都支持；构建的线性表较稳定。
-   * 链表应用场景：对线性表的长度或者规模难以估计；频繁做插入删除操作；构建动态性比较强的线性表。
-3. HashMap和HashTable的区别？
-
-   * Hashtable是早期提供的接口，HashMap是新版JDK提供的接口。 
-   * Hashtable继承Dictionary类，HashMap实现Map接口。 
-   * Hashtable线程安全，HashMap线程非安全。 
-   * Hashtable不允许null值，HashMap允许null值。
-   * 容量的初始值和增加方式都不一样：HashMap默认的容量大小是16；增加容量时，每次将容量变为"原始容量x2"。Hashtable默认的容量大小是11；增加容量时，每次将容量变为"原始容量x2 + 1"；
-   * 添加key-value时的hash值算法不同：HashMap添加元素时，是使用自定义的哈希算法。Hashtable没有自定义哈希算法，而直接采用的key的hashCode()。
-4. HashMap的hash值如何计算，各种方式之间的效率问题，如何优化
-
-   * 对key的hashCode做hash操作，与高16位做异或运算
-   * 还有平方取中法，除留余数法，伪随机数法
-5. HashMap如何扩容?
-
-   * size：大小
-   * capality：容量
-   * loadFactor：扩容因子（加载因子）默认是0.75，用于衡量map是否满了。和实时加载因子比较size/capality
-   * threshold：插入的时候判断size大于threshold开始扩容
-   * `threshold = capality * loadFactor`
-   * 默认长度16，扩容成2倍
-6. 为什么扩容因子是0.75：空间利用率、避免冲突链表过长，减少查询成本。
-7. 初始容量声明为10，最终
-8. HashMap是否线程安全，线程安全的定义，想要线程安全时怎么办，ConcurrentHashMap实现原理
-
-   * 1.8之前，segment分段锁设计`Segment` + `HashEntry`的方式进行实现
-   * 1.8之后，通过Node` + `CAS` + `Synchronized
-9. HashMap插入元素是插入到链表的头部还是尾部，为什么，不同jdk版本下处理有什么异同？"
-
-   * 在jdk1.8之前是插入头部的，在jdk1.8中是插入尾部的。
-10. HashMap怎么解决hash冲突的？数组+链表+红黑树
-
-   * jdk8以前，出现hash冲突，加入链表中
-   * Jdk8中：如果冲突数量小于8，则是以链表方式解决冲突。冲突大于等于8时，就会将冲突的Entry转换为**红黑树进行存储。
-   * 单链表遍历时间复杂度是O(n)，红黑树查找时间复杂度为 O(logn)
-11. 处理hash冲突方法：
-    * 开放定址法：冲突位置往后查询空位置
-    * 再hash法：计算新hash
-    * 拉链法：冲突位置构造成链表
-    * 公共溢出区：冲突之后填入溢出表，使用新表存储冲突元素
-
-## Android基础	
-
-1. 生命周期：
-
-	* A 正常启动 B：A 的 onPause --> B 的 onCreate --> onStart --> onResume --> A 的 onStop
-	* B 返回 A：B 的 onPause --> A 的 onRestart --> onStart --> onResume--> B 的 onStop --> onDestroy
-	* A 在栈顶，使用 SingleTop 启动 A：A 的 onPause --> onNewIntent --> onResume
-	* A 异常情况下生命周期：onPause --> onSaveInstanceState-->onStop -->onDestroy -->onCreate-->onStart--> onRestoreInstanceState -->onResume
-	* onCreate的bundle和onRestoreInstanceState的bundle，onCreate可能为空，onRestoreInstanceState一定不为空
-2. Handler
-
-   1. 简述Handler的运行过程，即Handler，Looper，Message如何协同工作的，同时收到多个消息时怎么处理怎么分发出去？
-      * Message：
-        * next
-        * what
-        * obj
-        * target：存储Handler，分发msg给指定Handler处理
-      * MessageQueue：存储管理Message，如enqueue，remove，quit等
-      * ThreadLocal：线程本地变量。其他线程无法访问，不同线程获取到的值不一样。
-      * Looper：
-        * MessageQueue，
-        * 使用sThreadLocal存储自身，任何地方可以通过静态方法获取当前线程的Looper。
-        * Thread：Looper所在线程。Thread.currentThread()
-        * prepare()和prepareMainLooper()：初始化。创建Looper和MessageQueue，存入ThreadLocal
-        * loop()：无限循环，获取消息，分发消息（message有callback就让callback处理，没有的话就handleMessage处理）
-      * Handler：
-        * Looper：通过Looper.myLooper()获取，或者通过构造函数传入自定义Looper。
-          * 如果是自己创建，需要在子线程中先prepare()、再创建Handler（防止获取不到myLooper抛异常），然后执行loop()
-          * 也可以用HandlerThread，避免自己调用prepare和loop方法
-        * MessageQueue：通过Looper获取
-      * 插入消息的时候做了同步，防止多个线程同时插入消息
-   2. 同步消息、异步消息、屏障消息
-      * postSyncBarrier发送屏障消息、屏障消息没有target，设置了同步屏障，则无法接收同步消息，只允许异步消息通过
-      * 屏障消息的作用：给异步消息更高的优先级，如视图刷新
-      * 异步消息：setAsynchronous，该方法是hide的。给系统开了个后门，防止上层业务加入异步消息，导致系统无法优先处理更重要的事情
-      * 当ViewRootImpl调用scheduleTraversals进行measure和layout时，会向主线程的Handler添加同步屏障，遍历完成之后移除同步屏障。布局变化会触发requestLayout
-   3. post(Runnable)和sendMessage的区别
-      * 写法上有区别，效果上没有区别
-      * 一个是通过Message的callback处理消息，一个是通过handleMessage处理消息
-   4. HandlerThread的原理分析
-      * 继承Thread，在run方法中创建了Looper（prepare），并开启循环（loop），Looper可以通过quit退出
-   5. ThreadLocal原理：每个线程保存了一个`ThreadLocalMap<ThreadLocal<?>, Object>`，get的时候通过当前线程获取`Thread.currentThread().threadLocalMaps.get(this)`
-   6. Handler内存泄漏解决：remove消息、使用静态内部类+弱引用
-
-3. Service
+1. Service
    1. 简述Service与Activity的通讯方式，各自适用场景和优缺点
       1. binder+回调
       2. 广播
@@ -197,41 +94,18 @@
       1. 运行在主线程：前台服务（创建通知栏）20s超时，后台服务200s
       2. IntentService
    3. bindService和startService的差异，混合使用对Service生命周期的影响
-
-4. 简述Activity的四种launchMode，各自的使用场景有什么区别？
-
-   * Standard
-   * SingleTop
-   * SingleTask
-   * SingleInstance
-
-5. 简述Android触摸事件分发流程，滑动冲突的解决思路是怎样的？
-
-   * `Activity#dispatchTouchEvent->ViewGroup#dispatchTouchEvent->ViewGroup#onInterceptTouchEvent->View#dispatchTouchEvent->View#onTouchEvent->ViewGroup#onTouchEvent->Activity#onTouchEvent`
-   * 某个View一旦消费了Down事件，Move和Up也会交给他处理
-
-   * 滑动冲突：父控件和子控件都有滑动功能
-     * ViewGroup#onInterceptTouchEvent：父控件拦截
-     * ViewGroup#requestDisallowInterceptTouchEvent：禁止父控件拦截
-
-6. Android的IPC机制
+2. Android的IPC机制
    1. AIDL的实现流程，in/out/inout等参数含义
    2. Binder的原理：内存映射. 内存拷贝一次. Binder线程池（服务端运行在binder线程池）等
-
-7. 自定义View
+3. 自定义View
    1. onMeasure. onLayout. onDraw各自的作用分别是？
    2. MeasureSpec中几种测量模式的区别？
    3. 简述实现继承于ViewGroup的自定义的实现过程？
-
-8. SurfaceView和View的区别，在SurfaceView中如何实现局部刷新？
-
-9. 插件化及热修复的原理分析
-
-10. SQLite数据库升级与数据迁移如何处理？
-
-11. 序列化方式：Parelcable、Serializable
-
-12. 打包流程
+4. SurfaceView和View的区别，在SurfaceView中如何实现局部刷新？
+5. 插件化及热修复的原理分析
+6. SQLite数据库升级与数据迁移如何处理？
+7. 序列化方式：Parelcable、Serializable
+8. 打包流程
 
 ## 加分项-项目经验
 
@@ -255,40 +129,6 @@
    1. 如果涉及到网络通信，那么就询问是否考虑到数据请求策略. 缓存策略等
    2. 如果涉及到IM应用，那么就询问是否考虑数据一致性. 消息队列等等
    3. 在现有项目实现上，问更进一步的问题，比如数据量增大到多少的处理方式"
-
-
-## 加分项-计算机网络	
-1. 网络七层模型. TCP和UDP区别。
-
-|              | UDP                                        | TCP                                    |
-| :----------- | :----------------------------------------- | :------------------------------------- |
-| 是否连接     | 无连接                                     | 面向连接                               |
-| 是否可靠     | 不可靠传输，不使用流量控制和拥塞控制       | 可靠传输，使用流量控制和拥塞控制       |
-| 连接对象个数 | 支持一对一，一对多，多对一和多对多交互通信 | 只能是一对一通信                       |
-| 传输方式     | 面向报文                                   | 面向字节流                             |
-| 首部开销     | 首部开销小，仅8字节                        | 首部最小20字节，最大60字节             |
-| 适用场景     | 适用于实时应用（IP电话、视频会议、直播等） | 适用于要求可靠传输的应用，例如文件传输 |
-
-1. TCP在传输数据时，如何保证数据的可靠性
-   * 校验和：校验数据是否损坏
-   * 序列号：用于检测丢失的分组和冗余的分组
-   * 确认应答：接收方告知发送方正确接收分组以及期望的下一个分组，否定确认：接收方通知发送方未被正确接收的分组
-   * 超时重传：前一个数据包超时，但能到达，重传之后会存在两个一样的数据包，因此通过编号的方式标记属于重传数据还是新数据
-   * 连接管理：三次握手、四次挥手
-   * 流量控制
-   * 拥塞控制
-   * 累积确认：多个数据包，回复一次确认。避免网络充斥大量确认回复报文
-   * 选择确认SACK：选项确认字段，一个报文段（多个数据包）使用两个边界确定，选项字段有4个字节，每个边界4位，因此最多可以表示4个已接受的报文段
-   * 连续ARQ（Automatic Repeat-Request，*ARQ*）：自动重传请求
-2. TCP三次握手，四次挥手：为什么
-3. 沾包拆包
- 4. 定时器（分组丢失则重传）
- 5. 窗口和流水线（用于增加信道的吞吐量）
-6. 详解重传机制，超时时间怎么确定
-7. TCP的滑动窗口机制
-8. 局域网内两台主机，一台主机去ping另一台主机的IP，其过程
-9. Android长连接的心跳机制：如何设计心跳时间，考虑哪些因素DHCP租期. NAT超时. 网络切换. 如何保证尽可能大的心跳时间 
-10. UDP如何实现丢包重传策略？
 
 ## 架构与设计	
 1. 简单介绍所负责项目/模块的架构，这个架构的设计思路是怎样的（可以现场在草稿上画图）？为什么这样设计？MVC. MVVM等主流app架构的优劣。
@@ -370,16 +210,3 @@
 
 
 
-
-版本适配：[官方文档](https://developer.android.com/about/versions/marshmallow/android-6.0-changes?hl=zh-cn)
-
-* 5.1：MaterialDesign
-* 6.0：权限，危险权限，权限组。悬浮窗权限跳转到settings特殊申请。移除Apache Http客户端
-* 7.0：directBoot、v2签名、org.apache不支持、非公开ndk链接限制
-* 8.0：
-  * 限制后台应用启动后台服务，需要使用前台服务。
-  * 引入通知渠道
-  * 部分静态广播无法接收，需要指定Component（不包含开机广播，应用安装广播）
-  * 对TYPE_TOAST做了限制
-* 9.0：禁止明文传输，非公开sdk使用限制（SDK中的@hide api无法使用反射访问到。AOSP自行添加的framework的jar包无法使用，需要添加白名单，或者系统签名）
-* 10.0：限制后台服务启动Activity。除非处于前台或者有`SYSTEM_ALERT_WINDOW`权限等场景

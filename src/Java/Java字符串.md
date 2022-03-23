@@ -337,7 +337,7 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
   private int newCapacity(int minCapacity) {
     // 默认扩容是原来的2倍+2
     int newCapacity = (value.length << 1) + 2;
-    //如果默认的小于需要的，就使用实际需要的容量
+    //如果默认扩容之后小于需要的，就使用实际需要的容量
     if (newCapacity - minCapacity < 0) {
       newCapacity = minCapacity;
     }

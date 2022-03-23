@@ -52,6 +52,7 @@
 * [组件化](Android/组件化.md)
 * [插件化](Android/插件化.md)
 * [跨平台](Android/跨平台.md)
+* [版本适配](Android/版本适配.md)
 * 字节码Hook
 * ADB
 
@@ -159,7 +160,7 @@
 * [自底向上学习](计算机网络/自底向上学习.md)
 * 自顶向下学习
 * OSI分层结构
-* TCP/IP
+* [TCP](计算机网络/TCP.md)
 * [UDP](计算机网络/UDP.md)
 * HTTP
 * HTTPS

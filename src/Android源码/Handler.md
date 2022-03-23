@@ -84,9 +84,38 @@ public Looper getLooper() {
 }
 ```
 
-
-
-
+1. 简述Handler的运行过程，即Handler，Looper，Message如何协同工作的，同时收到多个消息时怎么处理怎么分发出去？
+   * Message：
+     * next
+     * what
+     * obj
+     * target：存储Handler，分发msg给指定Handler处理
+   * MessageQueue：存储管理Message，如enqueue，remove，quit等
+   * ThreadLocal：线程本地变量。其他线程无法访问，不同线程获取到的值不一样。
+   * Looper：
+     * MessageQueue，
+     * 使用sThreadLocal存储自身，任何地方可以通过静态方法获取当前线程的Looper。
+     * Thread：Looper所在线程。Thread.currentThread()
+     * prepare()和prepareMainLooper()：初始化。创建Looper和MessageQueue，存入ThreadLocal
+     * loop()：无限循环，获取消息，分发消息（message有callback就让callback处理，没有的话就handleMessage处理）
+   * Handler：
+     * Looper：通过Looper.myLooper()获取，或者通过构造函数传入自定义Looper。
+       * 如果是自己创建，需要在子线程中先prepare()、再创建Handler（防止获取不到myLooper抛异常），然后执行loop()
+       * 也可以用HandlerThread，避免自己调用prepare和loop方法
+     * MessageQueue：通过Looper获取
+   * 插入消息的时候做了同步，防止多个线程同时插入消息
+2. 同步消息、异步消息、屏障消息
+   * postSyncBarrier发送屏障消息、屏障消息没有target，设置了同步屏障，则无法接收同步消息，只允许异步消息通过
+   * 屏障消息的作用：给异步消息更高的优先级，如视图刷新
+   * 异步消息：setAsynchronous，该方法是hide的。给系统开了个后门，防止上层业务加入异步消息，导致系统无法优先处理更重要的事情
+   * 当ViewRootImpl调用scheduleTraversals进行measure和layout时，会向主线程的Handler添加同步屏障，遍历完成之后移除同步屏障。布局变化会触发requestLayout
+3. post(Runnable)和sendMessage的区别
+   * 写法上有区别，效果上没有区别
+   * 一个是通过Message的callback处理消息，一个是通过handleMessage处理消息
+4. HandlerThread的原理分析
+   * 继承Thread，在run方法中创建了Looper（prepare），并开启循环（loop），Looper可以通过quit退出
+5. ThreadLocal原理：每个线程保存了一个`ThreadLocalMap<ThreadLocal<?>, Object>`，get的时候通过当前线程获取`Thread.currentThread().threadLocalMaps.get(this)`
+6. Handler内存泄漏解决：remove消息、使用静态内部类+弱引用
 
 https://cloud.tencent.com/developer/article/1800399
 

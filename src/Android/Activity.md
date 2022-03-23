@@ -12,15 +12,15 @@ Lifecycle状态
 
 ActivityA启动ActivityB时
 
-> 1. 先调用ActivityA的onPause
-> 2. 然后调用ActivityB的onCreate->onStart->onResume
-> 3. 然后调用ActivityA的onSavedInstanceState->onStop
+> 1. 先调用A的onPause
+> 2. 然后调用B的onCreate -> onStart -> onResume
+> 3. 然后调用A的onSavedInstanceState -> onStop
 
 back返回的时候
 
-> 1. 调用ActivityB的onPause
-> 2. 再调用ActivityA的onRestart->onStart->onResume
-> 3. 然后调用ActivityB的onStop->onDestroy
+> 1. 调用B的onPause
+> 2. 再调用A的onRestart -> onStart -> onResume
+> 3. 然后调用B的onStop->onDestroy
 
 总结：要等后一个Activity完全显示出来（onResume），才会触发前一个Activity的onStop
 
@@ -46,6 +46,8 @@ back返回的时候
 > 4. 按下电源键关闭屏幕时
 > 5. 横竖屏切换时
 
+## onRestoreInstanceState
+
 `onRestoreInstanceState`：获取`onSavedInstanceState`保存的数据，恢复页面状态。
 
 调用场景：只有在Activity确定是被**系统**回收后，**重新创建**Activity的时候才会被调用。
@@ -67,9 +69,13 @@ back返回的时候
 # 四种启动方式
 
 * standard模式：默认的启动模式。每次启动Activity都会创建Activity实例，并放入任务栈。
-* singleTop模式：栈顶复用。如果任务栈的栈顶正好存在该Activity的实例，就重用该实例，否则创建新的实例并放入栈顶。当重用了该实例的时候会调用onNewIntent方法。例如：点击通知打开页面
-* singleTask模式：栈内复用。如果任务栈中存在该实例，则不需要创建，会把该Activity以上的实例都pop销毁，一般用于首页
-* singleInstance模式：新建一个栈并把Activity加入栈中，该Activity独占该栈（被它开启的Activity会加入其他栈）。整个系统中只有一个这样的实例，再次启动时（即使时另一个app）会重用该实例，并且调用onNewIntent方法。例如Launcher
+* singleTop模式：栈顶复用。如果任务栈的栈顶正好存在该Activity的实例，就重用该实例，否则创建新的实例并放入栈顶。例如：点击通知打开页面
+* singleTask模式：栈内复用。如果任务栈中存在该实例，则不需要创建，会把该Activity以上的实例都pop销毁，一般用于应用首页
+* singleInstance模式：新建一个栈并把Activity加入栈中，该Activity独占该栈（被它开启的Activity会加入其他栈）。整个系统中只有一个这样的实例，再次启动时（即使是另一个app）会重用该实例。例如Launcher、拨号页面等
+
+## onNewIntent
+
+当Activity被重用时，会调用`onNewIntent()`方法，在onResume之前调用
 
 注：在`onNewIntent`中获取到了Intent参数，需要使用`setIntent(intent)`保存下来，否则`getIntent`拿到的是老的`Intent`
 
