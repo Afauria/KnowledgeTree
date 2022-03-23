@@ -170,7 +170,7 @@ public int hashCode() {
 > 一般说的常量池一般指**运行时常量池**，不同于**字符串常量池**（也叫字符串池，String pool，String Table）
 
 * JDK7以前，**运行时常量池**（包括字符串常量池）放在方法区中，方法区的实现是永久代。永久代空间大小固定，不会被回收，频繁调用intern会导致永久代内存溢出（`java.lang.OutOfMemoryError: PermGen`）。
-* JDK7将字符串常量池放到了堆内存中，并且参与GC，回收重复的字符串对象。运行时常量池还在方法区。
+* JDK7将字符串常量池放到了堆内存中，并且参与GC，回收重复的字符串对象。运行时常量池还在方法区。频繁调用intern会导致堆内存溢出（`java.lang.OutOfMemoryError: Java heap space`）。
 * JDK8中，方法区使用元空间实现（替代永久代），**运行时常量池在元空间中，字符串常量池还在堆中**。
 
 ```java
