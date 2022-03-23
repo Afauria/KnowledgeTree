@@ -20,12 +20,12 @@
       "nav": [
         {
           "target": "_self",
-          "url": "/",
+          "url": "./",
           "name": "首页"
         },
         {
           "target": "_self",
-          "url": "/GUIDE.html",
+          "url": "./GUIDE.html",
           "name": "使用说明"
         },
         {
@@ -72,6 +72,7 @@
   ],
   "pluginsConfig": {
     "theme-lou": {
+      "output": "docs",
       "color": "#FF4848",
       "favicon": "./src/static/favicon.ico",
       "logo": "./src/static/logo.png",
