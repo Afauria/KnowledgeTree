@@ -2,6 +2,21 @@
 
 <img src="Android入门\Android系统架构.jpg" alt="Android系统架构" style="zoom: 50%;" />
 
+# SDK说明
+
+1. tools目录：包括测试、调试、第三方工具。模拟器、数据管理工具等。
+2. platform-tools目录：包含开发app的平台依赖的开发和调试工具。从android2.3开始划出此目录，存放公用开发工具，比如adb、sqlite3等，被划分到了这里。包括：adb：android调试工具
+3. fastboot：boot工具
+4. build-tools目录：编译工具目录，包含了转化为davlik虚拟机的编译工具。包括：
+   1. aapt（Android Asset Packaging Tool）：编译应用程序的资源文件（包括AndroidManifest.xml和你的Activities的xml文件），生成R.java文件，这样你就可以从你的java代码中引用资源。
+   2. aidl：把.aidl 接口转换成java接口.
+   3. dx：转化.class中间代码为davik中间代码,所有经过java编译的生成.class文件都需要此工具进行转换,最后打包进apk文件中
+   4. dexdump：dump davik中间代码
+5. `platforms/<android-version>`目录：包括android的平台库。包含在android.jar库中。你必须指一个平台为你的编译目标。
+6. system-images目录：编译好的系统映像。模拟器可以直接加载。
+7. sources目录：android sdk的源码目录
+8. samples目录：sdk例子
+
 # 应用清单文件
 
 `AndroidManifest.xml`
