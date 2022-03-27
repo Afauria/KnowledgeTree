@@ -37,23 +37,22 @@
 * [序列化](Android/序列化.md)
 * [XML解析](Android/XML解析.md)
 * View
-    * 事件分发
     * 绘制流程
     * 自定义View
 * [动画](Android/动画.md)
-* IPC
+* [进程间通信](Android/进程间通信.md)
     * Binder
     * AIDL
     * Messenger
     * 共享内存
     * Socket
     * 管道
-* JNI
 * [组件化](Android/组件化.md)
 * [插件化](Android/插件化.md)
 * [跨平台](Android/跨平台.md)
 * [版本适配](Android/版本适配.md)
 * 字节码Hook
+* JNI
 * ADB
 
 ## Android性能
@@ -78,19 +77,21 @@
 
 ## Kotlin
 
-* 语法
-* 协程
+* [基础](Kotlin/基础.md)
+* [协程](Kotlin/协程.md)
 * anko
 
 ## Android源码
 
 * [Handler](Android源码/Handler.md)
 * [RecyclerView](Android源码/RecyclerView.md)
+* [Binder原理](Android源码/Binder原理.md)
+* [Activity启动过程](Android源码/Activity启动过程.md)
+* [View加载流程](Android源码/View加载流程.md)
+* [事件分发](Android源码/事件分发.md)
 * AMS
 * PMS
 * WMS
-* Binder
-* 应用启动流程
 * 系统启动流程
 * ServiceManager
 

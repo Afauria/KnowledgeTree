@@ -18,10 +18,10 @@ Java GC判断一个对象是否能被回收、是通过检测是否被GC Root持
 
 ## LearkCanary工作原理
 
-1. 通过Android生命周期Hook检测保留的对象：将对象传给ObjectWatcher，通过弱引用持有，如果5s之后ObjectWatcher没有被清除，则认为是可能泄漏的存活对象，输出到Logcat。
+1. 通过Android生命周期Hook检测对象：将对象传给ObjectWatcher，通过弱引用持有，并关联引用队列，如果5s之后引用队列中不存在该对象，则认为是可能泄漏的存活对象，输出到Logcat。
    1. 销毁的 `Activity` 实例
    2. 销毁的 `Fragment` 实例
-   3. 销毁的 fragment `View` 实例
+   3. 销毁的 Fragment `View` 实例
    4. clear的 `ViewModel` 实例
 2. Dump Heap：调用`Debug.dumpHprofData(filePath)`方法生成`.hprof`文件进行存储
    1. 应用可见时，存活对象数量达到5个时开始dump
@@ -66,7 +66,7 @@ dependencies {
 >
 > 如果一个对象只有弱引用，没有被其他地方引用，GC的时候会回收弱引用对象，并添加到关联的引用队列。
 >
-> 因此ReferenceQueue中存在对象时则表示对象已经被回收。否则认为没有回收，手动再运行一次GC，如果还保留，则确认发生了泄漏。
+> 因此`ReferenceQueue`中存在对象时则表示对象已经被回收。否则认为没有回收，手动再运行一次GC，如果还保留，则确认发生了泄漏。
 
 为什么要延迟5s执行任务？
 
