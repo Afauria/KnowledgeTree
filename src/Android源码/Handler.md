@@ -1,3 +1,5 @@
+暂未整理，都是草稿
+
 ## Handler
 
 ### ThreadLocal：线程本地变量
@@ -71,7 +73,7 @@ public Looper getLooper() {
 	if (!isAlive()) {
 		return null;
 	}
-// If the thread has been started, wait until the looper has been created.
+    // If the thread has been started, wait until the looper has been created.
 	synchronized (this) {
 		while (isAlive() && mLooper == null) {
 			try {
@@ -111,6 +113,7 @@ public Looper getLooper() {
    * 当ViewRootImpl调用scheduleTraversals进行measure和layout时，会向主线程的Handler添加同步屏障，遍历完成之后移除同步屏障。布局变化会触发requestLayout
 3. post(Runnable)和sendMessage的区别
    * 写法上有区别，效果上没有区别
+   * post的任务会封装到msg.callback中先处理msg.callback，再处理Handler的mCallback，最后处理handleMessage
    * 一个是通过Message的callback处理消息，一个是通过handleMessage处理消息
 4. HandlerThread的原理分析
    * 继承Thread，在run方法中创建了Looper（prepare），并开启循环（loop），Looper可以通过quit退出
@@ -204,14 +207,16 @@ https://www.icode9.com/content-4-944093.html
 8. 使用Handler的postDelay消息队列有什么变化
 9. 如何保证多个Handler线程安全
 
-**
-ThreadLocal 做什么的？**
+ThreadLocal 做什么的？
 
 **Thread 和 Handler 的关系**
 
 **为什么不能在子线程更新 UI？**
 
 **idleHandler 什么时候运行？**
+
+* 线程空闲的时候运行，例如GC操作，消息为空或者当前时间小于下一次消息时间
+* queueIdle()返回false表示执行一次，返回true表示可以多次执行
 
 **主线程为什么循环却不会卡死？**
 
@@ -220,3 +225,5 @@ ThreadLocal 做什么的？**
 select,poll,epoll
 
 handler内存泄露的原因
+
+IntentService内部创建了一个HandlerThread，onStartCommand的时候sendMessage
