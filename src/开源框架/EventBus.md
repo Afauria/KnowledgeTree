@@ -1,6 +1,6 @@
 使用：
 
-1. 编写注解
+1. 方法添加注解
 2. 注册`EventBus.getDefault().register();`
 3. post发送消息，根据参数找到对应的方法，反射调用
 
@@ -36,5 +36,6 @@ public enum ThreadMode {
 }
 ```
 
-粘性事件：可以先发送事件再注册
+粘性事件：可以先发送事件再注册，保存到队列中
 
+https://www.jianshu.com/p/d9516884dbd4

@@ -12,7 +12,7 @@
 事件注册：
 
   1. MVVM中监听器可以直接在Activity中注册，触发事件、调用ViewModel方法
-    2. 也可以通过Databinding的形式，传入listener，绑定到UI，在xml中注册监听，触发事件，使用lambda表达式调用listener方法
+        2. 也可以通过Databinding的形式，传入listener，绑定到UI，在xml中注册监听，触发事件，使用lambda表达式调用listener方法
          1. listener可以在Activity中实现：`android:onClick="onClick"`，这种方式是在View中setOnClickListener，onClick中通过反射调用Activity的onClick方法
          2. 如果需要调用model，可以在ViewModel中实现，如`android:onClick="@{()->viewmodel.onDeviceClick(deviceBean)}"`，这种方式是生成BindingImpl类，View setOnClickListener，最终调用`_internalCallbackOnClick(sourceId,View)`方法，如果有多个View设置了监听器，则switch判断`sourceId`
 
@@ -56,7 +56,7 @@
   1. 给Adapter注册监听器，item点击的时候通知外部变化，回调Activity方法。
   2. 把Presenter传入Adapter，调用Presenter方法操作数据，然后回调通知View刷新。
  1. 如果不需要操作数据，可能直接传入Activity引用，然后调用Activity方法。
-  MVVM中通过数据驱动行为：将事件绑定也以数据绑定的形式处理，只操作ViewModel，修改Command消息，外部监听数据变化，作出反应
+    MVVM中通过数据驱动行为：将事件绑定也以数据绑定的形式处理，只操作ViewModel，修改Command消息，外部监听数据变化，作出反应
 
 ```java
  View事件触发---->改变ViewModel内的Command对象---->外部通过LiveData的方式监听Command变化---->根据Command内容改变UI
@@ -178,8 +178,6 @@ ViewModelStore使用HashMap保存多个ViewModel统一管理
 
 1. 在页面重建的时候进行恢复，ViewModelStore保存在NonConfigurationInstances中，该变量保存在Activity外部，Activity重建之后可以从中恢复
 
-
-
 * `NewInstanceFactory`：直接反射Class创建ViewModel实例
 * `AndroidViewModelFactory`：创建ViewModel并传入application对象
 * `SavedStateViewModelFactory`：
@@ -192,7 +190,7 @@ ViewModelStore使用HashMap保存多个ViewModel统一管理
 
 重建的时候AMS远程调用ActivityThread方法，ActivityThread将要重建的Activity保存到`mRelaunchingActivities`列表中
 
-ActivityThread中销毁Activity，判断是配置变更，则调用`retainNonConfigurationInstances()`，将数据保存到`ActivityClientRecord`中，
+ActivityThread中`performDestroyActivity`销毁Activity，判断是配置变更，则调用`retainNonConfigurationInstances()`，将数据保存到`ActivityClientRecord`中，
 
 ```java
 //ActivityThread.java

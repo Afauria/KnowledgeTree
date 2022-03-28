@@ -1,3 +1,44 @@
+暂未整理，推荐阅读：[小林coding-图解网络介绍](https://xiaolincoding.com/network/)
+
+IP层不保证网络包是否完整以及按序交付，因此需要传输层控制
+
+# TCP报头
+
+<img src="TCP/TCP报头.png" style="zoom:50%;" />
+
+SYN：Synchronization，同步请求
+
+ACK：acknowledgetment，确认已收到
+
+FIN：finish，结束
+
+x是客户端起始序列化号，y是服务端起始序列号，由发送方随机生成，没发送一次+1，用于解决包乱序问题
+
+ack可以理解为希望对方回复的下一个序列号
+
+TCP四元组：源地址、源端口、目标地址、目标端口
+
+
+
+# 三次握手和四次挥手
+
+三次握手：
+
+1. 客户端发送：SYN=1，seq=x
+2. 服务端断开Listner状态，回复：SYN=1，ACK=1，seq=y，ack=x+1
+3. 客户端回复：ACK=1，seq=x+1，ack=y+1
+
+<img src="TCP/tcp三次握手.png" style="zoom: 50%;" />
+
+为什么需要三次握手？
+
+> 1. 两次握手，客户端可能没收到消息，超时关闭并重新连接，服务端还保持着原来的连接
+> 2. 同步两端的序列号
+
+<img src="TCP/四次挥手.png" style="zoom: 50%;" />
+
+为什么要四次挥手
+
 # TCP和UDP
 
 |              | UDP                                        | TCP                                    |
@@ -29,3 +70,9 @@
 8. 局域网内两台主机，一台主机去ping另一台主机的IP，其过程
 9. Android长连接的心跳机制：如何设计心跳时间，考虑哪些因素DHCP租期. NAT超时. 网络切换. 如何保证尽可能大的心跳时间 
 10. UDP如何实现丢包重传策略？
+
+
+
+https://mp.weixin.qq.com/s/G3np-WgQu3hZNICoso4X1w
+
+https://blog.csdn.net/sinat_21112393/article/details/50810053

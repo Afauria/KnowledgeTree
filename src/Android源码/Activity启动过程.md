@@ -549,7 +549,9 @@ class H extends Handler {
 
 1. 进程基本参数设置，例如进程名、时区、资源、配置等。Trace和Profiler性能监控设置
 2. 创建`LoadedApk`、`AppContext`、`Instrumentation`等对象
-3. 创建`Application`对象，通过`Instrumentation`调用`onCreate`生命周期方法
+3. 通过`Instrumentation`创建`Application`对象，并调用Application的attach方法
+3. 调用`installContentProvider`，初始化ContentProvider：反射创建Provider，调用`attachInfo`方法，最后调用`AMS.publishContentProviders`，通知AMS取消ANR定时
+3. 通过`Instrumentation`调用Application的`onCreate`生命周期方法
 
 ```java
 //ActivityThread.java
@@ -576,10 +578,16 @@ private void handleBindApplication(AppBindData data) {
     ...
     Application app;
     try {
-        // 创建Application对象
+        // 通过Instrumentation创建Application对象
         app = data.info.makeApplication(data.restrictedBackupMode, null);
         mInitialApplication = app;
         try {
+            if (!data.restrictedBackupMode) {
+                if (!ArrayUtils.isEmpty(data.providers)) {
+                    //启动ContentProvider
+                    installContentProviders(app, data.providers);
+                }
+            }
             mInstrumentation.onCreate(data.instrumentationArgs);
             ...
             // 调用Application的onCreate方法
