@@ -1,5 +1,9 @@
 暂未整理，推荐阅读：[小林coding-图解网络介绍](https://xiaolincoding.com/network/)
 
+https://mp.weixin.qq.com/s/G3np-WgQu3hZNICoso4X1w
+
+https://baijiahao.baidu.com/s?id=1654225744653405133&wfr=spider&for=pc
+
 IP层不保证网络包是否完整以及按序交付，因此需要传输层控制
 
 # TCP报头
