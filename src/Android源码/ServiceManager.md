@@ -43,7 +43,7 @@ int main(){
 其中三个函数对应了 ServiceManager 初始化的三个关键工作：
 
 1. binder_open()：打开 binder 驱动并映射内存块大小为 128KB
-2. binder_become_context_manager()：将自己设置为 Binder "DNS" 管理者
+2. binder_become_context_manager()：将自己设置为 Binder 管理者
 3. binder_loop()：进入循环，等待 binder 驱动发来消息
 
 下面分别来分析这三个函数，首先来看 binder_open() 是怎么打开 binder 驱动并映射内存的：
