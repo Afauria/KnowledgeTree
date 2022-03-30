@@ -160,9 +160,14 @@ String重写了hashCode方法，根据字符串计算hash值
 
 ### 为什么重写equals方法，也要重写hashCode方法？
 
-使用hashmap的时候，put插入元素会先计算hashCode，如果存在该key的hashCode，则遍历链表，再使用equals判断是否相等，如果相等则替换新的value。如果链表中没找到，则将新元素插入到链表头节点。
+1. equals表示两个对象相等，此时要求hashCode相等。
+2. hashCode相等，equals并不一定相等
 
-如果不重写hashCode方法，则无法找到同一条拉链，此时重写equals没有意义，会插入重复元素
+因此重写equals的时候也要重写hashCode方法
+
+例如：使用hashmap的时候，put插入元素会先计算hashCode，如果存在该key的hashCode，则遍历链表，再使用equals判断是否相等，如果相等则替换新的value。如果链表中没找到，则将新元素插入到链表头节点。
+
+如果不重写hashCode方法，可能会找到不同拉链，此时重写equals没有意义，会插入重复元素
 
 <img src="Object类/重写hashCode方法.png" style="zoom:50%;" />
 
