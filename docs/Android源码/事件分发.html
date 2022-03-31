@@ -969,40 +969,40 @@
         
         
     
-        <li class="chapter " data-level="5.1" >
+        <li class="chapter " data-level="5.1" data-path="../Jetpack/Lifecycle.html">
             
-                <span>
+                <a href="../Jetpack/Lifecycle.html">
             
                     
                     Lifecycle
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.2" >
+        <li class="chapter " data-level="5.2" data-path="../Jetpack/LiveData.html">
             
-                <span>
+                <a href="../Jetpack/LiveData.html">
             
                     
                     LiveData
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.3" >
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
             
                 <span>
             
                     
-                    DataBinding
+                    ViewModel
             
-                </span>
+                </a>
             
 
             
@@ -1013,7 +1013,7 @@
                 <span>
             
                     
-                    ViewModel
+                    DataBinding
             
                 </span>
             
@@ -1276,27 +1276,27 @@
         
         
     
-        <li class="chapter " data-level="8.1" >
+        <li class="chapter " data-level="8.1" data-path="../开源框架/OkHttp.html">
             
-                <span>
+                <a href="../开源框架/OkHttp.html">
             
                     
                     OkHttp
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="8.2" >
+        <li class="chapter " data-level="8.2" data-path="../开源框架/Retrofit.html">
             
-                <span>
+                <a href="../开源框架/Retrofit.html">
             
                     
                     Retrofit
             
-                </span>
+                </a>
             
 
             
@@ -1315,14 +1315,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.4" >
+        <li class="chapter " data-level="8.4" data-path="../开源框架/RxJava.html">
             
-                <span>
+                <a href="../开源框架/RxJava.html">
             
                     
                     RxJava
             
-                </span>
+                </a>
             
 
             
@@ -1341,14 +1341,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.6" >
+        <li class="chapter " data-level="8.6" data-path="../开源框架/ARouter.html">
             
-                <span>
+                <a href="../开源框架/ARouter.html">
             
                     
                     ARouter
             
-                </span>
+                </a>
             
 
             
@@ -2212,8 +2212,13 @@
     
           <section class="normal markdown-section">
              <h1 id="&#x8F93;&#x5165;&#x4E8B;&#x4EF6;"><a name="&#x8F93;&#x5165;&#x4E8B;&#x4EF6;" class="plugin-anchor" href="#&#x8F93;&#x5165;&#x4E8B;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8F93;&#x5165;&#x4E8B;&#x4EF6;</h1>
-<p>InputChannel</p>
-<pre class="language-"><code class="lang-shell">Activity<span class="token comment">#dispatchTouchEvent</span>
+<pre class="language-"><code class="lang-shell">ViewRootImpl<span class="token comment">#WindowInputReceiver(InputChannel)</span>
+ViewRootImpl<span class="token comment">#dispatchPointEvent</span>
+-<span class="token operator">&gt;</span>DecorView<span class="token comment">#dispatchTouchEvent</span>
+-<span class="token operator">&gt;</span>cb.dispatchTouchEvent
+-<span class="token operator">&gt;</span>Activity<span class="token comment">#dispatchTouchEvent</span>
+-<span class="token operator">&gt;</span>Activity<span class="token comment">#getWindow().superDispatchTouchEvent(ev)</span>
+-<span class="token operator">&gt;</span>DecorView<span class="token comment">#super.dispatchTouchEvent</span>
     -<span class="token operator">&gt;</span>ViewGroup<span class="token comment">#dispatchTouchEvent</span>
     -<span class="token operator">&gt;</span>ViewGroup<span class="token comment">#onInterceptTouchEvent</span>
     -<span class="token operator">&gt;</span>View<span class="token comment">#dispatchTouchEvent</span>
@@ -2231,6 +2236,7 @@
 </ul>
 <blockquote>
 <p>&#x7C7B;&#x4F3C;HTML&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#xFF1A;&#x5206;&#x4E3A;&#x4E8B;&#x4EF6;&#x6355;&#x83B7;&#x3001;&#x4E8B;&#x4EF6;&#x5192;&#x6CE1;&#x4E24;&#x4E2A;&#x9636;&#x6BB5;</p>
+<p>dispatchTouchEvent&#x4ECE;&#x4E0A;&#x5F80;&#x4E0B;&#xFF0C;onTouchEvent&#x4ECE;&#x4E0B;&#x7F51;&#x4E0A;&#x5192;&#x6CE1;</p>
 </blockquote>
  
           </section>
@@ -2308,7 +2314,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"事件分发","level":"7.6","depth":1,"next":{"title":"AMS","level":"7.7","depth":1,"ref":"","articles":[]},"previous":{"title":"View加载流程","level":"7.5","depth":1,"path":"Android源码/View加载流程.md","ref":"Android源码/View加载流程.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/事件分发.md","mtime":"2022-03-27T09:35:46.659Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-27T17:32:47.955Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"事件分发","level":"7.6","depth":1,"next":{"title":"AMS","level":"7.7","depth":1,"ref":"","articles":[]},"previous":{"title":"View加载流程","level":"7.5","depth":1,"path":"Android源码/View加载流程.md","ref":"Android源码/View加载流程.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/事件分发.md","mtime":"2022-03-29T01:04:31.495Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-31T13:03:59.629Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

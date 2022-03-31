@@ -969,40 +969,40 @@
         
         
     
-        <li class="chapter " data-level="5.1" >
+        <li class="chapter " data-level="5.1" data-path="../Jetpack/Lifecycle.html">
             
-                <span>
+                <a href="../Jetpack/Lifecycle.html">
             
                     
                     Lifecycle
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.2" >
+        <li class="chapter " data-level="5.2" data-path="../Jetpack/LiveData.html">
             
-                <span>
+                <a href="../Jetpack/LiveData.html">
             
                     
                     LiveData
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.3" >
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
             
                 <span>
             
                     
-                    DataBinding
+                    ViewModel
             
-                </span>
+                </a>
             
 
             
@@ -1013,7 +1013,7 @@
                 <span>
             
                     
-                    ViewModel
+                    DataBinding
             
                 </span>
             
@@ -1276,27 +1276,27 @@
         
         
     
-        <li class="chapter " data-level="8.1" >
+        <li class="chapter " data-level="8.1" data-path="../开源框架/OkHttp.html">
             
-                <span>
+                <a href="../开源框架/OkHttp.html">
             
                     
                     OkHttp
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="8.2" >
+        <li class="chapter " data-level="8.2" data-path="../开源框架/Retrofit.html">
             
-                <span>
+                <a href="../开源框架/Retrofit.html">
             
                     
                     Retrofit
             
-                </span>
+                </a>
             
 
             
@@ -1315,14 +1315,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.4" >
+        <li class="chapter " data-level="8.4" data-path="../开源框架/RxJava.html">
             
-                <span>
+                <a href="../开源框架/RxJava.html">
             
                     
                     RxJava
             
-                </span>
+                </a>
             
 
             
@@ -1341,14 +1341,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.6" >
+        <li class="chapter " data-level="8.6" data-path="../开源框架/ARouter.html">
             
-                <span>
+                <a href="../开源框架/ARouter.html">
             
                     
                     ARouter
             
-                </span>
+                </a>
             
 
             
@@ -2211,7 +2211,8 @@
     <div class="search-noresults">
     
           <section class="normal markdown-section">
-             <h2 id="handler"><a name="handler" class="plugin-anchor" href="#handler"><i class="fa fa-link" aria-hidden="true"></i></a>Handler</h2>
+             <p>&#x6682;&#x672A;&#x6574;&#x7406;&#xFF0C;&#x90FD;&#x662F;&#x8349;&#x7A3F;</p>
+<h2 id="handler"><a name="handler" class="plugin-anchor" href="#handler"><i class="fa fa-link" aria-hidden="true"></i></a>Handler</h2>
 <h3 id="threadlocal&#xFF1A;&#x7EBF;&#x7A0B;&#x672C;&#x5730;&#x53D8;&#x91CF;"><a name="threadlocal&#xFF1A;&#x7EBF;&#x7A0B;&#x672C;&#x5730;&#x53D8;&#x91CF;" class="plugin-anchor" href="#threadlocal&#xFF1A;&#x7EBF;&#x7A0B;&#x672C;&#x5730;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>ThreadLocal&#xFF1A;&#x7EBF;&#x7A0B;&#x672C;&#x5730;&#x53D8;&#x91CF;</h3>
 <p>&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x5404;&#x81EA;&#x62E5;&#x6709;&#xFF0C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;get&#x5230;&#x7684;&#x503C;&#x662F;&#x4E0D;&#x4E00;&#x6837;&#x7684;</p>
 <h3 id="handler&#x673A;&#x5236;&#xFF08;&#x5360;&#x4E2A;&#x5751;&#xFF0C;&#x6709;&#x7A7A;&#x8865;&#x56FE;&#xFF09;"><a name="handler&#x673A;&#x5236;&#xFF08;&#x5360;&#x4E2A;&#x5751;&#xFF0C;&#x6709;&#x7A7A;&#x8865;&#x56FE;&#xFF09;" class="plugin-anchor" href="#handler&#x673A;&#x5236;&#xFF08;&#x5360;&#x4E2A;&#x5751;&#xFF0C;&#x6709;&#x7A7A;&#x8865;&#x56FE;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>Handler&#x673A;&#x5236;&#xFF08;&#x5360;&#x4E2A;&#x5751;&#xFF0C;&#x6709;&#x7A7A;&#x8865;&#x56FE;&#xFF09;</h3>
@@ -2269,7 +2270,7 @@ mHandlerThread<span class="token punctuation">.</span><span class="token functio
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isAlive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token comment">// If the thread has been started, wait until the looper has been created.</span>
+    <span class="token comment">// If the thread has been started, wait until the looper has been created.</span>
     <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">isAlive</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> mLooper <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">try</span> <span class="token punctuation">{</span>
@@ -2321,6 +2322,7 @@ mHandlerThread<span class="token punctuation">.</span><span class="token functio
 </li>
 <li>post(Runnable)&#x548C;sendMessage&#x7684;&#x533A;&#x522B;<ul>
 <li>&#x5199;&#x6CD5;&#x4E0A;&#x6709;&#x533A;&#x522B;&#xFF0C;&#x6548;&#x679C;&#x4E0A;&#x6CA1;&#x6709;&#x533A;&#x522B;</li>
+<li>post&#x7684;&#x4EFB;&#x52A1;&#x4F1A;&#x5C01;&#x88C5;&#x5230;msg.callback&#x4E2D;&#x5148;&#x5904;&#x7406;msg.callback&#xFF0C;&#x518D;&#x5904;&#x7406;Handler&#x7684;mCallback&#xFF0C;&#x6700;&#x540E;&#x5904;&#x7406;handleMessage</li>
 <li>&#x4E00;&#x4E2A;&#x662F;&#x901A;&#x8FC7;Message&#x7684;callback&#x5904;&#x7406;&#x6D88;&#x606F;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x901A;&#x8FC7;handleMessage&#x5904;&#x7406;&#x6D88;&#x606F;</li>
 </ul>
 </li>
@@ -2411,15 +2413,19 @@ mHandlerThread<span class="token punctuation">.</span><span class="token functio
 <li>&#x4F7F;&#x7528;Handler&#x7684;postDelay&#x6D88;&#x606F;&#x961F;&#x5217;&#x6709;&#x4EC0;&#x4E48;&#x53D8;&#x5316;</li>
 <li>&#x5982;&#x4F55;&#x4FDD;&#x8BC1;&#x591A;&#x4E2A;Handler&#x7EBF;&#x7A0B;&#x5B89;&#x5168;</li>
 </ol>
-<p><strong>
-ThreadLocal &#x505A;&#x4EC0;&#x4E48;&#x7684;&#xFF1F;</strong></p>
+<p>ThreadLocal &#x505A;&#x4EC0;&#x4E48;&#x7684;&#xFF1F;</p>
 <p><strong>Thread &#x548C; Handler &#x7684;&#x5173;&#x7CFB;</strong></p>
 <p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x80FD;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x66F4;&#x65B0; UI&#xFF1F;</strong></p>
 <p><strong>idleHandler &#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x8FD0;&#x884C;&#xFF1F;</strong></p>
+<ul>
+<li>&#x7EBF;&#x7A0B;&#x7A7A;&#x95F2;&#x7684;&#x65F6;&#x5019;&#x8FD0;&#x884C;&#xFF0C;&#x4F8B;&#x5982;GC&#x64CD;&#x4F5C;&#xFF0C;&#x6D88;&#x606F;&#x4E3A;&#x7A7A;&#x6216;&#x8005;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x5C0F;&#x4E8E;&#x4E0B;&#x4E00;&#x6B21;&#x6D88;&#x606F;&#x65F6;&#x95F4;</li>
+<li>queueIdle()&#x8FD4;&#x56DE;false&#x8868;&#x793A;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF0C;&#x8FD4;&#x56DE;true&#x8868;&#x793A;&#x53EF;&#x4EE5;&#x591A;&#x6B21;&#x6267;&#x884C;</li>
+</ul>
 <p><strong>&#x4E3B;&#x7EBF;&#x7A0B;&#x4E3A;&#x4EC0;&#x4E48;&#x5FAA;&#x73AF;&#x5374;&#x4E0D;&#x4F1A;&#x5361;&#x6B7B;&#xFF1F;</strong></p>
 <p><strong>ContentProvider&#x3001;Broadcast&#x3001;Service &#x662F;&#x600E;&#x4E48;&#x5229;&#x7528; Message &#x76D1;&#x63A7; ANR &#x7684;&#xFF1F;</strong></p>
 <p>select,poll,epoll</p>
 <p>handler&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x7684;&#x539F;&#x56E0;</p>
+<p>IntentService&#x5185;&#x90E8;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;HandlerThread&#xFF0C;onStartCommand&#x7684;&#x65F6;&#x5019;sendMessage</p>
  
           </section>
           
@@ -2496,7 +2502,7 @@ ThreadLocal &#x505A;&#x4EC0;&#x4E48;&#x7684;&#xFF1F;</strong></p>
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"Handler","level":"7.1","depth":1,"next":{"title":"RecyclerView","level":"7.2","depth":1,"path":"Android源码/RecyclerView.md","ref":"Android源码/RecyclerView.md","articles":[]},"previous":{"title":"anko","level":"6.3","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Handler.md","mtime":"2022-03-24T01:12:01.966Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-27T17:32:47.955Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"Handler","level":"7.1","depth":1,"next":{"title":"RecyclerView","level":"7.2","depth":1,"path":"Android源码/RecyclerView.md","ref":"Android源码/RecyclerView.md","articles":[]},"previous":{"title":"anko","level":"6.3","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Handler.md","mtime":"2022-03-29T01:04:31.494Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-31T13:03:59.629Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

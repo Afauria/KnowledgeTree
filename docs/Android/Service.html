@@ -971,40 +971,40 @@
         
         
     
-        <li class="chapter " data-level="5.1" >
+        <li class="chapter " data-level="5.1" data-path="../Jetpack/Lifecycle.html">
             
-                <span>
+                <a href="../Jetpack/Lifecycle.html">
             
                     
                     Lifecycle
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.2" >
+        <li class="chapter " data-level="5.2" data-path="../Jetpack/LiveData.html">
             
-                <span>
+                <a href="../Jetpack/LiveData.html">
             
                     
                     LiveData
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="5.3" >
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
             
                 <span>
             
                     
-                    DataBinding
+                    ViewModel
             
-                </span>
+                </a>
             
 
             
@@ -1015,7 +1015,7 @@
                 <span>
             
                     
-                    ViewModel
+                    DataBinding
             
                 </span>
             
@@ -1278,27 +1278,27 @@
         
         
     
-        <li class="chapter " data-level="8.1" >
+        <li class="chapter " data-level="8.1" data-path="../开源框架/OkHttp.html">
             
-                <span>
+                <a href="../开源框架/OkHttp.html">
             
                     
                     OkHttp
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="8.2" >
+        <li class="chapter " data-level="8.2" data-path="../开源框架/Retrofit.html">
             
-                <span>
+                <a href="../开源框架/Retrofit.html">
             
                     
                     Retrofit
             
-                </span>
+                </a>
             
 
             
@@ -1317,14 +1317,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.4" >
+        <li class="chapter " data-level="8.4" data-path="../开源框架/RxJava.html">
             
-                <span>
+                <a href="../开源框架/RxJava.html">
             
                     
                     RxJava
             
-                </span>
+                </a>
             
 
             
@@ -1343,14 +1343,14 @@
             
         </li>
     
-        <li class="chapter " data-level="8.6" >
+        <li class="chapter " data-level="8.6" data-path="../开源框架/ARouter.html">
             
-                <span>
+                <a href="../开源框架/ARouter.html">
             
                     
                     ARouter
             
-                </span>
+                </a>
             
 
             
@@ -2215,7 +2215,6 @@
           <section class="normal markdown-section">
              <h1 id="service&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;"><a name="service&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;" class="plugin-anchor" href="#service&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;"><i class="fa fa-link" aria-hidden="true"></i></a>Service&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;</h1>
 <p>Service&#x662F;Android&#x4E2D;&#x5B9E;&#x73B0;&#x7A0B;&#x5E8F;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5B83;&#x975E;&#x5E38;&#x9002;&#x7528;&#x4E8E;&#x53BB;&#x6267;&#x884C;&#x90A3;&#x4E9B;&#x4E0D;&#x9700;&#x8981;&#x548C;&#x7528;&#x6237;&#x4EA4;&#x4E92;&#x800C;&#x4E14;&#x8FD8;&#x8981;&#x6C42;&#x957F;&#x671F;&#x8FD0;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
-<blockquote>
 <ol>
 <li>Service&#x9ED8;&#x8BA4;&#x5E76;&#x4E0D;&#x4F1A;&#x8FD0;&#x884C;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;&#x5B83;&#x4E5F;&#x4E0D;&#x8FD0;&#x884C;&#x5728;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;&#x4E2D;&#xFF0C;<strong>&#x672C;&#x5730;&#x670D;&#x52A1;</strong>&#x9ED8;&#x8BA4;&#x5728;UI&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#xFF0C;&#x4F46;&#x662F;Serivce&#x4E00;&#x822C;&#x90FD;&#x8FDB;&#x884C;&#x957F;&#x671F;&#x64CD;&#x4F5C;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x963B;&#x585E;UI&#x7EBF;&#x7A0B;&#x6216;&#x8005;&#x9632;&#x6B62;ANR&#xFF0C;<strong>&#x4E00;&#x822C;&#x4F1A;&#x5728;Service&#x4E2D;&#x5F00;&#x542F;&#x5B50;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x4EFB;&#x52A1;</strong>&#x3002;</li>
 <li>Service&#x7684;&#x8FD0;&#x884C;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x4EFB;&#x4F55;&#x7528;&#x6237;&#x754C;&#x9762;&#xFF0C;&#x5373;&#x4F7F;&#x7A0B;&#x5E8F;&#x88AB;&#x5207;&#x6362;&#x5230;&#x540E;&#x53F0;&#x6216;&#x8005;&#x7528;&#x6237;&#x6253;&#x5F00;&#x53E6;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;Service&#x4ECD;&#x7136;&#x80FD;&#x591F;&#x4FDD;&#x6301;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#xFF0C;&#x8FD9;&#x4E5F;&#x6B63;&#x662F;Service&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x3002;<strong>&#x5F53;&#x67D0;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDB;&#x7A0B;&#x88AB;&#x6740;&#x6389;&#x65F6;&#xFF0C;&#x6240;&#x6709;&#x4F9D;&#x8D56;&#x4E8E;&#x8BE5;&#x8FDB;&#x7A0B;&#x7684;Service&#x4E5F;&#x4F1A;&#x505C;&#x6B62;&#x8FD0;&#x884C;</strong></li>
@@ -2224,9 +2223,7 @@
 <li>&#x7CFB;&#x7EDF;&#x53EA;&#x6709;&#x5728;&#x5185;&#x5B58;&#x7D27;&#x5F20;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x9500;&#x6BC1;Service</li>
 <li>&#x4E3A;&#x670D;&#x52A1;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;&#xFF1A;&#x5728;manifest&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;android:process&#x5C5E;&#x6027;&#xFF0C;&#x6B64;&#x65F6;&#x670D;&#x52A1;&#x79F0;&#x4E3A;<strong>&#x8FDC;&#x7A0B;&#x670D;&#x52A1;</strong></li>
 </ol>
-</blockquote>
 <h3 id="startservice&#xFF1A;&#x4E0D;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;"><a name="startservice&#xFF1A;&#x4E0D;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;" class="plugin-anchor" href="#startservice&#xFF1A;&#x4E0D;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>startService()&#xFF1A;&#x4E0D;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;</h3>
-<blockquote>
 <ol>
 <li><p>&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#x7EE7;&#x627F;Service&#xFF0C;&#x91CD;&#x5199;onBind()&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;null&#x5373;&#x53EF;&#x3002;&#x91CD;&#x5199;onStartCommand(Intent intent, int flags,int startId)&#x6267;&#x884C;&#x4EFB;&#x52A1;</p>
 </li>
@@ -2235,9 +2232,7 @@
 <li>&#x4F7F;&#x7528;Context.startService(Intent)&#x542F;&#x52A8;&#x670D;&#x52A1;</li>
 <li>&#x4F7F;&#x7528;stopService(Intent)&#x505C;&#x6B62;&#x670D;&#x52A1;&#xFF0C;&#x6216;&#x8005;&#x8C03;&#x7528;Service&#x7684;stopSelf()&#x65B9;&#x6CD5;</li>
 </ol>
-</blockquote>
-<p>onStartCommand(Intent intent, int flags,int startId)&#xFF1A;</p>
-<blockquote>
+<p><code>onStartCommand(Intent intent, int flags,int startId)</code>&#xFF1A;</p>
 <ol>
 <li>flag&#xFF1A;&#x670D;&#x52A1;&#x7684;&#x542F;&#x52A8;&#x65B9;&#x5F0F;<ol>
 <li>START_FLAG_REDELIVERY&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x5B9E;&#x73B0;onStartCommand()&#x6765;&#x5B89;&#x6392;&#x5F02;&#x6B65;&#x5DE5;&#x4F5C;&#x6216;&#x8005;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x5DE5;&#x4F5C;, &#x90A3;&#x4E48;&#x4F60;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x4F7F;&#x7528;START_FLAG_REDELIVERY&#x6765;&#x8BA9;&#x7CFB;&#x7EDF;&#x91CD;&#x65B0;&#x53D1;&#x9001;&#x4E00;&#x4E2A;intent&#x3002;&#x8FD9;&#x6837;&#x5982;&#x679C;&#x4F60;&#x7684;&#x670D;&#x52A1;&#x5728;&#x5904;&#x7406;&#x5B83;&#x7684;&#x65F6;&#x5019;&#x88AB;Kill&#x6389;, Intent&#x4E0D;&#x4F1A;&#x4E22;&#x5931;. </li>
@@ -2254,7 +2249,6 @@
 </ol>
 </li>
 </ol>
-</blockquote>
 <p>&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;</p>
 <blockquote>
 <p>onCreate()-&gt;onStartCommand() / onStart()&#xFF08;&#x5DF2;&#x8FC7;&#x65F6;&#xFF09;-&gt;onDestroy()</p>
@@ -2265,7 +2259,6 @@
 <li>&#x5F00;&#x542F;&#x8005;&#x4E0D;&#x80FD;&#x8C03;&#x7528;&#x670D;&#x52A1;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;broadcast&#x901A;&#x4FE1;&#xFF0C;&#x7F3A;&#x70B9;&#x662F;&#x592A;&#x91CD;</li>
 </ul>
 <h3 id="bindservice&#xFF1A;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;"><a name="bindservice&#xFF1A;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;" class="plugin-anchor" href="#bindservice&#xFF1A;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;"><i class="fa fa-link" aria-hidden="true"></i></a>bindService()&#xFF1A;&#x53EF;&#x4EA4;&#x4E92;&#x7684;&#x540E;&#x53F0;&#x670D;&#x52A1;</h3>
-<blockquote>
 <ol>
 <li>&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7C7B;&#x7EE7;&#x627F;Service</li>
 <li>&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x7C7B;&#x7EE7;&#x627F;Binder&#xFF0C;&#x4F5C;&#x7528;&#x76F8;&#x5F53;&#x4E8E;&#x670D;&#x52A1;&#x7684;&#x4EE3;&#x7406;<ol>
@@ -2282,7 +2275,6 @@
 </li>
 <li>&#x4F7F;&#x7528;unbindService(ServiceConnection)&#x505C;&#x6B62;&#x670D;&#x52A1;</li>
 </ol>
-</blockquote>
 <p>&#x751F;&#x547D;&#x5468;&#x671F;&#xFF1A;</p>
 <blockquote>
 <p>onCreate()-&gt;onBind()-&gt;onUnbind()-&gt;onDestroy</p>
@@ -2299,7 +2291,8 @@
 </li>
 </ul>
 <p><strong>&#x6CE8;&#xFF1A;BroadcastReceiver&#x7684;Context&#x4E0D;&#x80FD;&#x7528;&#x4E8E;&#x7ED1;&#x5B9A;&#x670D;&#x52A1;&#xFF0C;&#x56E0;&#x4E3A;&#x5E7F;&#x64AD;&#x751F;&#x547D;&#x5468;&#x671F;&#x8F83;&#x77ED;&#x3002;&#x4F46;&#x53EF;&#x4EE5;&#x5728;&#x5E7F;&#x64AD;&#x4E2D;startService()</strong></p>
-<p><a href="Service/Service&#x751F;&#x547D;&#x5468;&#x671F;.png" data-lightbox="783b3091-a185-4150-9760-ec054ae11ae4" data-title=""><img src="Service/Service&#x751F;&#x547D;&#x5468;&#x671F;.png" alt=""></a></p>
+<p><a href="Service/Service&#x751F;&#x547D;&#x5468;&#x671F;.png" data-lightbox="4757dacf-d48f-4585-96b9-3734eb0db585" data-title=""><img src="Service/Service&#x751F;&#x547D;&#x5468;&#x671F;.png" alt=""></a></p>
+<p>Android 8.0&#x4E0D;&#x5141;&#x8BB8;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x540E;&#x53F0;&#x670D;&#x52A1;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;<code>startForegroundService</code>&#x542F;&#x52A8;&#x524D;&#x53F0;&#x670D;&#x52A1;&#xFF0C;&#x5E76;&#x4E14;&#x5FC5;&#x987B;&#x5728;&#x521B;&#x5EFA;&#x670D;&#x52A1;&#x540E;&#x7684;&#x4E94;&#x79D2;&#x5185;&#x8C03;&#x7528;&#x8BE5;&#x670D;&#x52A1;&#x7684; <code>startForeground()</code> &#x51FD;&#x6570;&#x3002;&#x5426;&#x5219;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;</p>
 <h1 id="service&#x548C;thread&#x7684;&#x533A;&#x522B;"><a name="service&#x548C;thread&#x7684;&#x533A;&#x522B;" class="plugin-anchor" href="#service&#x548C;thread&#x7684;&#x533A;&#x522B;"><i class="fa fa-link" aria-hidden="true"></i></a>Service&#x548C;Thread&#x7684;&#x533A;&#x522B;</h1>
 <p>Thread&#x662F;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x5143;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;Thread&#x6267;&#x884C;&#x5F02;&#x6B65;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
 <ul>
@@ -2319,10 +2312,10 @@
 <li>&#x4E3B;&#x8FDB;&#x7A0B;&#x88AB;Kill&#x540E;&#xFF0C;&#x670D;&#x52A1;&#x4FBF;&#x7EC8;&#x6B62;&#x3002;</li>
 </ol>
 </blockquote>
-<p>&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#xFF1A;Service&#x5728;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;&#xFF08;&#x5728;Manifest&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;android:process&#x5C5E;&#x6027;&#xFF09;&#xFF0C;&#x5BF9;&#x5E94;&#x8FDB;&#x7A0B;&#x4E3A;&#x5305;&#x540D;+android:process&#x7684;&#x503C;&#x3002;</p>
+<p>&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#xFF1A;Service&#x5728;&#x72EC;&#x7ACB;&#x7684;&#x8FDB;&#x7A0B;&#xFF08;&#x5728;Manifest&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;<code>android:process</code>&#x5C5E;&#x6027;&#xFF09;&#xFF0C;&#x5BF9;&#x5E94;&#x8FDB;&#x7A0B;&#x4E3A;&#x5305;&#x540D;+android:process&#x7684;&#x503C;&#x3002;</p>
 <blockquote>
 <ol>
-<li>&#x5728;Manifest&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;android:process&#x5C5E;&#x6027;&#x3002;android:exported=&quot;false&quot;&#x8BBE;&#x7F6E;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x8C03;&#x7528;&#x6B64;&#x670D;&#x52A1;</li>
+<li>&#x5728;Manifest&#x6587;&#x4EF6;&#x4E2D;&#x8BBE;&#x7F6E;<code>android:process</code>&#x5C5E;&#x6027;&#x3002;android:exported=&quot;false&quot;&#x8BBE;&#x7F6E;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x8C03;&#x7528;&#x6B64;&#x670D;&#x52A1;</li>
 <li>&#x53EF;&#x4EE5;&#x88AB;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x590D;&#x7528;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x4E3A;&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x63D0;&#x4F9B;&#x516C;&#x5171;&#x670D;&#x52A1;&#x7684;Service&#x3002;&#x4E3A;&#x7CFB;&#x7EDF;&#x5E38;&#x9A7B;&#x7684;Service&#xFF0C;&#x5982;&#x5929;&#x6C14;&#x670D;&#x52A1;</li>
 <li>&#x6709;&#x72EC;&#x7ACB;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E0D;&#x53D7;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#x5F71;&#x54CD;</li>
 <li>&#x5177;&#x6709;&#x66F4;&#x597D;&#x7684;&#x7075;&#x6D3B;&#x6027;</li>
@@ -2336,25 +2329,23 @@
 </blockquote>
 <h1 id="intentservice"><a name="intentservice" class="plugin-anchor" href="#intentservice"><i class="fa fa-link" aria-hidden="true"></i></a>IntentService</h1>
 <p>IntentService&#x662F;&#x4E13;&#x95E8;&#x7528;&#x6765;&#x89E3;&#x51B3;Service&#x4E2D;&#x4E0D;&#x80FD;&#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x8FD9;&#x4E00;&#x95EE;&#x9898;&#x7684;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;IntentService&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x8981;&#x7EE7;&#x627F;IntentService&#x5E76;&#x8986;&#x5199;onHandlerIntent&#x51FD;&#x6570;&#xFF0C;&#x5728;&#x8BE5;&#x51FD;&#x6570;&#x4E2D;&#x5C31;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x4E86;&#x3002;</p>
-<blockquote>
 <ol>
 <li>&#x9ED8;&#x8BA4;&#x76F4;&#x63A5;&#x5B9E;&#x73B0;&#x4E86;<code>onBind(Intent)</code>&#x65B9;&#x6CD5;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;null&#xFF0C;&#x5E76;&#x5B9A;&#x4E49;&#x4E86;&#x62BD;&#x8C61;&#x65B9;&#x6CD5;<code>onHandleIntent(Intent)</code>&#xFF0C;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x5B50;&#x7C7B;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#x6B64;&#x65B9;&#x6CD5;&#xFF1B;</li>
 <li>&#x9ED8;&#x8BA4;&#x5B9E;&#x73B0;&#x4E86;<code>onStartCommand</code>&#xFF0C;&#x5E76;&#x5C06;Intent&#x4F20;&#x9012;&#x7ED9;<code>onHandleIntent</code></li>
-<li>&#x91CD;&#x5199;<code>onHandleIntent()</code>&#x5904;&#x7406;&#x8017;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x5E76;&#x4E14;&#x5DF2;&#x7ECF;&#x81EA;&#x52A8;&#x5728;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;&#x7528;&#x6237;&#x65E0;&#x9700;&#x81EA;&#x5B9A;&#x4E49;&#x65B0;&#x7EBF;&#x7A0B;&#xFF1B;</li>
+<li>&#x91CD;&#x5199;<code>onHandleIntent()</code>&#x5904;&#x7406;&#x8017;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x5E76;&#x4E14;&#x5DF2;&#x7ECF;&#x81EA;&#x52A8;&#x5728;&#x65B0;&#x7684;&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;<strong>&#x7528;&#x6237;&#x65E0;&#x9700;&#x81EA;&#x5B9A;&#x4E49;&#x65B0;&#x7EBF;&#x7A0B;&#xFF1B;</strong></li>
 <li>&#x5B50;&#x7C7B;&#x9700;&#x8981;&#x91CD;&#x5199;&#x9ED8;&#x8BA4;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF0C;&#x4E14;&#x5728;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;&#x7236;&#x7C7B;&#x5E26;&#x53C2;&#x6570;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;&#x8BBE;&#x7F6E;&#x5B50;&#x7EBF;&#x7A0B;&#x540D;&#x79F0;</li>
 <li><code>onHandleIntent</code>&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;IntentService&#x81EA;&#x52A8;&#x7ED3;&#x675F;&#xFF0C;&#x65E0;&#x9700;&#x624B;&#x52A8;&#x505C;&#x6B62;&#x670D;&#x52A1;</li>
 <li>&#x5982;&#x679C;&#x8981;&#x91CD;&#x5199;&#x5176;&#x4ED6;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x9700;&#x8981;&#x8C03;&#x7528;&#x7236;&#x7C7B;&#x65B9;&#x6CD5;&#x4FDD;&#x8BC1;&#x5B50;&#x7EBF;&#x7A0B;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x542F;&#x52A8;</li>
-<li>&#x4F7F;&#x7528;&#x961F;&#x5217;&#x5904;&#x7406;&#x591A;&#x4E2A;Intent&#xFF0C;&#x5171;&#x7528;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E0D;&#x662F;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x3002;</li>
+<li><strong>&#x4F7F;&#x7528;&#x6D88;&#x606F;&#x961F;&#x5217;&#x5904;&#x7406;&#x591A;&#x4E2A;Intent&#xFF0C;&#x5171;&#x7528;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E0D;&#x662F;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x3002;</strong></li>
 </ol>
-</blockquote>
-<p><strong>&#x5982;&#x679C;&#x8981;&#x5904;&#x7406;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#xFF0C;&#x9700;&#x8981;&#x7EE7;&#x627F;Service&#xFF0C;&#x7136;&#x540E;&#x5728;onStartCommand&#x4E2D;&#x521B;&#x5EFA;&#x5B50;&#x7EBF;&#x7A0B;&#x3002;&#x6BCF;&#x6B21;startService&#x90FD;&#x4F1A;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#x5B50;&#x7EBF;&#x7A0B;</strong></p>
+<p><strong>&#x5982;&#x679C;&#x8981;&#x4F7F;&#x7528;&#x591A;&#x7EBF;&#x7A0B;&#xFF0C;&#x9700;&#x8981;&#x7EE7;&#x627F;Service&#xFF0C;&#x7136;&#x540E;&#x5728;onStartCommand&#x4E2D;&#x521B;&#x5EFA;&#x5B50;&#x7EBF;&#x7A0B;&#x3002;&#x6BCF;&#x6B21;startService&#x90FD;&#x4F1A;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#x5B50;&#x7EBF;&#x7A0B;</strong></p>
 <p>IntentService&#x539F;&#x7406;&#xFF1A;&#x4F7F;&#x7528;Handler+HandlerThread&#x5B9E;&#x73B0;&#x5355;&#x7EBF;&#x7A0B;&#x6A21;&#x578B;&#x3002;Handler&#x5185;&#x90E8;&#x7EF4;&#x62A4;&#x6D88;&#x606F;&#x961F;&#x5217;&#xFF0C;&#x591A;&#x4E2A;Intent&#x6392;&#x961F;&#x5904;&#x7406;</p>
 <pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">IntentService</span> <span class="token keyword">extends</span> <span class="token class-name">Service</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">Looper</span> mServiceLooper<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token class-name">ServiceHandler</span> mServiceHandler<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token class-name">String</span> mName<span class="token punctuation">;</span>
     <span class="token keyword">private</span> <span class="token keyword">boolean</span> mRedelivery<span class="token punctuation">;</span>
-<span class="token comment">//&#x4F7F;&#x7528;Handler+HandlerThread&#x5B9E;&#x73B0;&#x5355;&#x7EBF;&#x7A0B;&#x6A21;&#x578B;&#x3002;Handler&#x5185;&#x90E8;&#x7EF4;&#x62A4;&#x6D88;&#x606F;&#x961F;&#x5217;&#xFF0C;&#x591A;&#x4E2A;Intent&#x6392;&#x961F;&#x5904;&#x7406;</span>
+    <span class="token comment">//&#x4F7F;&#x7528;Handler+HandlerThread&#x5B9E;&#x73B0;&#x5355;&#x7EBF;&#x7A0B;&#x6A21;&#x578B;&#x3002;Handler&#x5185;&#x90E8;&#x7EF4;&#x62A4;&#x6D88;&#x606F;&#x961F;&#x5217;&#xFF0C;&#x591A;&#x4E2A;Intent&#x6392;&#x961F;&#x5904;&#x7406;</span>
     <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">ServiceHandler</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
         <span class="token keyword">public</span> <span class="token class-name">ServiceHandler</span><span class="token punctuation">(</span><span class="token class-name">Looper</span> looper<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">super</span><span class="token punctuation">(</span>looper<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -2501,7 +2492,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"Service","level":"3.2","depth":1,"next":{"title":"BroadcastReceiver","level":"3.3","depth":1,"path":"Android/Broadcast.md","ref":"Android/Broadcast.md","articles":[]},"previous":{"title":"Activity","level":"3.1","depth":1,"path":"Android/Activity.md","ref":"Android/Activity.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android/Service.md","mtime":"2022-03-21T01:12:46.033Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-27T17:32:47.955Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"Service","level":"3.2","depth":1,"next":{"title":"BroadcastReceiver","level":"3.3","depth":1,"path":"Android/Broadcast.md","ref":"Android/Broadcast.md","articles":[]},"previous":{"title":"Activity","level":"3.1","depth":1,"path":"Android/Activity.md","ref":"Android/Activity.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android/Service.md","mtime":"2022-03-28T10:06:29.008Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-31T13:03:59.629Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>
