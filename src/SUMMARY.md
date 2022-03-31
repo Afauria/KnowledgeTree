@@ -66,10 +66,10 @@
 
 ## Jetpack
 
-* Lifecycle
-* LiveData
+* [Lifecycle](Jetpack/Lifecycle.md)
+* [LiveData](Jetpack/LiveData.md)
+* [ViewModel](Jetpack/ViewMode.md)
 * DataBinding
-* ViewModel
 * Room
 * Compose
 * App Startup
@@ -96,12 +96,12 @@
 * ServiceManager
 
 ## 开源框架
-* OkHttp
-* Retrofit
+* [OkHttp](开源框架/OkHttp.md)
+* [Retrofit](开源框架/Retrofit.md)
 * [Glide](开源框架/Glide.md)
-* RxJava
+* [RxJava](开源框架/RxJava.md)
 * [EventBus](Android性能/README.md)
-* ARouter
+* [ARouter](开源框架/ARouter.md)
 * [ButterKnife]()
 * Dagger
 * Hilt

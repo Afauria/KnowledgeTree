@@ -1,8 +1,10 @@
+动态代理、适配器、工厂
+
 ```java
 new Retrofit.Builder()
         .baseUrl(Config.getConfigString(context, Config.CONFIG_PLUGIN_SERVER_HOST))
         .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //返回RxJava
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //返回RxJava Observable对象
         .callbackExecutor(Executors.newSingleThreadExecutor()) //指定回调线程池
         .callFactory(new okhttp3.Call.Factory() { //自定义Call工厂，默认使用OkHttpClient的RealCall
             @Override
@@ -10,16 +12,16 @@ new Retrofit.Builder()
                 return null;
             }
         })
-        .build()
+        .build();
 ```
 
-自定义三个工厂：
+自定义三个工厂：调用get方法，根据返回值创建不同的适配器，封装Call对象
 
 1. `CallAdapter.Factory`：可以包含多个，前两个都是私有类，只有`RxJavaCallAdapterFactory`可被外部使用
-   1. `DefaultCallAdapterFactory`：默认适配器，什么也不做，返回Call对象，通过execute和enqueue发出请求
+   1. `DefaultCallAdapterFactory`：默认适配器，什么也不做，返回OkHttp的Call对象，通过execute和enqueue发出请求
    2. `ExecutorCallAdapterFactory`：可以指定线程，判断Android平台默认通过Handler在主线程Callback，自定义则封装自定义Call，调用enqueue方法，代理原始Call的enqueue
-   3. `RxJavaCallAdapterFactory`：
-2. `Converter.Factory`：可以包含多个
+   3. `RxJavaCallAdapterFactory`：返回Observable对象，subscribe的时候调用call发出请求，如果返回值不是Observable、Flowable等，则不创建适配器
+2. `Converter.Factory`：可以包含多个，将数据转成特定对象
 3. `Call.Factory`：只能有一个，默认使用OkHttpClient
 
 为什么自定义的是工厂，不是具体对象？
@@ -27,7 +29,6 @@ new Retrofit.Builder()
 > 自定义工厂可以创建多个对象，自定义对象只能使用一次
 
 ```java
-
 static final class ExecutorCallbackCall<T> implements Call<T> {
   final Executor callbackExecutor;
   final Call<T> delegate;
@@ -77,6 +78,36 @@ static final class ExecutorCallbackCall<T> implements Call<T> {
 
 
 
+```java
+final class RxJava2CallAdapter<R> implements CallAdapter<R, Object> {
+
+  @Override public Type responseType() {
+    return responseType;
+  }
+
+  @Override public Object adapt(Call<R> call) {
+    Observable<Response<R>> responseObservable = isAsync
+        ? new CallEnqueueObservable<>(call)
+        : new CallExecuteObservable<>(call);
+    //Subscribe的时候调用Call的enqueue或者execute发出请求，onNext通知观察者
+    Observable<?> observable;
+    if (isResult) {
+      observable = new ResultObservable<>(responseObservable);
+    } else if (isBody) {
+      observable = new BodyObservable<>(responseObservable);
+    } else {
+      observable = responseObservable;
+    }
+
+    if (scheduler != null) {
+      observable = observable.subscribeOn(scheduler);
+    }
+    ...
+    return observable;
+  }
+}
+```
+
 动态代理Service接口，调用接口
 
 ```java
@@ -101,6 +132,7 @@ public <T> T create(final Class<T> service) {
           ServiceMethod<Object, Object> serviceMethod =
               (ServiceMethod<Object, Object>) loadServiceMethod(method); //解析Service的方法注解，生成ServiceMethod并缓存，避免下次解析
           OkHttpCall<Object> okHttpCall = new OkHttpCall<>(serviceMethod, args);
+          //ServiceMethod中调用自定义CallAdapter
           return serviceMethod.adapt(okHttpCall);
         }
       });
