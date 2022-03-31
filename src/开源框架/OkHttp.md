@@ -1,4 +1,4 @@
-使用ExecutorService线程池，默认核心线程数为0，最大线程数Max，队列为空
+
 
 Builder、责任链模式
 
@@ -103,8 +103,26 @@ Dispatcher内部有三个队列：
 
 1. `runningSyncCalls`进行中的同步请求
 2. `runningAsyncCalls`进行中的异步请求
-3. `readyAsyncCalls`异步请求等待队列，超过最大请求数64，或者同一个服务端超过5个正在运行的请求
+3. `readyAsyncCalls`异步请求等待队列，超过最大请求数64，或者同一个服务端超过5个正在运行的请求，使用ExecutorService线程池，默认核心线程数为0，最大线程数Max，队列为空
 
 `ConnectionPool`中维护了一个`RealConnection`队列，RealConnection中封装了Socket操作
 
 判断连接是否可重用：比较host或者路由信息。默认空闲连接为5，最长空闲连接为5分钟
+
+超时时间：
+
+```java
+OkHttpClient client = new OkHttpClient.Builder()
+    .connectTimeout(30, TimeUnit.SECONDS)
+    .callTimeout(120, TimeUnit.SECONDS)
+    .pingInterval(5, TimeUnit.SECONDS)
+    .readTimeout(60, TimeUnit.SECONDS)
+    .writeTimeout(60, TimeUnit.SECONDS)
+    .build();
+```
+
+# 请求失败重试
+
+自定义拦截器
+
+https://www.cnblogs.com/ganchuanpu/archive/2018/02/01/8399681.html

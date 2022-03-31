@@ -1,0 +1,86 @@
+https://juejin.cn/post/6884505736836022280
+
+SP使用内存缓存，保存了所有键值对，提高读效率，存储大量数据容易导致内存占用过高，最好按业务分文件，或者使用数据库
+
+
+
+为什么需要edit？
+
+> 将多次操作合并，写入文件
+
+线程安全
+
+> 使用三把锁：
+>
+> 1. 读mMap加锁
+> 2. 写操作不能立即更新到Map，因为可能不调用Commit，需要保存到mEditorMap中，因此给mEditorMap加一把锁
+> 3. commit或者apply之后再进行合并mMap和mEditorMap，写入文件，对文件更新加一把锁加锁
+
+apply也会导致ANR？
+
+> apply方法中会创建一个等待锁，在子线程中执行，文件更新完毕释放锁。
+>
+> 但是在Activity onStop方法中，会调用`QueuedWork.waitToFinish`等待锁释放之后才能退出，因为要保证文件都读写完毕（否则持久化会失败），此时SP读写可能会超时导致ANR
+>
+> 可以通过清除QueueWork中的锁，跳过等待，apply有可能会失败，但是概率很低
+
+进程安全
+
+> SP不是进程安全的，要保证进程安全可以使用文件锁，或者定制ContentProvider，保证进程间同步
+
+文件损坏和备份机制
+
+> 当内核崩溃或者系统断电、或者进程被杀，xml文件写操作异常终止，会导致SP文件数据丢失。
+>
+> 解决：执行写操作之前将原文件重命名为.bak文件，然后将数据写入新文件，写入完成删除.bak文件。
+>
+> 出现异常的时候，进程再次启动后，发现存在备份文件，则将备份文件重命名为原文件名，未完成的文件直接丢弃
+
+```java
+// 尝试写入文件
+private void writeToFile(...) {
+  if (!backupFileExists) {
+      !mFile.renameTo(mBackupFile);
+  }
+}
+// 写入成功，立即删除存在的备份文件
+// Writing was successful, delete the backup file if there is one.
+mBackupFile.delete();
+// 从磁盘初始化加载时执行
+private void loadFromDisk() {
+    synchronized (mLock) {
+        if (mBackupFile.exists()) {
+            mFile.delete();
+            mBackupFile.renameTo(mFile);
+        }
+    }
+  }
+```
+
+# MMKV
+
+基于 mmap 内存映射的 key-value 组件，底层序列化/反序列化使用 protobuf 实现，支持Android、iOS
+
+**内存准备**
+
+通过 mmap 内存映射文件，提供一段可供随时写入的内存块，App 只管往里面写数据，由操作系统负责将内存回写到文件，不必担心 crash 导致数据丢失。
+
+**数据组织**
+
+数据序列化方面我们选用 protobuf 协议，pb 在性能和空间占用上都有不错的表现。考虑到我们要提供的是通用 kv 组件，key 可以限定是 string 字符串类型，value 则多种多样（int/bool/double 等）。要做到通用的话，考虑将 value 通过 protobuf 协议序列化成统一的内存块（buffer），然后就可以将这些 KV 对象序列化到内存中。
+
+**写入优化**
+
+标准 protobuf 不提供增量更新的能力，每次写入都必须全量写入。考虑到主要使用场景是频繁地进行写入更新，我们需要有增量更新的能力：将增量 kv 对象序列化后，直接 append 到内存末尾；这样同一个 key 会有新旧若干份数据，最新的数据在最后；那么只需在程序启动第一次打开 mmkv 时，不断用后读入的 value 替换之前的值，就可以保证数据是最新有效的。
+
+**空间增长**
+
+使用 append 实现增量更新带来了一个新的问题，就是不断 append 的话，文件大小会增长得不可控。例如同一个 key 不断更新的话，是可能耗尽几百 M 甚至上 G 空间，而事实上整个 kv 文件就这一个 key，不到 1k 空间就存得下。这明显是不可取的。我们需要在性能和空间上做个折中：以内存 pagesize 为单位申请空间，在空间用尽之前都是 append 模式；当 append 到文件末尾时，进行文件重整、key 排重，尝试序列化保存排重结果；排重后空间还是不够用的话，将文件扩大一倍，直到空间足够。
+
+**数据有效性**
+
+考虑到文件系统、操作系统都有一定的不稳定性，我们另外增加了 crc 校验，对无效数据进行甄别。
+
+CRC即循环冗余校验码（Cyclic Redundancy Check [1] ）：是数据通信领域中最常用的一种查错校验码，其特征是信息字段和校验字段的长度可以任意选定。循环冗余检查（CRC）是一种数据传输检错功能，对数据进行多项式计算，并将得到的结果附在帧的后面，接收设备也执行类似的算法，以保证数据传输的正确性和完整性
+
+# DataSource
