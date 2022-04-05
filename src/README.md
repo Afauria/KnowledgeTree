@@ -22,9 +22,13 @@
 
 精心整理，原创发布。包含大量容易忽略的细节，尽可能通俗、简短，不吹水。
 
+数据结构和算法见[牛客博客](https://blog.nowcoder.net/afauria)
+
+> 之前都在LeetCode刷题，最近才发现牛客有博客功能，原来都是创建工程做笔记，有点蠢。
+
 设计模式篇源码[仓库位置](https://github.com/Afauria/DesignPattern)
 
-Android篇、源码篇、设计模式比较零散，存了很多草稿，需要慢慢整理。
+Android篇、源码篇、设计模式零零散散存了很多草稿，需要慢慢整理。
 
 有问题或者错误欢迎交流指正，可以提issue或者在[博客](https://blog.afauria.xyz/2021/04/04/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/)中评论回复
 
