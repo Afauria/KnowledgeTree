@@ -36,26 +36,26 @@ put步骤：
 
 1. 计算Key的hash值：`hash = hashCode() ^ (hashCode >>> 16)`，高16位与低16位做异或运算，减少冲突，高16位的特征会被加入到计算中
    1. 还有平方取中法，除留余数法，伪随机数法
-
 2. 计算数组下标：`(length - 1) & hash`，&（与）运算比%（取余）效率更高
    1. HashMap容量永远是2的幂次，此时`length - 1`二进制全为1，因此计算下标的时候存在`(length - 1) & hash = hash % length`，提高运算效率
-
-3. 当容器中元素个数大于`capacity * loadfactor`时，会扩容到2倍大小
-4. 如果计算的下标不存在，则直接插入，如果发生hash冲突，且equals相等，则更新键值对，否则插入链表或红黑树
-
-1. 如果table == null, 则为HashMap的初始化, 生成空table返回即可;
-2. 如果table不为空, 需要重新计算table的长度, newLength = oldLength << 1(注, 如果原oldLength已经到了上限, 则newLength = oldLength);
+3. 如果计算的下标不存在，则直接插入，如果发生hash冲突，且equals相等，则更新键值对，否则插入链表或红黑树
+4. 当容器中元素个数大于`capacity * loadfactor`时，会扩容到2倍大小
+5. 如果table == null, 则为HashMap的初始化, 生成空table返回即可;
+6. 如果table不为空, 需要重新计算table的长度, newLength = oldLength << 1(注, 如果原oldLength已经到了上限, 则newLength = oldLength);
 3. 遍历oldTable:
    1. 首节点为空, 本次循环结束;
    2. 无后续节点, 重新计算hash位, 本次循环结束;
    3. 当前是红黑树, 走红黑树的重定位;
-   4. 当前是链表, JAVA7时还需要重新计算hash位, 但是JAVA8做了优化, 通过(e.hash & oldCap) == 0来判断是否需要移位; 如果为真则在原位不动, 否则则需要移动到当前hash槽位 + oldCap的位置
+   4. 当前是链表
+      1. 创建两个链表，低头loHead和高头hiHead
+      2. 遍历计算链表的每个节点， 判断是否需要换位置。JAVA7时需要重新计算hash位，但是JAVA8做了优化，通过(e.hash & oldCap) == 0来判断是否需要移位; 如果为真则在原位不动（加到loHead链表中），否则需要移动到当前hash槽位 + oldCap的位置（加到hiHead链表中）
+      3. loHead链表放到数组原位置table[index]，hiHead链表放到数组新位置table[index + oldCap]
 
-扩容的时候不会重新计算hash值，而是将hash值与左移之后的容量做&运算，低位会多出一位
+扩容的时候不会重新计算hash值，而是将hash值与容量做&运算，低位会多出一位
 
-例如 hash & 16 转换为 hash & 32，低位会多出一位，如果该位是1则移动位置，如果是0则不移动位置
+例如 hash & 16，低位会多出一位，如果该位是1则移动位置，如果是0则不移动位置
 
-`table.length * 3/4` 可以被优化为`(table.length >> 2) << 2) - (table.length >> 2) == table.length - (table.length >> 2)`, JAVA的位运算比乘除的效率更高, 所以取3/4在保证hash冲突小的情况下兼顾了效率;
+0.75：`table.length * 3/4` 可以被优化为`(table.length >> 2) << 2) - (table.length >> 2) == table.length - (table.length >> 2)`, JAVA的位运算比乘除的效率更高, 所以取3/4在保证hash冲突小的情况下兼顾了效率;
 
 HashMap如何扩容?
 
