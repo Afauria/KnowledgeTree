@@ -1,6 +1,6 @@
 # Activity、Window、DecorView关系
 
-<img src="View加载流程/Window、Activity、DecorView关系.png" style="zoom: 50%;" />
+<img src="View加载流程/DecorView.png" style="zoom: 80%;" />
 
 * Activity：持有一个PhoneWindow，定义了一套骨架，提供给开发者直接交互。例如设置View、处理事件、生命周期钩子
 * Window：用于绘制UI和响应事件的矩形区域，独立绘制，不与其他界面互相影响

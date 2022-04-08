@@ -558,9 +558,6 @@ class H extends Handler {
 @UnsupportedAppUsage
 private void handleBindApplication(AppBindData data) {
     ...
-    // Note when this process has started.
-    Process.setStartTimes(SystemClock.elapsedRealtime(), SystemClock.uptimeMillis());
-    ...
     // 根据AMS传过来的ApplicationInfo创建LoadedApk对象
     data.info = getPackageInfoNoCheck(data.appInfo, data.compatInfo);
     ...
@@ -865,7 +862,7 @@ public void handleResumeActivity(IBinder token, boolean finalStateRequest, boole
     // 取消后台GC任务
     unscheduleGcIdler();
     mSomeActivitiesChanged = true;
-
+    //执行onStart和onResume生命周期
     final ActivityClientRecord r = performResumeActivity(token, finalStateRequest, reason);
     if (r == null) {
         // We didn't actually resume the activity, so skipping any follow-up actions.
@@ -959,7 +956,23 @@ A应用：`startActivity-->Instrumentation.execStartActivity-->ActivityTaskManag
 
 AMS：`ActivityTaskManagerService.startActivity-->ActivityStarter.execute-->RootWindowContainer.resumeFocusedStacksTopActivities-->ActivityStack.resumeTopActivityUncheckedLocked-->ActivityTaskManagerService.startProcessAsync-->ActivityManagerService.startProcessLocked-->ProcessList.startProcess-->ZygoteProcess.start`
 
-B应用：`ActivityThread.main-->AMS.attachApplication（传递ApplicationThread，用于后续通信）-->ApplicationThread.bindApplication-->ApplicationThread.scheduleTransaction-->ActivityThread.handleLaunchActivity（Activity实例化、执行attach方法，调用onCreate生命周期）-->ActivityThread.handleResumeActivity（调用onStart和onResume生命周期，将DecorView添加到WM中）`
+B应用：`ActivityThread.main-->AMS.attachApplication（传递ApplicationThread，用于后续通信）-->ApplicationThread.bindApplication（实例化Application对象，初始化ContentProvider，调用Application的onCreate方法）-->ApplicationThread.scheduleTransaction-->ActivityThread.handleLaunchActivity（Activity实例化、执行attach方法，调用onCreate生命周期）-->ActivityThread.handleResumeActivity（调用onStart和onResume生命周期，将DecorView添加到WM中）`
+
+
+
+
+activity启动流程
+
+* Activity代理ContextImpl。调用startActivity
+* ContextImpl从ActivityThread中获取Instrumentation
+* 调用Instrumentation的execStartActivity方法
+* Instrumentation调用ActivityManager.getService()方法获取AMS（Binder IPC）。调用AMS的startActivity方法。
+* AMS检查Manifest是否注册（其他进程）
+* AMS通过Binder IPC（回到应用进程）调用ActivityThread启动Activity
+* ActivityThread.scheduleLaunchActivity()通过sendMessage交给Handler处理。
+* Handler调用handleLaunchActivity->performLauncherActivity()。
+* 通过mInstrumentation.newActivity创建activity
+* 并调用Instrumentation.callActivityOnCreate(activity)->activity.performCreate()->onCreate()
 
 # 常见概念
 
@@ -974,3 +987,5 @@ B应用：`ActivityThread.main-->AMS.attachApplication（传递ApplicationThread
 参考资料：
 
 * [Android Launcher 启动 Activity 的工作过程](https://blog.csdn.net/qian520ao/article/details/78156214)
+
+http://gityuan.com/2016/03/06/start-service/

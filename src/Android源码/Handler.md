@@ -120,6 +120,57 @@ public Looper getLooper() {
 5. ThreadLocal原理：每个线程保存了一个`ThreadLocalMap<ThreadLocal<?>, Object>`，get的时候通过当前线程获取`Thread.currentThread().threadLocalMaps.get(this)`
 6. Handler内存泄漏解决：remove消息、使用静态内部类+弱引用
 
+## Message
+
+`Message.obtain`：内部定义了sPool池，最大容量为50，使用链表存储，每次从头部获取和插入
+
+```java
+//Message.java
+public static final Object sPoolSync = new Object();
+private static Message sPool;
+private static int sPoolSize = 0;
+private static final int MAX_POOL_SIZE = 50;
+//复用
+public static Message obtain() {
+    synchronized (sPoolSync) {
+        if (sPool != null) {
+            Message m = sPool; // 返回头节点
+            sPool = m.next; //指向第二个节点
+            m.next = null; //断开链表
+            m.flags = 0;
+            sPoolSize--;
+            return m;
+        }
+    }
+    return new Message();
+}
+//回收
+void recycleUnchecked() {
+    //清空信息
+    flags = FLAG_IN_USE;
+    what = 0;
+    arg1 = 0;
+    arg2 = 0;
+    obj = null;
+    replyTo = null;
+    sendingUid = -1;
+    when = 0;
+    target = null;
+    callback = null;
+    data = null;
+    //加入sPool头节点
+    synchronized (sPoolSync) {
+        if (sPoolSize < MAX_POOL_SIZE) {
+            next = sPool;
+            sPool = this;
+            sPoolSize++;
+        }
+    }
+}
+```
+
+
+
 https://cloud.tencent.com/developer/article/1800399
 
 https://cloud.tencent.com/developer/article/1924870?from=article.detail.1800399

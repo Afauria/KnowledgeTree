@@ -6,8 +6,6 @@ Lifecycle状态
 
 ![](Activity/Lifecycle状态.svg)
 
-
-
 具体场景：
 
 ActivityA启动ActivityB时
@@ -22,7 +20,12 @@ back返回的时候
 > 2. 再调用A的onRestart -> onStart -> onResume
 > 3. 然后调用B的onStop->onDestroy
 
-总结：要等后一个Activity完全显示出来（onResume），才会触发前一个Activity的onStop
+总结：要等后一个Activity完全显示出来onResume之后，才会触发前一个Activity的onStop
+
+Dialog和生命周期
+
+> 1. 当前Activity弹出的Dialog不会触发Activity生命周期
+> 2. 其它Activity弹出的Dialog才会使当前的Activity执行`onPause()`
 
 ## onSavedInstanceState
 
@@ -75,7 +78,7 @@ back返回的时候
 
 ## onNewIntent
 
-当Activity被重用时，会调用`onNewIntent()`方法，在onResume之前调用
+当Activity被重用时，会调用`onNewIntent()`方法，**在onResume之前调用**
 
 注：在`onNewIntent`中获取到了Intent参数，需要使用`setIntent(intent)`保存下来，否则`getIntent`拿到的是老的`Intent`
 
@@ -126,7 +129,7 @@ B设置为singleInstance，A启动C，C启动B，从B页面打开A，结果显�
 3. `FLAG_ACTIVITY_CLEAR_TOP`：类似singleTask，将其上的Activity清除
    1. 和SingleTask不一样的是，`FLAG_ACTIVITY_CLEAR_TOP`会把自身也销毁，然后重新实例化该Activity。而SingleTask会复用该Activity，只会触发onNewIntent，不触发onCreate。
 4. `FLAG_ACTIVITY_REORDER_TO_FRONT`：将栈内的Activity移到栈顶，不销毁其他Activity
-5. `FLAG_ACTIVITY_BROUGHT_TO_FRONT`
+5. `FLAG_ACTIVITY_BROUGHT_TO_FRONT`：将栈内的Activity移到栈顶，销毁其他Activity
 
 # Intent
 
@@ -175,6 +178,43 @@ startActivity(intent);
 | ACTION_EDIT       | 打开一个Activity，对所提供的数据进行编辑操作                 |
 | ACTION_DELETE     | 打开一个Activity，对所提供的数据进行删除操作                 |
 | ACTION_INSERT     | 打开一个Activity，在提供数据的当前位置插入新项               |
+
+# Intent和Bundle
+
+为什么有了Intent还需要Bundle？
+
+1. Intent内部也是使用Bundle存储源码，并且在`getExtras`构造新的Bundle对象，避免破坏Intent
+2. 假设数据需要从页面A经过B再传到C，如果使用Intent，需要一个一个取出来放到新的Intent中，使用Bundle只需要取一次即可
+3. 使用场景不同：
+   1. Intent用于组件间传值，包含Action、Flags、Data、Component、Extras等，不仅仅是数据。
+   2. 有些场景只需要Bundle不需要Intent：例如Handler中的Message，Binder建立连接后，客户端和服务端通信数据传递
+
+```java
+public class Intent  implements Parcelable, Cloneable {
+    private Bundle mExtras;
+    ...
+    public @NonNull Intent putExtra(String name, int value) {
+        if (mExtras == null) {
+            mExtras = new Bundle();
+        }
+        mExtras.putInt(name, value);
+        return this;
+    }
+    public int getIntExtra(String name, int defaultValue) {
+        return mExtras == null ? defaultValue : mExtras.getInt(name, defaultValue);
+    }
+    public @Nullable Bundle getExtras() {
+        //外部获取的时候构造一个新的Bundle对象，避免破坏Intent
+        return (mExtras != null) ? new Bundle(mExtras) : null;
+    }
+    ...
+}
+```
+
+为什么Bundle不使用HashMap替代？
+
+1. Bundle内部使用ArrayMap实现，在数据量较小的情况下，比HashMap更省内存
+2. HashMap使用Serializable序列化，不支持Parcelable
 
 # 结语
 
