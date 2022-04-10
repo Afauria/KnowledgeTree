@@ -11,7 +11,7 @@ Service是Android中实现程序后台运行的解决方案，它非常适用于
 5. 系统只有在内存紧张的时候才会销毁Service
 6. 为服务指定一个独立的进程：在manifest文件中设置android:process属性，此时服务称为**远程服务**
 
-### startService()：不可交互的后台服务
+## startService()：不可交互的后台服务
 
 1. 定义一个类继承Service，重写onBind()方法，返回null即可。重写onStartCommand(Intent intent, int flags,int startId)执行任务
 
@@ -40,7 +40,7 @@ Service是Android中实现程序后台运行的解决方案，它非常适用于
 * 服务一旦开启就跟开启者没有关系了，开启者退出，服务还在后台运行。
 * 开启者不能调用服务的方法，可以使用broadcast通信，缺点是太重
 
-### bindService()：可交互的后台服务
+## bindService()：可交互的后台服务
 
 1. 定义一个类继承Service
 2. 定义一个内部类继承Binder，作用相当于服务的代理
@@ -64,6 +64,32 @@ Service是Android中实现程序后台运行的解决方案，它非常适用于
 * onServiceConnected返回的binder对象：
   * 如果不跨进程，返回的就是Service的onBind返回的对象。
   * 如果跨进程，返回的是Service的代理对象
+
+广播和服务为什么可以和Context生命周期绑定？
+
+注册广播时LoadedApk中会存储信息，Context被销毁时，取出value，遍历注销广播和服务
+
+```java
+//LoadedApk。java
+private final ArrayMap<Context, ArrayMap<BroadcastReceiver, ReceiverDispatcher>> mReceivers
+    = new ArrayMap<>();
+private final ArrayMap<Context, ArrayMap<ServiceConnection, LoadedApk.ServiceDispatcher>> mServices
+    = new ArrayMap<>();
+```
+
+最终调用`removeContextRegistrations`注销广播和服务
+
+```shell
+ActivityThread.handleDestroyActivity
+-->ContextImpl.scheduleFinalCleanup
+-->ActivityThread.scheduleContextCleanup
+-->ContextImpl.performFinalCleanup
+-->LoadedApk.removeContextRegistrations # 检查广播和Service是否取消注册，打印内存泄漏日志，然后解绑广播和Service
+-->ActivityManager.getService().unregisterReceiver(rd.getIIntentReceiver());
+ActivityManager.getService().unbindService(sd.getIServiceConnection());
+```
+
+
 
 **注：BroadcastReceiver的Context不能用于绑定服务，因为广播生命周期较短。但可以在广播中startService()**
 

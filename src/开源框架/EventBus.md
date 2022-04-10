@@ -27,8 +27,10 @@ public @interface Subscribe {
 public enum ThreadMode {
   //使用事件发送线程
   POSTING,
-  //主线程
+  //主线程，如果在子线程则立即执行，否则通过Handler添加到主线程消息队列执行
   MAIN,
+  //主线程，始终通过Handler添加到主线程消息队列执行
+  MAIN_ORDERED,
   //后台线程：如果当前不是UI线程，则使用当前线程。如果是UI线程，则使用线程池，一个一个事件处理
   BACKGROUND,
   //异步线程：可以多个线程一起处理
