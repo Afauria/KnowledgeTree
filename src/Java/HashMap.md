@@ -84,8 +84,9 @@ LinkedHashMap：通过双链表记录插入顺序，可以按顺序取出，
 线程安全
 
 * 1.8之前，segment分段锁设计`ReentrantLock + Segment` + `HashEntry`的方式进行实现，分为16个桶+16把锁，锁粒度是Segment
-* 1.8之后，通过Node` + `CAS（无锁算法）` + `Synchronized，锁粒度是首节点，提高了并发性，其他线程此时可以访问其他Node
+* 1.8之后，通过Node` + `CAS（无锁算法）` + `Synchronized，锁粒度是首节点，提高了并发性，其他线程此时可以访问其他Node。没有头节点时使用CAS，有头节点使用Syncrhonized
 * ConcurrentHashMap键值不允许为null
+* ConcurrentHashMap内部是线程安全的，但是不能保证外部多次调用是线程安全的，例如外部get之后可能被其他线程修改
 
 ![](HashMap/Java7ConcurrentHashMap.png)
 

@@ -15,6 +15,7 @@ Service Binder机制，
 
 
 
-
-
 https://www.cnblogs.com/not2/p/14685579.html
+
+https://www.jianshu.com/p/ea4fc6aefaa8
+

@@ -23,6 +23,8 @@
 * [IO模型🔥](Java/IO模型.md)
 * IO读写
 * [集合框架](Java/集合框架.md)
+* [ArrayList](Java/ArrayList.md)
+* [HashMap](Java/HashMap.md)
 * Java动态代理
 * 注解
 
@@ -68,7 +70,7 @@
 
 * [Lifecycle](Jetpack/Lifecycle.md)
 * [LiveData](Jetpack/LiveData.md)
-* [ViewModel](Jetpack/ViewMode.md)
+* [ViewModel](Jetpack/ViewModel.md)
 * DataBinding
 * Room
 * Compose
@@ -96,11 +98,12 @@
 * ServiceManager
 
 ## 开源框架
+
 * [OkHttp](开源框架/OkHttp.md)
 * [Retrofit](开源框架/Retrofit.md)
 * [Glide](开源框架/Glide.md)
 * [RxJava](开源框架/RxJava.md)
-* [EventBus](Android性能/README.md)
+* [EventBus](开源框架/EventBus.md)
 * [ARouter](开源框架/ARouter.md)
 * [ButterKnife]()
 * Dagger
@@ -163,8 +166,8 @@
 * OSI分层结构
 * [TCP](计算机网络/TCP.md)
 * [UDP](计算机网络/UDP.md)
-* [HTTP](计算机网络/HTTP,md)
-* HTTPS
+* [HTTP](计算机网络/HTTP.md)
+* [HTTPS](计算机网络/HTTPS.md)
 * 流媒体传输：RTP、RTSP、RTMP
 * Socket
 
