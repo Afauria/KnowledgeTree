@@ -32,7 +32,7 @@ onStart()和onResume()的区别
 
 Activity的onNewIntent()方法什么时候会执行
 
-> Activity复用的时候。例如singleTop和singleTask
+> Activity复用的时候。例如singleTop和singleTask，在onResume之前调用
 
 显式启动和隐式启动
 
@@ -83,9 +83,9 @@ Activity A使用startService()启动，Activity B和C使用bindService()启动�
 >
 > onMeasure（） onLayout（） onDraw（），分别负责测量宽高，布局和绘制
 
-View的onMeasure(int widthMeasureSpec, int heightMeasureSpec)中两个参数的作用是什么
+View的`onMeasure(int widthMeasureSpec, int heightMeasureSpec)`中两个参数的作用是什么
 
-> 一个32位的int值，高2位代表SpecMode测量模式，低30位代表SpecSize测量规格
+> 一个32位的int值，高2位代表SpecMode测量模式，低30位代表SpecSize测量尺寸
 >
 > * UNSPECIFIED：父容器不对View有任何限制，一般用于系统内部，表示一种测量状态。 
 > * EXACTLY：父容器已经检测出View所需要的精确大小，这个时候View的最终大小是就SpecSize，对应LayoutParams中的match_parent和具体数值两种模式。 

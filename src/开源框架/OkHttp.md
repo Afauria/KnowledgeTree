@@ -46,8 +46,10 @@ Dispatcher内部有三个队列：
 
 # 连接复用
 
+基于HTTP2的多路复用，一个连接可以承载多个流，一个连接可以发出多次请求，并且服务端可以响应多次
+
 1. 每个Call对应一个StreamAllocation
-2. Allocation从ConnectionPool查找可用连接RealConnection，当Address相同，且该连接的allocations数量小于限制（取决于Http2的IO多路复用，一个连接可以发出多次请求，并且服务端可以响应多次），表示可用连接，保存到StreamAllocation中（StreamAllocation通过该连接进行通信），同时将StreamAllocation加入到RealConnection中的弱引用列表allocations中（表示该连接上有多少个流）
+2. Allocation从ConnectionPool查找可用连接RealConnection，当Address相同，且该连接的allocations数量小于限制，表示可用连接，保存到StreamAllocation中（StreamAllocation通过该连接进行通信），同时将StreamAllocation加入到RealConnection中的弱引用列表allocations中（表示该连接上有多少个流）
 3. 如果没有则新建，并入池
 4. `ConnectionPool`中维护了一个`RealConnection`队列，`RealConnection`中封装了Socket、Buffer、路由、握手信息等
 
@@ -62,7 +64,71 @@ public final class RealConnection extends Http2Connection.Listener implements Co
 }
 ```
 
-判断连接是否可重用：比较host或者路由信息。
+`ConnectionPool`遍历`RealConnection`列表，判断连接是否可重用
+
+```java
+public final class ConnectionPool {
+  @Nullable RealConnection get(Address address, StreamAllocation streamAllocation, Route route) {
+    assert (Thread.holdsLock(this));
+    //遍历池中的连接
+    for (RealConnection connection : connections) {
+      //判断连接是否可重用
+      if (connection.isEligible(address, route)) {
+        streamAllocation.acquire(connection, true);
+        return connection;
+      }
+    }
+    return null;
+  }
+}
+```
+
+连接是否可重用：
+
+1. 连接上的流未超过承载限制
+2. 比较host或者路由信息
+
+```java
+public final class RealConnection extends Http2Connection.Listener implements Connection {
+  ...
+  public boolean isEligible(Address address, @Nullable Route route) {
+    // If this connection is not accepting new streams, we're done.
+    if (allocations.size() >= allocationLimit || noNewStreams) return false;
+
+    // If the non-host fields of the address don't overlap, we're done.
+    if (!Internal.instance.equalsNonHost(this.route.address(), address)) return false;
+
+    // If the host exactly matches, we're done: this connection can carry the address.
+    if (address.url().host().equals(this.route().address().url().host())) {
+      return true; // This connection is a perfect match.
+    }
+
+    // 1. This connection must be HTTP/2.
+    if (http2Connection == null) return false;
+
+    // 2. The routes must share an IP address. This requires us to have a DNS address for both
+    // hosts, which only happens after route planning. We can't coalesce connections that use a
+    // proxy, since proxies don't tell us the origin server's IP address.
+    if (route == null) return false;
+    if (route.proxy().type() != Proxy.Type.DIRECT) return false;
+    if (this.route.proxy().type() != Proxy.Type.DIRECT) return false;
+    if (!this.route.socketAddress().equals(route.socketAddress())) return false;
+
+    // 3. This connection's server certificate's must cover the new host.
+    if (route.address().hostnameVerifier() != OkHostnameVerifier.INSTANCE) return false;
+    if (!supportsUrl(address.url())) return false;
+
+    // 4. Certificate pinning must match the host.
+    try {
+      address.certificatePinner().check(address.url().host(), handshake().peerCertificates());
+    } catch (SSLPeerUnverifiedException e) {
+      return false;
+    }
+
+    return true; // The caller's address can be carried by this connection.
+  }
+}
+```
 
 默认最大空闲连接为5，最长空闲连接为5分钟。
 

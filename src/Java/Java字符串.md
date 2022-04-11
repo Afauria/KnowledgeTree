@@ -145,6 +145,7 @@ hashCode缓存源码如下
 
 ```java
 //String.class
+//hash = s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
 public int hashCode() {
     int h = hash;
     final int len = length();
@@ -154,7 +155,7 @@ public int hashCode() {
         }
         hash = h;
     }
-    //hash值不为空，直接返回
+    //hash值不为空，直接返回，为空时返回0
     return h;
 }
 ```
