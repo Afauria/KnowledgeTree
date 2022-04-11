@@ -496,7 +496,33 @@
             
         </li>
     
-        <li class="chapter " data-level="2.19" >
+        <li class="chapter " data-level="2.19" data-path="../Java/ArrayList.html">
+            
+                <a href="../Java/ArrayList.html">
+            
+                    
+                    ArrayList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.20" data-path="../Java/HashMap.html">
+            
+                <a href="../Java/HashMap.html">
+            
+                    
+                    HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.21" >
             
                 <span>
             
@@ -509,7 +535,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.20" >
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -997,9 +1023,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewModel.html">
             
-                <span>
+                <a href="../Jetpack/ViewModel.html">
             
                     
                     ViewModel
@@ -1330,9 +1356,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.5" data-path="../Android性能/">
+        <li class="chapter " data-level="8.5" data-path="../开源框架/EventBus.html">
             
-                <a href="../Android性能/">
+                <a href="../开源框架/EventBus.html">
             
                     
                     EventBus
@@ -1781,14 +1807,14 @@
             
         </li>
     
-        <li class="chapter " data-level="13.5" >
+        <li class="chapter " data-level="13.5" data-path="../设计模式/迭代器模式.html">
             
-                <span>
+                <a href="../设计模式/迭代器模式.html">
             
                     
                     迭代器模式
             
-                </span>
+                </a>
             
 
             
@@ -1957,27 +1983,27 @@
             
         </li>
     
-        <li class="chapter " data-level="14.6" >
+        <li class="chapter " data-level="14.6" data-path="../计算机网络/HTTP.html">
             
-                <span>
+                <a href="../计算机网络/HTTP.html">
             
                     
                     HTTP
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="14.7" >
+        <li class="chapter " data-level="14.7" data-path="../计算机网络/HTTPS.html">
             
-                <span>
+                <a href="../计算机网络/HTTPS.html">
             
                     
                     HTTPS
             
-                </span>
+                </a>
             
 
             
@@ -2214,8 +2240,55 @@
     
           <section class="normal markdown-section">
              <h1 id="&#x56DE;&#x6536;&#x590D;&#x7528;&#x673A;&#x5236;"><a name="&#x56DE;&#x6536;&#x590D;&#x7528;&#x673A;&#x5236;" class="plugin-anchor" href="#&#x56DE;&#x6536;&#x590D;&#x7528;&#x673A;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x56DE;&#x6536;&#x590D;&#x7528;&#x673A;&#x5236;</h1>
+<ol>
+<li>mAttachedScrap&#x3001;mChangedScrap</li>
+<li>mCachedView&#xFF1A;&#x7F13;&#x5B58;&#x5C4F;&#x5E55;&#x5916;View&#xFF0C;&#x5BB9;&#x91CF;&#x4E3A;2&#xFF0C;&#x53EF;&#x4EE5;setCacheViewSize</li>
+<li>RecyclerViewPool&#xFF1A;&#x6BCF;&#x79CD;ViewType&#x7F13;&#x5B58;5&#x4E2A;&#xFF0C;&#x4F1A;&#x89E6;&#x53D1;onBindViewHolder&#xFF0C;&#x591A;&#x4E2A;RecyclerView&#x53EF;&#x4EE5;&#x5171;&#x7528;&#x4E00;&#x4E2A;RecyclerViewPool</li>
+</ol>
 <h1 id="&#x81EA;&#x5B9A;&#x4E49;layoutmanager"><a name="&#x81EA;&#x5B9A;&#x4E49;layoutmanager" class="plugin-anchor" href="#&#x81EA;&#x5B9A;&#x4E49;layoutmanager"><i class="fa fa-link" aria-hidden="true"></i></a>&#x81EA;&#x5B9A;&#x4E49;LayoutManager</h1>
 <h1 id="&#x5E38;&#x89C1;&#x95EE;&#x9898;&#x5904;&#x7406;&#x548C;&#x4F18;&#x5316;&#x6848;&#x4F8B;"><a name="&#x5E38;&#x89C1;&#x95EE;&#x9898;&#x5904;&#x7406;&#x548C;&#x4F18;&#x5316;&#x6848;&#x4F8B;" class="plugin-anchor" href="#&#x5E38;&#x89C1;&#x95EE;&#x9898;&#x5904;&#x7406;&#x548C;&#x4F18;&#x5316;&#x6848;&#x4F8B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5E38;&#x89C1;&#x95EE;&#x9898;&#x5904;&#x7406;&#x548C;&#x4F18;&#x5316;&#x6848;&#x4F8B;</h1>
+<p>&#x8E29;&#x5751;&#xFF1A;&#x4E24;&#x4E2A;RecyclerView&#x4F7F;&#x7528;LinearLayout+weight&#x5E73;&#x5206;&#x5E03;&#x5C40;&#xFF0C;&#x5F53;&#x9690;&#x85CF;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;RecyclerView&#x7684;&#x65F6;&#x5019;&#xFF0C;Item&#x5BBD;&#x5EA6;&#x4F1A;&#x51FA;&#x73B0;&#x5F02;&#x5E38;</p>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;RecyclerView&#x5916;&#x591A;&#x5D4C;&#x5957;&#x4E00;&#x5C42;&#xFF0C;weight&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x7ED9;RecyclerView&#x7236;&#x5E03;&#x5C40;&#xFF0C;&#x4E0D;&#x8981;&#x76F4;&#x63A5;&#x7ED9;RecyclerView&#x8BBE;&#x7F6E;</li>
+<li><a href="../Users/Afauria/Desktop/learn/RecyclerView&#x4F7F;&#x7528;weight&#x5F02;&#x5E38;.png" data-lightbox="1d98ea92-be9a-466f-b9f5-b8faf8915681" data-title="&#x5F02;&#x5E38;&#x5E03;&#x5C40;"><img src="../Users/Afauria/Desktop/learn/RecyclerView&#x4F7F;&#x7528;weight&#x5F02;&#x5E38;.png" alt="&#x5F02;&#x5E38;&#x5E03;&#x5C40;"></a></li>
+</ul>
+<ul>
+<li>TV&#x6A2A;&#x5411;RecyclerView item&#x8BBE;&#x7F6E;&#x4E3A;TextView&#x8DD1;&#x9A6C;&#x706F;&#xFF0C;&#x83B7;&#x53D6;&#x7126;&#x70B9;&#x7684;&#x65F6;&#x5019;&#x64AD;&#x653E;&#x8DD1;&#x9A6C;&#x706F;&#xFF0C;&#x6EDA;&#x52A8;&#x4F1A;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x6253;&#x5370;&#x8BE5;&#x65E5;&#x5FD7;&#xFF08;&#x4E5F;&#x53EF;&#x80FD;&#x6CA1;&#x6709;&#xFF09;&#xFF1A;<code>requestLayout() improperly called by android.widget.TextView{...} during layout: running second layout pass</code>&#x3002;<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;&#x9700;&#x8981;&#x5728;TextView&#x5916;&#x591A;&#x5D4C;&#x5957;&#x4E00;&#x5C42;&#x4F5C;&#x4E3A;item</li>
+</ul>
+</li>
+</ul>
+<p>recyclerview&#x67E5;&#x627E;&#x7126;&#x70B9;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;LayoutManager&#x7684;onInterceptFocusSearch&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;view&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x662F;null&#x5219;&#x7EE7;&#x7EED;&#x67E5;&#x627E;&#x3002;&#x5982;&#x679C;&#x67E5;&#x627E;&#x5931;&#x8D25;&#x4F1A;&#x8C03;&#x7528;LayoutManager&#x7684;onFocusSearchFailed&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5F53;&#x524D;viewgroup&#x627E;&#x7126;&#x70B9;&#xFF0C;&#x4F1A;&#x4ECE;&#x5F53;&#x524D;view&#x7684;focusable&#x91CC;&#x9762;&#x627E;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5219;&#x8C03;&#x7528;getParent().focusSearch&#x4ECE;&#x7236;view&#x91CC;&#x9762;&#x627E;&#x3002;focusable&#x518D;&#x6B21;&#x6269;&#x5927;&#x3002;&#x56E0;&#x6B64;&#x80FD;&#x591F;&#x627E;&#x5230;&#x5F53;&#x524D;view&#x5916;&#x90E8;&#x7684;&#x7126;&#x70B9;.</p>
+<p>&#x81EA;&#x5DF1;&#x8C03;&#x7528;FocusFinder&#x7684;<code>findNextFocus(root,focused,direction)</code>&#x5219;&#x53EA;&#x4F1A;&#x627E;root&#x4E0B;&#x7684;&#x7126;&#x70B9;&#xFF0C;&#x4E0D;&#x4F1A;&#x627E;&#x5230;view&#x5916;&#x90E8;&#x7684;&#x7126;&#x70B9;</p>
+<p>focusSearch-&gt;onInterceptFocusSearch-&gt;onFocusSearchFailed-&gt;super.focusSearch-&gt;getParent.focusSearch()
+&#x53EF;&#x4EE5;&#x91CD;&#x5199;onInterceptFocusSearch&#x3001;onFocusSearchFailed&#x627E;&#x7126;&#x70B9;</p>
+<h1 id="recyclerview&#x8BBE;&#x7F6E;&#x5C45;&#x4E2D;&#x6EDA;&#x52A8;"><a name="recyclerview&#x8BBE;&#x7F6E;&#x5C45;&#x4E2D;&#x6EDA;&#x52A8;" class="plugin-anchor" href="#recyclerview&#x8BBE;&#x7F6E;&#x5C45;&#x4E2D;&#x6EDA;&#x52A8;"><i class="fa fa-link" aria-hidden="true"></i></a>RecyclerView&#x8BBE;&#x7F6E;&#x5C45;&#x4E2D;&#x6EDA;&#x52A8;</h1>
+<pre class="language-"><code class="lang-java"><span class="token comment">//1. &#x91CD;&#x5199;smoothScrollToPosition&#xFF0C;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x6ED1;&#x52A8;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;CenterScroller&#xFF0C;&#x91CD;&#x5199;calculateDtToFit</span>
+<span class="token comment">//      ---&gt;&#x6EDA;&#x52A8;&#x65F6;&#x95F4;&#x8BBE;&#x7F6E;&#x592A;&#x5C0F;&#x3001;&#x4E14;item&#x6570;&#x91CF;&#x591A;&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x6709;&#x95EE;&#x9898;</span>
+<span class="token comment">//      ---&gt;&#x91CD;&#x5199;LayoutManager&#x7684;computeScrollVectorForPosition&#xFF0C;&#x8FD4;&#x56DE;null&#xFF0C;&#x4F1A;&#x8C03;&#x7528;scrollToPosition&#x7ACB;&#x9A6C;&#x6EDA;&#x52A8;&#xFF0C;&#x6EDA;&#x52A8;&#x5B8C;&#x518D;&#x901A;&#x8FC7;onTargetFound&#x8BA1;&#x7B97;view&#x4F4D;&#x7F6E;&#x5C45;&#x4E2D;calculateDtToFit</span>
+<span class="token comment">//2. &#x5B50;View&#x83B7;&#x53D6;&#x7126;&#x70B9;&#xFF0C;&#x91CD;&#x5199;requestChildRectangleOnScreen&#xFF1A; &#x83B7;&#x53D6;&#x7126;&#x70B9;&#x624D;&#x80FD;&#x89E6;&#x53D1;----&gt;&#x9996;&#x6B21;&#x8FDB;&#x5165;&#x6CA1;&#x6709;&#x83B7;&#x53D6;&#x7126;&#x70B9;&#xFF0C;&#x9700;&#x8981;&#x8C03;&#x7528;smoothScrollToPosition&#x6ED1;&#x52A8;&#x5230;&#x9009;&#x4E2D;&#x9879;</span>
+<span class="token comment">//3. &#x8C03;&#x7528;smoothScrollToPosition&#xFF0C;onScrollStateChanged&#x6EDA;&#x52A8;idle&#x7684;&#x65F6;&#x5019;&#x8C03;&#x7528;smoothScrollBy&#x7EA0;&#x6B63;&#x504F;&#x79FB;---&gt;View&#x5728;&#x53EF;&#x89C1;&#x8303;&#x56F4;&#x5185;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6EDA;&#x52A8;</span>
+<span class="token comment">//4. scrollToPosition&#xFF1A;&#x89E6;&#x53D1;onLayoutChildren&#xFF0C;&#x901A;&#x8FC7;&#x8BA1;&#x7B97;anchor&#x548C;mCoordinate&#x91CD;&#x65B0;&#x5E03;&#x5C40;---&gt;&#x8BA1;&#x7B97;&#x590D;&#x6742;</span>
+<span class="token keyword">class</span> <span class="token class-name">CenterScroller</span><span class="token punctuation">(</span>context<span class="token operator">:</span> <span class="token class-name">Context</span><span class="token operator">?</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token class-name">LinearSmoothScroller</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        override fun <span class="token function">calculateDtToFit</span><span class="token punctuation">(</span>
+            viewStart<span class="token operator">:</span> <span class="token class-name">Int</span><span class="token punctuation">,</span>
+            viewEnd<span class="token operator">:</span> <span class="token class-name">Int</span><span class="token punctuation">,</span>
+            boxStart<span class="token operator">:</span> <span class="token class-name">Int</span><span class="token punctuation">,</span>
+            boxEnd<span class="token operator">:</span> <span class="token class-name">Int</span><span class="token punctuation">,</span>
+            snapPreference<span class="token operator">:</span> <span class="token class-name">Int</span>
+        <span class="token punctuation">)</span><span class="token operator">:</span> <span class="token class-name">Int</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>boxStart <span class="token operator">+</span> <span class="token punctuation">(</span>boxEnd <span class="token operator">-</span> boxStart<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span>viewStart <span class="token operator">+</span> <span class="token punctuation">(</span>viewEnd <span class="token operator">-</span> viewStart<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+        override fun <span class="token function">calculateTimeForScrolling</span><span class="token punctuation">(</span>dx<span class="token operator">:</span> <span class="token class-name">Int</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token class-name">Int</span> <span class="token punctuation">{</span>
+            <span class="token comment">//&#x6EDA;&#x52A8;&#x65F6;&#x95F4;&#xFF0C;&#x4E0D;&#x80FD;&#x4E3A;0&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x95EA;&#x9000;</span>
+            <span class="token comment">//&#x8BBE;&#x7F6E;&#x592A;&#x5C0F;&#xFF0C;item&#x6570;&#x91CF;&#x591A;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6EDA;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#x627E;&#x4E0D;&#x5230;&#x76EE;&#x6807;view</span>
+            <span class="token comment">// ----&gt;&#x91CD;&#x5199;LayoutManager&#x7684;computeScrollVectorForPosition&#xFF0C;&#x8FD4;&#x56DE;null&#xFF0C;&#x4F1A;&#x8C03;&#x7528;scrollToPosition&#x7ACB;&#x9A6C;&#x6EDA;&#x52A8;&#xFF0C;&#x6EDA;&#x52A8;&#x5B8C;&#x518D;&#x901A;&#x8FC7;onTargetFound&#x8BA1;&#x7B97;view&#x4F4D;&#x7F6E;&#x5C45;&#x4E2D;calculateDtToFit</span>
+            <span class="token keyword">return</span> <span class="token number">1</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
  
           </section>
           
@@ -2303,7 +2376,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"RecyclerView","level":"7.2","depth":1,"next":{"title":"Binder原理","level":"7.3","depth":1,"path":"Android源码/Binder原理.md","ref":"Android源码/Binder原理.md","articles":[]},"previous":{"title":"Handler","level":"7.1","depth":1,"path":"Android源码/Handler.md","ref":"Android源码/Handler.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/RecyclerView.md","mtime":"2022-03-22T09:08:30.192Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-06T01:09:36.940Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"RecyclerView","level":"7.2","depth":1,"next":{"title":"Binder原理","level":"7.3","depth":1,"path":"Android源码/Binder原理.md","ref":"Android源码/Binder原理.md","articles":[]},"previous":{"title":"Handler","level":"7.1","depth":1,"path":"Android源码/Handler.md","ref":"Android源码/Handler.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/RecyclerView.md","mtime":"2022-04-07T10:20:47.748Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-11T01:05:27.854Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

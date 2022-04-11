@@ -20,6 +20,8 @@ ArrayMap：与HashMap相比不需要构造entry对象
 
 5. 查找的时候，计算hashCode，查找在hash数组中的位置，x2即key的位置，x2+1即value的位置
 
+5. 初始容量为0，每次扩容2倍，每次至少扩容4
+
 HashMap时间复杂度为O(1)、ArrayMap和SparseArray时间复杂度为O(logn)
 
 SparseIntArray、SparseLongArray、SparseBooleanArray：value数组是基本类型，不需要装箱

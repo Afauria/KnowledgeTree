@@ -496,7 +496,33 @@
             
         </li>
     
-        <li class="chapter " data-level="2.19" >
+        <li class="chapter " data-level="2.19" data-path="../Java/ArrayList.html">
+            
+                <a href="../Java/ArrayList.html">
+            
+                    
+                    ArrayList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.20" data-path="../Java/HashMap.html">
+            
+                <a href="../Java/HashMap.html">
+            
+                    
+                    HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.21" >
             
                 <span>
             
@@ -509,7 +535,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.20" >
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -997,9 +1023,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewModel.html">
             
-                <span>
+                <a href="../Jetpack/ViewModel.html">
             
                     
                     ViewModel
@@ -1330,9 +1356,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.5" data-path="../Android性能/">
+        <li class="chapter " data-level="8.5" data-path="../开源框架/EventBus.html">
             
-                <a href="../Android性能/">
+                <a href="../开源框架/EventBus.html">
             
                     
                     EventBus
@@ -1781,14 +1807,14 @@
             
         </li>
     
-        <li class="chapter " data-level="13.5" >
+        <li class="chapter " data-level="13.5" data-path="../设计模式/迭代器模式.html">
             
-                <span>
+                <a href="../设计模式/迭代器模式.html">
             
                     
                     迭代器模式
             
-                </span>
+                </a>
             
 
             
@@ -1957,27 +1983,27 @@
             
         </li>
     
-        <li class="chapter " data-level="14.6" >
+        <li class="chapter " data-level="14.6" data-path="../计算机网络/HTTP.html">
             
-                <span>
+                <a href="../计算机网络/HTTP.html">
             
                     
                     HTTP
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="14.7" >
+        <li class="chapter " data-level="14.7" data-path="../计算机网络/HTTPS.html">
             
-                <span>
+                <a href="../计算机网络/HTTPS.html">
             
                     
                     HTTPS
             
-                </span>
+                </a>
             
 
             
@@ -2715,9 +2741,6 @@
 <span class="token annotation punctuation">@UnsupportedAppUsage</span>
 <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleBindApplication</span><span class="token punctuation">(</span><span class="token class-name">AppBindData</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-    <span class="token comment">// Note when this process has started.</span>
-    <span class="token class-name">Process</span><span class="token punctuation">.</span><span class="token function">setStartTimes</span><span class="token punctuation">(</span><span class="token class-name">SystemClock</span><span class="token punctuation">.</span><span class="token function">elapsedRealtime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">SystemClock</span><span class="token punctuation">.</span><span class="token function">uptimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
     <span class="token comment">// &#x6839;&#x636E;AMS&#x4F20;&#x8FC7;&#x6765;&#x7684;ApplicationInfo&#x521B;&#x5EFA;LoadedApk&#x5BF9;&#x8C61;</span>
     data<span class="token punctuation">.</span>info <span class="token operator">=</span> <span class="token function">getPackageInfoNoCheck</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>appInfo<span class="token punctuation">,</span> data<span class="token punctuation">.</span>compatInfo<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
@@ -3005,7 +3028,7 @@
     <span class="token comment">// &#x53D6;&#x6D88;&#x540E;&#x53F0;GC&#x4EFB;&#x52A1;</span>
     <span class="token function">unscheduleGcIdler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     mSomeActivitiesChanged <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-
+    <span class="token comment">//&#x6267;&#x884C;onStart&#x548C;onResume&#x751F;&#x547D;&#x5468;&#x671F;</span>
     <span class="token keyword">final</span> <span class="token class-name">ActivityClientRecord</span> r <span class="token operator">=</span> <span class="token function">performResumeActivity</span><span class="token punctuation">(</span>token<span class="token punctuation">,</span> finalStateRequest<span class="token punctuation">,</span> reason<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment">// We didn&apos;t actually resume the activity, so skipping any follow-up actions.</span>
@@ -3094,7 +3117,20 @@
 <p>TODO&#xFF1A;&#x753B;&#x56FE;</p>
 <p>A&#x5E94;&#x7528;&#xFF1A;<code>startActivity--&gt;Instrumentation.execStartActivity--&gt;ActivityTaskManager.getService().startActivity</code></p>
 <p>AMS&#xFF1A;<code>ActivityTaskManagerService.startActivity--&gt;ActivityStarter.execute--&gt;RootWindowContainer.resumeFocusedStacksTopActivities--&gt;ActivityStack.resumeTopActivityUncheckedLocked--&gt;ActivityTaskManagerService.startProcessAsync--&gt;ActivityManagerService.startProcessLocked--&gt;ProcessList.startProcess--&gt;ZygoteProcess.start</code></p>
-<p>B&#x5E94;&#x7528;&#xFF1A;<code>ActivityThread.main--&gt;AMS.attachApplication&#xFF08;&#x4F20;&#x9012;ApplicationThread&#xFF0C;&#x7528;&#x4E8E;&#x540E;&#x7EED;&#x901A;&#x4FE1;&#xFF09;--&gt;ApplicationThread.bindApplication--&gt;ApplicationThread.scheduleTransaction--&gt;ActivityThread.handleLaunchActivity&#xFF08;Activity&#x5B9E;&#x4F8B;&#x5316;&#x3001;&#x6267;&#x884C;attach&#x65B9;&#x6CD5;&#xFF0C;&#x8C03;&#x7528;onCreate&#x751F;&#x547D;&#x5468;&#x671F;&#xFF09;--&gt;ActivityThread.handleResumeActivity&#xFF08;&#x8C03;&#x7528;onStart&#x548C;onResume&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WM&#x4E2D;&#xFF09;</code></p>
+<p>B&#x5E94;&#x7528;&#xFF1A;<code>ActivityThread.main--&gt;AMS.attachApplication&#xFF08;&#x4F20;&#x9012;ApplicationThread&#xFF0C;&#x7528;&#x4E8E;&#x540E;&#x7EED;&#x901A;&#x4FE1;&#xFF09;--&gt;ApplicationThread.bindApplication&#xFF08;&#x5B9E;&#x4F8B;&#x5316;Application&#x5BF9;&#x8C61;&#xFF0C;&#x521D;&#x59CB;&#x5316;ContentProvider&#xFF0C;&#x8C03;&#x7528;Application&#x7684;onCreate&#x65B9;&#x6CD5;&#xFF09;--&gt;ApplicationThread.scheduleTransaction--&gt;ActivityThread.handleLaunchActivity&#xFF08;Activity&#x5B9E;&#x4F8B;&#x5316;&#x3001;&#x6267;&#x884C;attach&#x65B9;&#x6CD5;&#xFF0C;&#x8C03;&#x7528;onCreate&#x751F;&#x547D;&#x5468;&#x671F;&#xFF09;--&gt;ActivityThread.handleResumeActivity&#xFF08;&#x8C03;&#x7528;onStart&#x548C;onResume&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x5C06;DecorView&#x6DFB;&#x52A0;&#x5230;WM&#x4E2D;&#xFF09;</code></p>
+<p>activity&#x542F;&#x52A8;&#x6D41;&#x7A0B;</p>
+<ul>
+<li>Activity&#x4EE3;&#x7406;ContextImpl&#x3002;&#x8C03;&#x7528;startActivity</li>
+<li>ContextImpl&#x4ECE;ActivityThread&#x4E2D;&#x83B7;&#x53D6;Instrumentation</li>
+<li>&#x8C03;&#x7528;Instrumentation&#x7684;execStartActivity&#x65B9;&#x6CD5;</li>
+<li>Instrumentation&#x8C03;&#x7528;ActivityManager.getService()&#x65B9;&#x6CD5;&#x83B7;&#x53D6;AMS&#xFF08;Binder IPC&#xFF09;&#x3002;&#x8C03;&#x7528;AMS&#x7684;startActivity&#x65B9;&#x6CD5;&#x3002;</li>
+<li>AMS&#x68C0;&#x67E5;Manifest&#x662F;&#x5426;&#x6CE8;&#x518C;&#xFF08;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;&#xFF09;</li>
+<li>AMS&#x901A;&#x8FC7;Binder IPC&#xFF08;&#x56DE;&#x5230;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;&#xFF09;&#x8C03;&#x7528;ActivityThread&#x542F;&#x52A8;Activity</li>
+<li>ActivityThread.scheduleLaunchActivity()&#x901A;&#x8FC7;sendMessage&#x4EA4;&#x7ED9;Handler&#x5904;&#x7406;&#x3002;</li>
+<li>Handler&#x8C03;&#x7528;handleLaunchActivity-&gt;performLauncherActivity()&#x3002;</li>
+<li>&#x901A;&#x8FC7;mInstrumentation.newActivity&#x521B;&#x5EFA;activity</li>
+<li>&#x5E76;&#x8C03;&#x7528;Instrumentation.callActivityOnCreate(activity)-&gt;activity.performCreate()-&gt;onCreate()</li>
+</ul>
 <h1 id="&#x5E38;&#x89C1;&#x6982;&#x5FF5;"><a name="&#x5E38;&#x89C1;&#x6982;&#x5FF5;" class="plugin-anchor" href="#&#x5E38;&#x89C1;&#x6982;&#x5FF5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5E38;&#x89C1;&#x6982;&#x5FF5;</h1>
 <p>&#x7ECF;&#x5E38;&#x770B;&#x5230;&#x4E00;&#x4E9B;&#x7C7B;&#x4F3C;&#x540D;&#x79F0;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x641E;&#x6DF7;&#xFF0C;&#x8FD9;&#x91CC;&#x505A;&#x4E0B;&#x533A;&#x5206;</p>
 <ul>
@@ -3107,6 +3143,7 @@
 <ul>
 <li><a href="https://blog.csdn.net/qian520ao/article/details/78156214" target="_blank">Android Launcher &#x542F;&#x52A8; Activity &#x7684;&#x5DE5;&#x4F5C;&#x8FC7;&#x7A0B;</a></li>
 </ul>
+<p><a href="http://gityuan.com/2016/03/06/start-service/" target="_blank">http://gityuan.com/2016/03/06/start-service/</a></p>
  
           </section>
           
@@ -3194,7 +3231,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"Activity启动过程","level":"7.4","depth":1,"next":{"title":"View加载流程","level":"7.5","depth":1,"path":"Android源码/View加载流程.md","ref":"Android源码/View加载流程.md","articles":[]},"previous":{"title":"Binder原理","level":"7.3","depth":1,"path":"Android源码/Binder原理.md","ref":"Android源码/Binder原理.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Activity启动过程.md","mtime":"2022-03-28T01:27:24.393Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-06T01:09:36.940Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"Activity启动过程","level":"7.4","depth":1,"next":{"title":"View加载流程","level":"7.5","depth":1,"path":"Android源码/View加载流程.md","ref":"Android源码/View加载流程.md","articles":[]},"previous":{"title":"Binder原理","level":"7.3","depth":1,"path":"Android源码/Binder原理.md","ref":"Android源码/Binder原理.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Activity启动过程.md","mtime":"2022-04-07T10:27:54.040Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-11T01:05:27.854Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

@@ -494,7 +494,33 @@
             
         </li>
     
-        <li class="chapter " data-level="2.19" >
+        <li class="chapter " data-level="2.19" data-path="../Java/ArrayList.html">
+            
+                <a href="../Java/ArrayList.html">
+            
+                    
+                    ArrayList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.20" data-path="../Java/HashMap.html">
+            
+                <a href="../Java/HashMap.html">
+            
+                    
+                    HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.21" >
             
                 <span>
             
@@ -507,7 +533,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.20" >
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -995,9 +1021,9 @@
             
         </li>
     
-        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewMode.md">
+        <li class="chapter " data-level="5.3" data-path="../Jetpack/ViewModel.html">
             
-                <span>
+                <a href="../Jetpack/ViewModel.html">
             
                     
                     ViewModel
@@ -1328,9 +1354,9 @@
             
         </li>
     
-        <li class="chapter " data-level="8.5" data-path="../Android性能/">
+        <li class="chapter " data-level="8.5" data-path="../开源框架/EventBus.html">
             
-                <a href="../Android性能/">
+                <a href="../开源框架/EventBus.html">
             
                     
                     EventBus
@@ -1779,14 +1805,14 @@
             
         </li>
     
-        <li class="chapter " data-level="13.5" >
+        <li class="chapter " data-level="13.5" data-path="../设计模式/迭代器模式.html">
             
-                <span>
+                <a href="../设计模式/迭代器模式.html">
             
                     
                     迭代器模式
             
-                </span>
+                </a>
             
 
             
@@ -1955,27 +1981,27 @@
             
         </li>
     
-        <li class="chapter " data-level="14.6" >
+        <li class="chapter " data-level="14.6" data-path="../计算机网络/HTTP.html">
             
-                <span>
+                <a href="../计算机网络/HTTP.html">
             
                     
                     HTTP
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="14.7" >
+        <li class="chapter " data-level="14.7" data-path="../计算机网络/HTTPS.html">
             
-                <span>
+                <a href="../计算机网络/HTTPS.html">
             
                     
                     HTTPS
             
-                </span>
+                </a>
             
 
             
@@ -2333,6 +2359,51 @@ mHandlerThread<span class="token punctuation">.</span><span class="token functio
 <li>ThreadLocal&#x539F;&#x7406;&#xFF1A;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x4FDD;&#x5B58;&#x4E86;&#x4E00;&#x4E2A;<code>ThreadLocalMap&lt;ThreadLocal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>?</span><span class="token punctuation">&gt;</span></span>, Object&gt;</code>&#xFF0C;get&#x7684;&#x65F6;&#x5019;&#x901A;&#x8FC7;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;<code>Thread.currentThread().threadLocalMaps.get(this)</code></li>
 <li>Handler&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x89E3;&#x51B3;&#xFF1A;remove&#x6D88;&#x606F;&#x3001;&#x4F7F;&#x7528;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;+&#x5F31;&#x5F15;&#x7528;</li>
 </ol>
+<h2 id="message"><a name="message" class="plugin-anchor" href="#message"><i class="fa fa-link" aria-hidden="true"></i></a>Message</h2>
+<p><code>Message.obtain</code>&#xFF1A;&#x5185;&#x90E8;&#x5B9A;&#x4E49;&#x4E86;sPool&#x6C60;&#xFF0C;&#x6700;&#x5927;&#x5BB9;&#x91CF;&#x4E3A;50&#xFF0C;&#x4F7F;&#x7528;&#x94FE;&#x8868;&#x5B58;&#x50A8;&#xFF0C;&#x6BCF;&#x6B21;&#x4ECE;&#x5934;&#x90E8;&#x83B7;&#x53D6;&#x548C;&#x63D2;&#x5165;</p>
+<pre class="language-"><code class="lang-java"><span class="token comment">//Message.java</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> sPoolSync <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Message</span> sPool<span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> sPoolSize <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> MAX_POOL_SIZE <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">;</span>
+<span class="token comment">//&#x590D;&#x7528;</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Message</span> <span class="token function">obtain</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>sPoolSync<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sPool <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name">Message</span> m <span class="token operator">=</span> sPool<span class="token punctuation">;</span> <span class="token comment">// &#x8FD4;&#x56DE;&#x5934;&#x8282;&#x70B9;</span>
+            sPool <span class="token operator">=</span> m<span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">//&#x6307;&#x5411;&#x7B2C;&#x4E8C;&#x4E2A;&#x8282;&#x70B9;</span>
+            m<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">//&#x65AD;&#x5F00;&#x94FE;&#x8868;</span>
+            m<span class="token punctuation">.</span>flags <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            sPoolSize<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> m<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Message</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//&#x56DE;&#x6536;</span>
+<span class="token keyword">void</span> <span class="token function">recycleUnchecked</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//&#x6E05;&#x7A7A;&#x4FE1;&#x606F;</span>
+    flags <span class="token operator">=</span> FLAG_IN_USE<span class="token punctuation">;</span>
+    what <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    arg1 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    arg2 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    obj <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    replyTo <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    sendingUid <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    when <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    target <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    callback <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    data <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token comment">//&#x52A0;&#x5165;sPool&#x5934;&#x8282;&#x70B9;</span>
+    <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>sPoolSync<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sPoolSize <span class="token operator">&lt;</span> MAX_POOL_SIZE<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            next <span class="token operator">=</span> sPool<span class="token punctuation">;</span>
+            sPool <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+            sPoolSize<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p><a href="https://cloud.tencent.com/developer/article/1800399" target="_blank">https://cloud.tencent.com/developer/article/1800399</a></p>
 <p><a href="https://cloud.tencent.com/developer/article/1924870?from=article.detail.1800399" target="_blank">https://cloud.tencent.com/developer/article/1924870?from=article.detail.1800399</a></p>
 <p><a href="https://cloud.tencent.com/developer/article/1834340?from=article.detail.1924870" target="_blank">https://cloud.tencent.com/developer/article/1834340?from=article.detail.1924870</a></p>
@@ -2502,7 +2573,7 @@ mHandlerThread<span class="token punctuation">.</span><span class="token functio
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"Handler","level":"7.1","depth":1,"next":{"title":"RecyclerView","level":"7.2","depth":1,"path":"Android源码/RecyclerView.md","ref":"Android源码/RecyclerView.md","articles":[]},"previous":{"title":"anko","level":"6.3","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Handler.md","mtime":"2022-03-29T01:04:31.494Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-06T01:09:36.940Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"Handler","level":"7.1","depth":1,"next":{"title":"RecyclerView","level":"7.2","depth":1,"path":"Android源码/RecyclerView.md","ref":"Android源码/RecyclerView.md","articles":[]},"previous":{"title":"anko","level":"6.3","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Android源码/Handler.md","mtime":"2022-04-06T01:22:54.023Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-11T01:05:27.854Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>
