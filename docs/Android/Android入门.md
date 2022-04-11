@@ -55,3 +55,20 @@
 | Pie （Android P）（馅饼）           | 9.0         | 2018年8月7日   | API 28       |
 | （Android Q）                       | 10          |                | API 29       |
 | （Android R)                        | 11          |                | API 30       |
+
+# 虚拟机
+
+Davik和ART
+
+方法数64K限制：[MultiDex](https://developer.android.com/studio/build/multidex?hl=zh-cn)
+
+dex方法数限制
+
+> 65535：Davik和Art虚拟机使用`unsigned-short`类型（16位，64K）存储方法的索引。方法索引是在将class文件转化成dex文件时产生的，保存在dex文件中，目的是为了加快类加载过程的链接过程，即把索引链接换成方法在内存中的地址。
+>
+> HotSpot虚拟机中通过符号（包含类名、方法名信息）引用方法，在类加载的链接过程 中，把符号链接换成实际的内存地址（在java 内存的方法区）
+>
+> 解决：
+>
+> 1. 使用MultiDex，分成多个dex文件
+> 2. 5.0以上默认支持多dex，将dex编译成单个`oat`文件，预编译执行
