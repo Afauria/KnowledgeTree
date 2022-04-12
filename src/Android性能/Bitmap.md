@@ -25,6 +25,8 @@
 `inSampleSize`设置采样大小，为1表示不压缩，为2表示相邻2个像素只取一个，计算方式如下：
 
 > `inSampleSize`设置为2的倍数，因为解码器的最终值会向下舍入最接近2的幂
+>
+> 宽和高都缩小：即宽/2，高/2，面积缩小4倍
 
 ```kotlin
     fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
@@ -69,11 +71,17 @@ fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, r
 }   
 ```
 
+# 防止OOM
+
+LruCache、软引用、使用匿名内存、onLowMemory清除内存
+
 # 缓存位图
 
 对于列表、ViewPager等组件，加载大量图片，为了保证流畅，需要进行图片缓存。建议使用Glide
 
 > 过去使用软引用和弱引用实现缓存，高版本GC会更积极的回收，导致效用不佳，因此改为强引用
+
+LruCache内部使用`LinkedHashMap`，`accessOrder`属性设置为true，表示按访问顺序排序。`LinkedHashMapEntry`中使用双链表存储前后节点
 
 `LruCache`内存缓存使用如下：
 
@@ -82,6 +90,7 @@ val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
 // 计算合适的缓存大小，这里取总内存的1/8
 val cacheSize = maxMemory / 8
 var memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
+    //重写sizeOf方法，计算每个元素占用的内存
     override fun sizeOf(key: String, bitmap: Bitmap): Int {
         return bitmap.byteCount / 1024
     }
@@ -99,6 +108,8 @@ fun loadBitmap(resId: Int, imageView: ImageView) {
     }
 }
 ```
+
+> sizeOf默认返回1，代表一个单位。例如我们需要存储前20条观看历史记录，每一条代表一个单位，不需要计算内存
 
 `DiskLruCache`磁盘缓存示例代码：
 
@@ -173,9 +184,7 @@ fun getBitmapFromDiskCache(key: String): Bitmap? =
 }
 ```
 
-
-
-
+# 其他
 
 从资源文件中获取
 
@@ -263,8 +272,17 @@ if(!bitmap.isRecycled())
 `public static Bitmap createBitmap (Bitmap source, int x, int y, int width, int height) `
 简单的剪切图像的方法
 
-
 压缩图片：Bitmap所占用的内存 = 图片长度 x 图片宽度 x 一个像素点占用的字节数。3个参数，任意减少一个的值，就达到了压缩的效果。
+
+* 色彩压缩：
+  * ALPHA_8：每个像素占2个字节，只有透明度值
+  * RGB_565：每个像素占2个字节
+  * ARGB_4444：每个像素占2个字节
+  * ARGB_8888：每个像素占4个字节
+* 采样压缩：inSampleSize
+  * 邻近采样：2个像素丢弃一个像素
+  * 双线性采样：参考周围2x2像素的值，计算权重
+* 质量压缩：使用JPEG、WebP格式，设置压缩质量
 
 参数分别为：原始bitmap，修改后宽高
 Bitmap.createScaledBitmap(bit, 150, 150, true);

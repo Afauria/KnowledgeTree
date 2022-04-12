@@ -7,8 +7,45 @@ TODO
   3. 防止内存泄漏，
   4. 外部可以注册监听器监听数据变化
 
- 通常我们处理View事件会做两类事情：操作Model（业务逻辑）、操作UI（视图逻辑）
- UI事件分为两类：显示变更（数据绑定）、作出行为（事件绑定）
+LiveData注册监听器，会被包装为`ObserverWrapper`，并存入Map中。
+
+> `ObserverWrapper`中保存了版本号和是否活跃的状态，如果不采用包装组合的方式，那么开发者定义的Observer都需要继承自`ObserverWrapper`才行
+
+```java
+private SafeIterableMap<Observer<? super T>, ObserverWrapper> mObservers = new SafeIterableMap<>();
+```
+
+版本号的作用：避免页面onPause、onStart导致重复通知数据
+
+```java
+private void considerNotify(ObserverWrapper observer) {
+    if (!observer.mActive) {
+        return;
+    }
+    //判断是否处于活跃状态
+    if (!observer.shouldBeActive()) {
+        observer.activeStateChanged(false);
+        return;
+    }
+    //判断Observer中的版本号，和自定义的版本号
+    if (observer.mLastVersion >= mVersion) {
+        return;
+    }
+    //更新版本号
+    observer.mLastVersion = mVersion;
+    observer.mObserver.onChanged((T) mData);
+}
+```
+
+> 但是无法解决页面重建粘性事件的问题，Activity重建之后，观察者重新注册，版本号不一致，因此会再次发送事件。
+>
+> 对于视图绑定，Activity重建需要恢复，所以不是问题
+
+MediatorLiveDarta：中介者模式，同时监听多个LiveData。当有一个数据源变化时则发出通知
+
+通常View包含两个方面：显示变更（数据绑定）、响应事件（事件绑定）
+
+事件响应又分为两类：操作Model（业务逻辑）、操作UI（视图逻辑）
 
  事件绑定一般在Activity中，触发事件之后调用Presenter方法，数据变化之后回调通知View刷新
 
@@ -18,10 +55,10 @@ TODO
         1. 也可以通过Databinding的形式，传入listener，绑定到UI，在xml中注册监听，触发事件，使用lambda表达式调用listener方法
            2. listener可以在Activity中实现：`android:onClick="onClick"`，这种方式是在View中setOnClickListener，onClick中通过反射调用Activity的onClick方法
            3. 如果需要调用model，可以在ViewModel中实现，如`android:onClick="@{()->viewmodel.onDeviceClick(deviceBean)}"`，这种方式是生成BindingImpl类，View setOnClickListener，最终调用`_internalCallbackOnClick(sourceId,View)`方法，如果有多个View设置了监听器，则switch判断`sourceId`
-       
-
 
 回调：消息监听，在ViewModel中创建LiveData，Activity观察LiveData，LiveData变化之后操作UI（例如弹Toast）
+
+DataBinding中监听事件
 
 ```java
   public final void _internalCallbackOnClick(int sourceId, android.view.View callbackArg_0) {
@@ -31,7 +68,7 @@ TODO
                 // viewmodel != null
                 boolean viewmodelJavaLangObjectNull = false;
                 // viewmodel
-                com.cvte.tv.smarthome.home.HomeViewModel viewmodel = mViewmodel;
+                HomeViewModel viewmodel = mViewmodel;
                 viewmodelJavaLangObjectNull = (viewmodel) != (null);
                 if (viewmodelJavaLangObjectNull) {
                     viewmodel.onFamilyEntryClick();
@@ -43,7 +80,7 @@ TODO
                 // viewmodel != null
                 boolean viewmodelJavaLangObjectNull = false;
                 // viewmodel
-                com.cvte.tv.smarthome.home.HomeViewModel viewmodel = mViewmodel;
+                HomeViewModel viewmodel = mViewmodel;
                 viewmodelJavaLangObjectNull = (viewmodel) != (null);
                 if (viewmodelJavaLangObjectNull) {
                     viewmodel.onPIPEntryClick();

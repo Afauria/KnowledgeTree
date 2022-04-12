@@ -7,12 +7,21 @@
 3. 自动压缩图片到适合View的大小
 4. 自动和生命周期绑定
 5. 支持预加载图片而不显示
-6. 支持多种图片类型
+6. 支持多种图片类型：Gif、WebP、Video等
 7. 默认使用`HttpUrlConnection`进行网络请求，也可以使用OkHttp、Volley
 
 [源码地址](https://github.com/bumptech/glide)
 
 其他框架：`ImageLoader`、`Picasso`、`Fresco`
+
+图片加载框架设计：
+
+1. 异步加载：线程池，网络线程池，硬盘线程池
+2. 切换线程：Handler
+3. 缓存：LruCache、DiskLruCache
+4. 防止OOM：软引用、LruCache、图片压缩、Bitmap像素存储位置
+5. 内存泄露：注意ImageView的正确引用，生命周期管理
+6. 列表滑动加载的问题：加载错乱、队列任务过多问题
 
 # 使用
 

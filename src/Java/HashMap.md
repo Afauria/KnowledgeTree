@@ -77,7 +77,74 @@ HashMap如何扩容?
 * 拉链法：冲突位置构造成链表
 * 公共溢出区：冲突之后填入溢出表，使用新表存储冲突元素
 
-LinkedHashMap：通过双链表记录插入顺序，可以按顺序取出，
+LinkedHashMap：每个节点为`LinkedHashMapEntry`，继承自HashMap的Node记录了前后的节点。并且提供了头节点和尾节点
+
+HashMap为什么线程不安全
+
+1. JDK1.8之前，采用头插法，并发扩容会导致死循环。JDK1.8之后，采用尾插法，不会导致死循环，但仍可能出现数据覆盖的情况
+2. 多线程同时操作，可能会覆盖数据。例如两个线程同时push，计算hash值相同，并且同时判断了目标位置为空。
+
+为什么头插法会导致死循环？采用头插法会导致原链表顺序被反转
+
+1. 假设线程2loHead（1）->loTail（2），然后释放CPU
+2. 线程1扩容完成之后链表变成了3->2->1
+3. 此时线程2恢复，继续遍历2的下一个节点，结果变成了loHead（1）->2->loTail（1）
+
+```java
+//HashMap.java
+final Node<K,V>[] resize() {
+    Node<K,V>[] oldTab = table;
+    //计算容量...
+    Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
+    table = newTab;
+    if (oldTab != null) {
+        for (int j = 0; j < oldCap; ++j) {
+            Node<K,V> e;
+            if ((e = oldTab[j]) != null) {
+                oldTab[j] = null;
+                if (e.next == null)
+                    newTab[e.hash & (newCap - 1)] = e;
+                else if (e instanceof TreeNode)
+                    //红黑树扩容
+                    ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
+                else { // 链表扩容
+                    Node<K,V> loHead = null, loTail = null;
+                    Node<K,V> hiHead = null, hiTail = null;
+                    Node<K,V> next;
+                    do {
+                        next = e.next;
+                        if ((e.hash & oldCap) == 0) {
+                            if (loTail == null)
+                                loHead = e;
+                            else
+                                loTail.next = e;
+                            loTail = e;
+                        }
+                        else {
+                            if (hiTail == null)
+                                hiHead = e;
+                            else
+                                hiTail.next = e;
+                            hiTail = e;
+                        }
+                    } while ((e = next) != null);
+                    if (loTail != null) {
+                        //loHead放到原位置
+                        loTail.next = null;
+                        newTab[j] = loHead;
+                    }
+                    if (hiTail != null) {
+                        //hiHead放到新位置
+                        hiTail.next = null;
+                        newTab[j + oldCap] = hiHead;
+                    }
+                }
+            }
+        }
+    }
+    return newTab;
+}
+```
 
 # ConcurrentHashMap
 
