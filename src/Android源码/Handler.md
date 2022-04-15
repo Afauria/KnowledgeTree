@@ -1,12 +1,12 @@
 暂未整理，都是草稿
 
-## Handler
+# ThreadLocal：线程本地变量
 
-### ThreadLocal：线程本地变量
+每个线程各自拥有，互不影响。get到的值是不一样的。使用ThreadLocalMap存储
 
-每个线程各自拥有，互不影响。get到的值是不一样的
+# Handler
 
-### Handler机制（占个坑，有空补图）
+### Handler机制
 
 Handler：Looper（通过Looper.myLooper()从ThreadLocal中获取）、MessageQueue（Looper中获取）。
 
@@ -19,18 +19,14 @@ MessageQueue：Message（使用单链表的形式，存储next Message），next
 
 Message：next（存储next Message），what（消息code），obj（消息内容），target（消息的目标：Handler）
 
-Looper：MessageQueue，`sThreadLocal= new ThreadLocal<Looper>()`（线程本地变量），Thread（Looper所在的线程，直接赋值为Thread.currentThread()），静态方法prepare()（ThreadLocal.set(new Looper())，创建自身，并设置到ThreadLocal中），静态方法loop()（不断从MessageQueue中获取消息，死循环，通过target对象执行handleMessage方法，在loop所在线程），静态方法myLooper()（ThreadLocal.get()获取当前线程的Looper），quit()终止循环（移除所有消息），quitSafely（移除延时消息，可以让已经在队列的消息执行完毕，共同点：不再接收消息）。静态方法getMainLooper()（保存了mainLooper对象，任何地方都能获取到主线程的Looper），
+Looper：MessageQueue，`sThreadLocal= new ThreadLocal<Looper>()`（线程本地变量），Thread（Looper所在的线程，直接赋值为Thread.currentThread()）
 
-HandlerThread：继承Thread，在子线程中创建了Looper对象（prepare），并执行loop循环，即handleMessage在子线程
-
-HandlerThread特点：
-
-* 继承Thread，内部建立了Looper，并执行Looper循环，避免了手动维护Looper
-* HandlerThread将loop转到子线程中处理，分担MainLooper的工作量，降低了主线程的压力，使主界面更流畅。
-* 开启一个线程起到多个线程的作用。处理任务是串行执行，按消息发送顺序进行处理。HandlerThread本质是单线程，而不是并发，在线程内部，代码是串行处理的。
-* 由于每一个任务都将以队列的方式逐个被执行到，一旦队列中有某个任务执行时间过长，那么就会导致后续的任务都会被延迟处理。
-* 拥有自己的消息队列，它不会干扰或阻塞UI线程。
-* 网络IO操作，HandlerThread并不适合，因为它只有一个线程，还得排队一个一个等着。
+1. 静态方法prepare()（`threadLocal.set(new Looper())`，创建自身，并设置到ThreadLocal中）
+2. 静态方法loop()（不断从MessageQueue中获取消息，死循环，通过target对象执行handleMessage方法，在loop所在线程）
+3. 静态方法myLooper()（`threadLocal.get()`获取当前线程的Looper）
+4. quit()终止循环（移除所有消息）
+5. quitSafely（移除延时消息，可以让已经在队列的消息执行完毕，共同点：不再接收消息）。
+6. 静态方法getMainLooper()（保存了mainLooper对象，任何地方都能获取到主线程的Looper），
 
 总结：
 
@@ -63,7 +59,7 @@ public void run() {
 	synchronized (this) {
 		mLooper = Looper.myLooper();
 		notifyAll();//唤醒
-    }
+  }
 	Process.setThreadPriority(mPriority);
 	onLooperPrepared();
 	Looper.loop();
@@ -73,8 +69,9 @@ public Looper getLooper() {
 	if (!isAlive()) {
 		return null;
 	}
-    // If the thread has been started, wait until the looper has been created.
+  // If the thread has been started, wait until the looper has been created.
 	synchronized (this) {
+    //循环直到子线程Looper创建完成
 		while (isAlive() && mLooper == null) {
 			try {
 				wait();//阻塞
@@ -245,6 +242,21 @@ https://www.icode9.com/content-4-944093.html
         }
     }
 ```
+
+
+
+# HandlerThread
+
+HandlerThread：继承Thread，在子线程中创建了Looper对象（prepare），并执行loop循环，即handleMessage在子线程
+
+HandlerThread特点：
+
+* 继承Thread，内部建立了Looper，并执行Looper循环，避免了手动维护Looper
+* HandlerThread将loop转到子线程中处理，分担MainLooper的工作量，降低了主线程的压力，使主界面更流畅。
+* 开启一个线程起到多个线程的作用。处理任务是串行执行，按消息发送顺序进行处理。HandlerThread本质是单线程，而不是并发，在线程内部，代码是串行处理的。
+* 由于每一个任务都将以队列的方式逐个被执行到，一旦队列中有某个任务执行时间过长，那么就会导致后续的任务都会被延迟处理。
+* 拥有自己的消息队列，它不会干扰或阻塞UI线程。
+* 网络IO操作，HandlerThread并不适合，因为它只有一个线程，还得排队一个一个等着。
 
 ### **Handler 相关面试题：**
 

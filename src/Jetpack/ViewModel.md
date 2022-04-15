@@ -52,6 +52,8 @@ ViewModelProvider
 
 ViewModelStore
 
+ViewModelStoreOwner
+
 VIewModel
 
 
@@ -77,10 +79,8 @@ ViewModelStore使用HashMap保存多个ViewModel统一管理
 1. 在页面重建的时候进行恢复，ViewModelStore保存在NonConfigurationInstances中，该变量保存在Activity外部，Activity重建之后可以从中恢复
 
 * `NewInstanceFactory`：直接反射Class创建ViewModel实例
-* `AndroidViewModelFactory`：创建ViewModel并传入application对象
+* `AndroidViewModelFactory`：创建ViewModel并传入application对象，判断Class继承`AndroidViewModel`则使用`AndroidViewModelFactory`
 * `SavedStateViewModelFactory`：
-  * 判断Class继承`AndroidViewModel`则使用`AndroidViewModelFactory`
-  * 否则创建``
 
 整体原理类似Flutter GetX的`put<T>([key], Object)`和`find<T>([key])`，不设置Key的话就根据泛型类型查找
 
@@ -177,8 +177,7 @@ public ViewModelStore getViewModelStore() {
                 + "Application instance. You can't request ViewModel before onCreate call.");
     }
     if (mViewModelStore == null) {
-        NonConfigurationInstances nc =
-                (NonConfigurationInstances) getLastNonConfigurationInstance();
+        NonConfigurationInstances nc = (NonConfigurationInstances) getLastNonConfigurationInstance();
         if (nc != null) {
             // Restore the ViewModelStore from NonConfigurationInstances
             mViewModelStore = nc.viewModelStore;
@@ -194,3 +193,7 @@ public ViewModelStore getViewModelStore() {
 
 
 ApplicationThread接收Binder调用，通过sendMessage发给ActivityThread执行
+
+# SavedStateViewModelFactory
+
+SaveStateHandle
