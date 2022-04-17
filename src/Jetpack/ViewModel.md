@@ -76,8 +76,6 @@ VIewModel
 
 ViewModelStore使用HashMap保存多个ViewModel统一管理
 
-1. 在页面重建的时候进行恢复，ViewModelStore保存在NonConfigurationInstances中，该变量保存在Activity外部，Activity重建之后可以从中恢复
-
 * `NewInstanceFactory`：直接反射Class创建ViewModel实例
 * `AndroidViewModelFactory`：创建ViewModel并传入application对象，判断Class继承`AndroidViewModel`则使用`AndroidViewModelFactory`
 * `SavedStateViewModelFactory`：
@@ -88,7 +86,7 @@ ViewModelStore使用HashMap保存多个ViewModel统一管理
 
 重建的时候AMS远程调用ActivityThread方法，ActivityThread将要重建的Activity保存到`mRelaunchingActivities`列表中
 
-ActivityThread中`performDestroyActivity`销毁Activity，判断是配置变更，则调用`retainNonConfigurationInstances()`，将数据保存到`ActivityClientRecord`中，
+ActivityThread中`performDestroyActivity`销毁Activity，判断是配置变更，则调用`retainNonConfigurationInstances()`，将数据保存到`ActivityClientRecord`中。
 
 ```java
 //ActivityThread.java
@@ -134,8 +132,7 @@ public final Object onRetainNonConfigurationInstance() {
     if (viewModelStore == null) {
         // No one called getViewModelStore(), so see if there was an existing
         // ViewModelStore from our last NonConfigurationInstance
-        NonConfigurationInstances nc =
-                (NonConfigurationInstances) getLastNonConfigurationInstance();
+        NonConfigurationInstances nc = (NonConfigurationInstances) getLastNonConfigurationInstance();
         if (nc != null) {
             viewModelStore = nc.viewModelStore;
         }

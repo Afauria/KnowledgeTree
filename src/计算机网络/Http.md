@@ -204,3 +204,6 @@ https://blog.csdn.net/xiaoming100001/article/details/81109617
 - **压缩：将文本数据进行压缩，减少带宽**
 - **SSL加速（SSL Acceleration）：使用SSL协议对HTTP协议进行加密，在通道内加密并加速**
 - **TCP缓冲：通过采用TCP缓冲技术，可以提高服务器端响应时间和处理效率，减少由于通信链路问题给服务器造成的连接负担。**
+
+
+
