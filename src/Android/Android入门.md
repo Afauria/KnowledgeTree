@@ -58,17 +58,70 @@
 
 # 虚拟机
 
-Davik和ART
+## 方法数64K引用限制
 
-方法数64K限制：[MultiDex](https://developer.android.com/studio/build/multidex?hl=zh-cn)
+[MultiDex](https://developer.android.com/studio/build/multidex?hl=zh-cn)
 
-dex方法数限制
+dex方法数限制为65535，即64K
 
 > 65535：Davik和Art虚拟机使用`unsigned-short`类型（16位，64K）存储方法的索引。方法索引是在将class文件转化成dex文件时产生的，保存在dex文件中，目的是为了加快类加载过程的链接过程，即把索引链接换成方法在内存中的地址。
 >
 > HotSpot虚拟机中通过符号（包含类名、方法名信息）引用方法，在类加载的链接过程 中，把符号链接换成实际的内存地址（在java 内存的方法区）
->
-> 解决：
->
-> 1. 使用MultiDex，分成多个dex文件
-> 2. 5.0以上默认支持多dex，将dex编译成单个`oat`文件，预编译执行
+
+解决：
+
+1. 缩减代码
+   1. 优化代码逻辑
+   2. R8缩减没有使用的代码
+   3. 减少依赖库
+2. 缩减之后如果还超出，则需要使用MultiDex
+   1. 使用MultiDex，拆分成多个dex文件，`MultiDex.install`的时候加入app的ClassLoader中的PathList中，内部包含一个Element数组（DexFile数组）
+   2. 5.0以上默认支持多dex，将dex编译成单个`oat`文件，预编译执行。minSdkVersion设置为21或以上
+
+## Dalvik和ART对比
+
+Java虚拟机：基于栈。Dalvik：基于寄存器
+
+1. Dalvik采用JIT。ART采用了AOT，并且在Android7.0加入了JIT，提高运行效率
+2. DVM针对32位CPU设计，ART支持64位
+3. ART优化了垃圾回收机制，和运行时内存空间分配：新增`Image Space`和`Large Object Space`
+
+# Android虚拟机优化历程
+
+**Java之所以比C/C++慢（Android之所以比iOS慢），主要原因就在于前者是编译成字节码之后JVM解释执行，后者是编译成本地代码之后直接执行。**
+
+## Android 1.0 Dalvik（DVM）+解释器
+
+DVM中解释器边运行边解释，运行速度慢。
+
+> DVM是Google为Android平台开发的虚拟机，而不使用Java提供的虚拟机。可读取`.dex`的字节码。
+
+## Android 2.2 DVM+JIT编译
+
+通过JIT（Just In Time，即时编译）缓存热点代码为机器码，提高运行速度。
+
+缺点：启动速度慢，每次运行都要重新编译，非热点代码还是解释执行
+
+## Android 5.0 ART+AOT
+
+采用AOT（Ahead of Time，提前编译）技术，在应用安装的时候预编译成机器码（dex文件转为oat文件），避免每次运行进行JIT编译
+
+缺点：应用安装APP时间变长。编译质量不如JIT，机器码需要的存储空间更大
+
+## Android 7.0 ART+AOT+JIT混合编译
+
+应用安装的时候不进行编译，快速启动，在执行的时候分析热点代码。在系统空闲的时候进行AOT，编译热点代码（不会编译所有代码）。
+
+## Android 8.0 改进解释器
+
+提高解释执行效率
+
+## Android 9.0 改进编译模版
+
+开发阶段可以配置编译模版，指定热点代码，ART优先编译这部分代码。
+
+# 结语
+
+参考资料：
+
+* [9102年了，还不知道Android为什么卡？](https://juejin.cn/post/6844903912206499853)

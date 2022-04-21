@@ -266,21 +266,7 @@ GlideApp.with(fragment)
 
 1. with方法用来控制glide图片加载的生命周期，里面可以传入activity、fragment、application。其实主要是分为两种，一种是application，一种是非application。
 2. 当传入application 的时候，glide加载的生命周期跟随应用程序一样，不需要特殊处理
-3. 当传入activity或者fragment的时候，glide会和activity的生命周期绑定。这里实现的原理是，glide添加了一个透明的fragment，根据透明fragment的生命周期来监听activity生命周期。
-
-## 缓存级别
-
-1. 活动资源（Active Resources）：正在使用的资源
-2. 内存缓存（Memory Cache）：最近被加载过，并仍存在于内存中，使用`LruResourceCache`
-3. 资源类型（Resource）：经过解码、转换，并写入过磁盘缓存
-4. 数据来源（Data）：从磁盘缓存中获取
-5. 重新从URL请求
-
-## 缓存Key（Cache Keys）
-
-默认通过model来获取缓存资源（例如File、Uri、URL），如果是自定义的model，需要实现`hashCode()`和`equals()`方法。（保证资源标识唯一）。也可以使用自定义的`signature(Key)`选项，传入Key对象
-
-如果对于图片进行了处理，例如修改了宽高、使用了变换或者选项，此时会被视为不同资源进行缓存。
+3. 当传入activity或者fragment的时候，glide会和activity的生命周期绑定。这里实现的原理是，glide添加了一个透明的`RequestManagerFragment`，根据透明fragment的生命周期来监听activity生命周期。
 
 ## 磁盘缓存
 
@@ -360,6 +346,104 @@ Glide.with(this).load(url).listener(new RequestListerner<Drawable>() {
 ```
 
 需要注意的是，返回true则事件不会继续传递，例如target中不会再回调`onResourceReady`方法
+
+# 线程池
+
+```java
+private final GlideExecutor diskCacheExecutor; // 单线程池
+private final GlideExecutor sourceExecutor; // min(4, CPU核心数)
+private final GlideExecutor sourceUnlimitedExecutor; // 核心线程数为0，最大线程数无限
+private final GlideExecutor animationExecutor; // 为1或者2，bestThreadCount >= 4 ? 2 : 1;
+```
+
+# 缓存
+
+## 缓存级别
+
+所有缓存统一由Engine进行调度
+
+1. 活动资源（Active Resources）：正在使用的资源，使用`Map<Key, ResourceWeakReference>`弱引用+引用队列
+   1. 开启一个单线程池，无限循环从引用队列中获取对象，弱引用会wait，add的时候notify唤醒
+   2. 从弱引用队列中取出，移除Map中的key-value，并且通知监听器Engine，加入到MemoryCache中
+   3. 或者get的时候弱引用为空，则移除Map中的Key
+2. 内存缓存（Memory Cache）：最近被加载过，并仍存在于内存中，使用`LruResourceCache<Key, Resource>`，例如BitmapResource、DrawableResource等
+3. 资源类型（Resource）：经过解码、转换，并写入过磁盘缓存
+4. 数据来源（Data）：从磁盘缓存中获取，250M，单线程池
+5. 重新从URL请求
+
+## 缓存Key（Cache Keys）
+
+默认通过model来获取缓存资源（例如File、Uri、URL），如果是自定义的model，需要实现`hashCode()`和`equals()`方法。（保证资源标识唯一）。也可以使用自定义的`signature(Key)`选项，传入Key对象
+
+如果对于图片进行了处理，例如修改了宽高、使用了变换或者选项，此时会被视为不同资源进行缓存。
+
+# 缓存实现
+
+总大小默认为`应用推荐内存大小*0.4`，低版本是0.33
+
+## ArrayPoolSize
+
+默认为4M，低版本设备会除以2。用于缓存byte数组
+
+MemoryCache和BitmapPool大小限制为=总大小-arrayPoolSize，如果计算出来的大小超过该限制，会进行缩小
+
+```java
+MemorySizeCalculator(MemorySizeCalculator.Builder builder) {
+  this.context = builder.context;
+
+  arrayPoolSize = isLowMemoryDevice(builder.activityManager)
+          ? builder.arrayPoolSizeBytes / LOW_MEMORY_BYTE_ARRAY_POOL_DIVISOR
+          : builder.arrayPoolSizeBytes;
+  // 应用推荐内存大小*比例，高版本是0.4，低版本是0.33
+  int maxSize =
+      getMaxSize(builder.activityManager, builder.maxSizeMultiplier, builder.lowMemoryMaxSizeMultiplier);
+
+  int widthPixels = builder.screenDimensions.getWidthPixels();
+  int heightPixels = builder.screenDimensions.getHeightPixels();
+  // 一个屏幕填满ARGB_8888图片所需要的内存大小
+  int screenSize = widthPixels * heightPixels * BYTES_PER_ARGB_8888_PIXEL;
+  
+  // Android O以下默认是4个屏幕，Android O以上默认是1个屏幕
+  int targetBitmapPoolSize = Math.round(screenSize * builder.bitmapPoolScreens);
+
+  // 默认是两个屏幕缓存
+  int targetMemoryCacheSize = Math.round(screenSize * builder.memoryCacheScreens);
+  // BitmapPool+MemoryCache可用大小
+  int availableSize = maxSize - arrayPoolSize;
+  
+  if (targetMemoryCacheSize + targetBitmapPoolSize <= availableSize) {
+    memoryCacheSize = targetMemoryCacheSize;
+    bitmapPoolSize = targetBitmapPoolSize;
+  } else {
+    // 如果超出可用大小，则按比例缩小
+    float part = availableSize / (builder.bitmapPoolScreens + builder.memoryCacheScreens);
+    memoryCacheSize = Math.round(part * builder.memoryCacheScreens);
+    bitmapPoolSize = Math.round(part * builder.bitmapPoolScreens);
+  }
+}
+```
+
+## MemoryCache
+
+大小默认为`屏幕像素*4字节*缓存屏幕数量`，默认为2
+
+## BitmapPool
+
+Bitmap缓存池，drawable转换为Bitmap，或者Bitmap进行裁剪缩放时，将原图片直接画到复用的Bitmap上
+
+recycle的时候会判断是否能加入缓存池：
+
+1. Bitmap可被修改（mutable）
+2. Bitmap大小小于maxSize，maxSize默认为`屏幕像素*4字节*屏幕数量`，即1张铺满整个屏幕的ARGB_8888图片大小*缓存屏幕数量。
+   1. Android O以下，缓存屏幕数量为1
+   2. Android O以上，由于默认使用Hardware配置，因此缓存池作用不明显，缓存屏幕数量为1
+3. Bitmap的Config符合要求，例如Config为Hardware是不可修改的，因此不会被加入缓存池
+
+# 磁盘缓存
+
+250M
+
+默认磁盘缓存类：DiskLruCacheWrapper
 
 # 源码解析
 

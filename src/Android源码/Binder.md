@@ -31,7 +31,13 @@ mmap方法内部限制：4M
 
 ServiceManager：`128*1024`，负责管理系统服务，只有注册、查询等功能，不涉及大数据传输
 
-# in、out
+# in、out、inout
+
+源码分析，
+
+* inout：从parcel中read，修改之后write回parcel
+* in从parcel中read，修改之后不write回parcel，因此客户端获取不到变化
+* out不从parcel中read，而是直接new新对象，再write回parcel
 
 # oneway
 

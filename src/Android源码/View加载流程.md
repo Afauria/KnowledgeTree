@@ -182,7 +182,7 @@ public void addView(@NonNull View view, @NonNull ViewGroup.LayoutParams params) 
 `WindowManagerGlobal`：管理同一个应用的多个Window
 
 1. 创建`ViewRootImpl`，内部会创建`AttachInfo`对象，保存Window、ViewRootImpl、Display、rootView等信息，供View使用
-2. `WindowManagerGlobal`保存`DecorView`、`ViewRootImpl`等
+2. `WindowManagerGlobal`保存多个窗口的`DecorView`、`ViewRootImpl`等
 3. 调用`ViewRootImpl.setView()`设置DecorView
 
 ```java
@@ -249,9 +249,9 @@ public void addView(View view, ViewGroup.LayoutParams params,
 
 `ViewRootImpl.setView`
 
-1. 创建`InputChannel`，注册`WindowInputEventReceiver`监听
+1. 创建`InputChannel`，注册`WindowInputEventReceiver`监听，从native层调用`dispatchInputEvent`，而不是通过AIDL调用
 2. 在添加到WMS之前请求一次`requestLayout`布局
-3. 通过`IWindowSession`跨进程调用WMS的addWindow方法，添加到WMS中，WMS中会判断应用权限，Token、窗口类型等，返回结果
+3. 通过`IWindowSession`跨进程调用WMS的addWindow方法，WMS中会判断应用权限，Token、窗口类型等，返回结果。并且传入一个`IWindow.Stub`的Binder对象，WMS通过调用Binder对象方法通知ViewRootImpl，例如窗口焦点变化、窗口移动缩放等
 
 ```java
 //ViewRootImpl.java
@@ -326,144 +326,6 @@ public void setView(View view, WindowManager.LayoutParams attrs, View panelParen
 }
 ```
 
-requestLayout检查线程，调用scheduleTraversals
-
-```java
-@Override
-public void requestLayout() {
-    if (!mHandlingLayoutInLayoutRequest) {
-        checkThread();
-        mLayoutRequested = true;
-        scheduleTraversals();
-    }
-}
-void scheduleTraversals() {
-    if (!mTraversalScheduled) {
-        mTraversalScheduled = true;
-        // 设置同步屏障
-        mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();
-        // 注册监听
-        mChoreographer.postCallback(Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);
-        if (!mUnbufferedInputDispatch) {
-            scheduleConsumeBatchedInput();
-        }
-        notifyRendererOfFramePending();
-        pokeDrawLockIfNeeded();
-    }
-}
-// Choreographer回调doTraversal
-final class TraversalRunnable implements Runnable {
-    @Override
-    public void run() {
-        doTraversal();
-    }
-}
-final TraversalRunnable mTraversalRunnable = new TraversalRunnable();
-
-void doTraversal() {
-    if (mTraversalScheduled) {
-        mTraversalScheduled = false;
-        // 移除同步屏障
-        mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);
-      
-        //是否打开方法跟踪
-        if (mProfile) {
-            Debug.startMethodTracing("ViewAncestor");
-        }
-        // 开始遍历子View
-        performTraversals();
-
-        if (mProfile) {
-            Debug.stopMethodTracing();
-            mProfile = false;
-        }
-    }
-}
-private void performTraversals() {  
-  ...
-  performMeasure(childWidthMeasureSpec, childHeightMeasureSpec);
-  ...
-  performLayout(lp, desiredWindowWidth, desiredWindowHeight);
-  ...
-  performDraw();
-  }
-  ... 
-}
-//measure、layout、draw方法中会调用onMeasure、onLayout、onDraw方法，ViewGroup会重新这三个方法，遍历子View递归的获取子View布局信息
-private void performMeasure(int childWidthMeasureSpec, int childHeightMeasureSpec) {
-    ...
-    mView.measure(childWidthMeasureSpec, childHeightMeasureSpec);
-    ...
-}
-private void performLayout(WindowManager.LayoutParams lp, int desiredWindowWidth,
-        int desiredWindowHeight) {
-    ...
-    final View host = mView;
-    host.layout(0, 0, host.getMeasuredWidth(), host.getMeasuredHeight());
-    ...
-}
-private void performDraw() {
-    ...
-    mView.draw(canvas);
-    ...
-}
-```
-
-手动调用`invalidate，postInvalidate，requestInvalidate`也会触发`performTraversals`重新绘制View
-
-Draw方法比较特殊，我们可以通过重写控制绘制顺序
-
-1. `drawBackground`：绘制背景
-2. `onDraw`：绘制自身
-3. `dispatchDraw`：绘制子View
-4. `onDrawForeground`：绘制前景
-
-```java
-public void draw(Canvas canvas) {
-    final int privateFlags = mPrivateFlags;
-    mPrivateFlags = (privateFlags & ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;
-
-    /*
-     * Draw traversal performs several drawing steps which must be executed
-     * in the appropriate order:
-     *
-     *      1. Draw the background
-     *      2. If necessary, save the canvas' layers to prepare for fading
-     *      3. Draw view's content
-     *      4. Draw children
-     *      5. If necessary, draw the fading edges and restore layers
-     *      6. Draw decorations (scrollbars for instance)
-     */
-    // Step 1, draw the background, if needed
-    int saveCount;
-    drawBackground(canvas);
-    // skip step 2 & 5 if possible (common case)
-    final int viewFlags = mViewFlags;
-    boolean horizontalEdges = (viewFlags & FADING_EDGE_HORIZONTAL) != 0;
-    boolean verticalEdges = (viewFlags & FADING_EDGE_VERTICAL) != 0;
-    if (!verticalEdges && !horizontalEdges) {
-        // Step 3, draw the content
-        onDraw(canvas);
-        // Step 4, draw the children
-        dispatchDraw(canvas);
-        drawAutofilledHighlight(canvas);
-        // Overlay is part of the content and draws beneath Foreground
-        if (mOverlay != null && !mOverlay.isEmpty()) {
-            mOverlay.getOverlayView().dispatchDraw(canvas);
-        }
-        // Step 6, draw decorations (foreground, scrollbars)
-        onDrawForeground(canvas);
-        // Step 7, draw the default focus highlight
-        drawDefaultFocusHighlight(canvas);
-        if (debugDraw()) {
-            debugDrawFocus(canvas);
-        }
-        // we're done...
-        return;
-    }
-}
-```
-
 # 结语
 
 参考资料：
@@ -473,3 +335,6 @@ public void draw(Canvas canvas) {
 * [Android窗口机制（五）最终章：WindowManager.LayoutParams和Token以及其他窗口Dialog，Toast](https://www.jianshu.com/p/bac61386d9bf)
 * [源码分析：Activity加载并显示View的流程分析(二)](https://blog.csdn.net/android_jianbo/article/details/86595403)
 
+https://blog.csdn.net/weixin_39820136/article/details/117830768
+
+https://blog.csdn.net/zhizhuodewo6/article/details/111246461

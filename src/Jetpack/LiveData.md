@@ -47,7 +47,7 @@ MediatorLiveDarta：中介者模式，同时监听多个LiveData。当有一个�
 
 事件响应又分为两类：操作Model（业务逻辑）、操作UI（视图逻辑）
 
- 事件绑定一般在Activity中，触发事件之后调用Presenter方法，数据变化之后回调通知View刷新
+事件绑定一般在Activity中，触发事件之后调用Presenter方法，数据变化之后回调通知View刷新
 
 事件注册：
 
@@ -140,3 +140,55 @@ LiveData相比ObservableField还能监听生命周期
 UICommand相当于消息体
 
 注意：LiveData具有黏性，页面重建或者ViewPager切换重新observe的时候会重复执行，需要增加判断
+
+
+
+# LiveData
+
+缺点：
+
+1. 只能在主线程更新
+2. 异步线程多次postValue可能会丢失数据
+3. 操作符不够强大，难以处理复杂数据源
+4. setValue相同的值订阅者可以感知
+
+# Flow
+
+冷流：数据被订阅时，才开始发射数据，当有多个订阅者时，每个订阅者都会重新收到发布者的完整数据
+
+热流：无论有没有被订阅，事件始终会发生，多个订阅者共享。
+
+Flow优点：
+
+1. 支持数据操作和处理，例如map
+2. 支持线程切换、背压
+
+Flow默认是冷流
+
+SharedFlow：热流
+
+```kotlin
+public fun <T> MutableSharedFlow(
+    replay: Int = 0,  // 当被订阅时，重发几个数据，默认为0，即新订阅者不会获取以前的数据
+    extraBufferCapacity: Int = 0,  // 除了需要replay的数据之外，额外缓存多少个数据，默认为0
+    onBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND // 缓存策略，缓冲区满了之后如何处理，默认挂起
+): MutableSharedFlow<T>
+```
+
+StateFlow：
+
+- 它始终是有值的。
+- 它的值是唯一的。
+- 它允许被多个观察者共用 (因此是共享的数据流)。
+- 它永远只会把最新的值重现给订阅者，这与活跃观察者的数量是无关的。
+
+# LiveData和Flow
+
+二者使用场景不同：LiveData用于更新UI，Flow用于处理数据、切换线程
+
+官方建议迁移到Flow的原因是因为Flow是kotlin库中的东西，而LiveData是android独有的，这导致了LiveData在未来多平台的支持上有局限性，在Compose会支持多平台的未来，LiveData必然会被淘汰。
+
+LiveData会被弃用吗？
+
+* LiveData可以用于Java，Flow基于Kotlin协程。
+* LiveData学习成本更低
