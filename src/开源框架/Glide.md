@@ -9,6 +9,7 @@
 5. 支持预加载图片而不显示
 6. 支持多种图片类型：Gif、WebP、Video等
 7. 默认使用`HttpUrlConnection`进行网络请求，也可以使用OkHttp、Volley
+7. Bitmap复用：不需要重新分配Bitmap，直接使用现成的对象
 
 [源码地址](https://github.com/bumptech/glide)
 

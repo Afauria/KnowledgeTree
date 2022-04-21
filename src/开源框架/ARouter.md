@@ -2,7 +2,26 @@
 
 寄信。
 
-目的地、明信片、物流中心
+目的地、明信片、物流中心。
+
+
+
+路由注册和查找
+
+1. 注解生成IRouteRoot和IRouteGroup，包含loadInto方法
+   1. IRouteRoot：loadInto保存IRouteGroup的Class对象到WareHouse中
+   2. IRouteGroup：loadInto构造RouteMeta对象（包括Class对象、Group、Path等），添加到WareHouse中
+
+2. init中，遍历DexFile元素对象，根据class前缀名称，找到每个模块的`IRouteRoot`类，调用`loadInto`方法，注册路由组，保存到WareHouse的`Map<String, Class>`中
+3. 首次调用navigation路由的时候，`LogisticsCenter.complete`方法根据Postcard的Group信息从WareHouse中获取IRouteGroup的类对象，反射创建实例，调用loadInto方法，注册该组所有每个页面的路由，构造RouteMeta对象，存到WareHouse的`Map<String, RouteMeta>`中。（实现了懒加载，因为有一些组件可能不会打开）
+4. 如果已经注册，则根据PostCard的path信息，找到RouteMeta，取出Class对象
+   1. 调用startActivity
+   2. 反射实例化创建Provider，缓存到WareHouse中。每个Provider接口只有一个实例
+
+路由参数注入：
+
+1. apt解析`@AutoWired`注解，生成特定名称的XXAutoWire的类，包含一个inject方法，从Intent或者Arguments中获取到参数，给目标类的成员变量赋值
+2. 调用inject方法时，反射实例化XXAutoWire类，调用inject方法
 
 # 路由类型
 
@@ -26,7 +45,7 @@ public enum RouteType {
 
 # 路由表注册
 
-`ARouter.init(application);`中调用`LogisticsCenter.init`（物流中心）方法初始化路由表，保存到`WareHouse`（仓库）中
+`ARouter.init(application);`中调用`LogisticsCenter.init`（物流中心）方法初始化路由表，保存到`WareHouse`（仓库）中。
 
 1. 读取Dex文件，遍历所有类，根据包名前缀找到生成的类
 
@@ -52,7 +71,7 @@ public enum RouteType {
    1. 保存到`Warehouse.providersIndex`中，key为类名，value为Provider路由元数据。
    2. 这个时候还注册Provider实例对象，只是注册了Provider路由元数据，等到需要的时候获取类对象，反射实例化
 
-4. 初始化`IInterceptorGroup`子类，主要用于navigation跳转时进行拦截，例如检查登录失败则不跳转。类名为`ARouter$$Interceptors¥¥拦截器名`
+4. 初始化`IInterceptorGroup`子类，主要用于navigation跳转时进行拦截，例如检查登录失败则不跳转。类名为`ARouter$$Interceptors$$拦截器名`
 
 ```java
 //LogisticsCenter.java
@@ -107,7 +126,7 @@ public class ARouter$$Providers$$afauria implements IProviderGroup {
 }
 ```
 
-
+完善Postcard目标信息
 
 ```java
 //LogisticsCenter.complete
@@ -147,10 +166,7 @@ public synchronized static void completion(Postcard postcard) {
             if (MapUtils.isNotEmpty(paramsType)) {
                 // Set value by its type, just for params which annotation by @Param
                 for (Map.Entry<String, Integer> params : paramsType.entrySet()) {
-                    setValue(postcard,
-                            params.getValue(),
-                            params.getKey(),
-                            resultMap.get(params.getKey()));
+                    setValue(postcard, params.getValue(), params.getKey(), resultMap.get(params.getKey()));
                 }
 
                 // Save params name which need auto inject.
@@ -262,7 +278,7 @@ Warehouse中保存了路由表和IProvider。以`/`分割Group
 
 ```java
 class Warehouse {
-    //存储IRouteGroup
+    //存储IRouteGroup，反射创建IRouteGroup对象，调用loadInto方法，注册路由
     static Map<String, Class<? extends IRouteGroup>> groupsIndex = new HashMap<>();
     //存储路由元数据：例如类对象、Group、path等
     static Map<String, RouteMeta> routes = new HashMap<>();

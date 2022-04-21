@@ -164,7 +164,7 @@ Http/1.1（2014年）：
 
 Http2.0只解决了Http的队头阻塞，没有解决TCP的队头阻塞
 
-Http3.0使用UDP，重新实现了一套可靠传输协议
+Http3.0使用UDP，重新实现了一套可靠传输协议（QUIC）
 
 # 断点续传的原理
 
@@ -195,8 +195,6 @@ Content-Ranges:bytes M-N/size 大小为size的文件的第M－N字节范围的�
 https://mp.weixin.qq.com/s/fvvnQ3xI1nz-Ri3vBfG2lwhu
 
 https://www.jianshu.com/p/7b91778158da
-
-
 
 https://blog.csdn.net/xiaoming100001/article/details/81109617
 

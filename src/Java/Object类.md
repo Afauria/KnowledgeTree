@@ -208,9 +208,9 @@ public class User implements Cloneable {
   String name;
   //省略构造方法和getter、setter
   @Override
-	protected Object clone() throws CloneNotSupportedException {
-		return (Person)super.clone();
-	}
+  protected Object clone() throws CloneNotSupportedException {
+    return (Person)super.clone();
+  }
 }
 public class Main {
   public static void main(String[] args) {
@@ -249,7 +249,7 @@ public class Main {
 	
 	> 如果引用链中的某一个类是在三方库中定义的，此时无法实现`Cloneable`接口、重写clone方法。需要使用new创建对象并手动设置初始值
 
-String是深拷贝还是浅拷贝？
+**String是深拷贝还是浅拷贝？**
 
-> * 从性质上讲是浅拷贝：因为拷贝前后指向同一个地址。
-> * 从效果上讲是深拷贝：由于String的不可变性，修改String实际上会创建一个新的String对象，不会影响原有对象。
+* 从性质上讲是浅拷贝：因为拷贝前后指向同一个地址。
+* 从效果上讲是深拷贝：由于String的不可变性，修改String实际上会创建一个新的String对象，不会影响原有对象。

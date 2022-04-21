@@ -61,7 +61,7 @@ String var2 = "World";
 (new StringBuilder()).append(var1).append(var2).toString();
 ```
 
-如果是直接拼接字符串字面量或常量，编译器会进行常量折叠。如下：
+如果是直接拼接字符串**字面量或常量**，编译器会进行**常量折叠**。如下：
 
 ```java
 int i1 = 2;
@@ -95,7 +95,7 @@ String i3 = Integer.toString(i);
 
 运行期限制：不能超过int表示范围，否则会抛异常。
 
-> String内部使用char数组存储，数组长度不能超过int范围。
+> **String内部使用char数组存储，数组长度不能超过int范围。**
 
 # String不可变性
 
@@ -228,7 +228,7 @@ public class Main {
 
 > 1. 创建一个StringBuilder对象：上面提到"+"号编译时改为StringBuilder拼接---->对应字节码行号0
 > 2. new String在堆中创建一个"a"对象---->7
-> 3. 字符串常量池中的创建一个"a"对象---->11，ldc表示load constant加载常量
+> 3. 字符串常量池中的创建一个"a"对象---->11，ldc（load constant）表示加载常量
 > 4. new String在堆中创建一个"b"对象---->19
 > 5. 字符串常量池中的创建一个"b"对象---->23
 > 6. toString()方法会调用new String("ab")，在堆中创建一个"ab"对象---->31
@@ -263,8 +263,9 @@ String s2 = s1.intern(); //字符串池中不存在
 //jdk1.7之后会把堆中的引用放到常量池中并返回，因此返回的也是堆中对象的地址
 String s3 = "ab"; //字符串池中的对象
 
-System.out.println(s1 == s3); // JDK1.7 true 1.6 false。s1是堆中对象，s3是池中对象。
-//1.7字符串池中对象s3指向堆中对象，因此相等
+System.out.println(s1 == s3);
+//JDK 1.6 false。s1是堆中对象，s3是池中对象。
+//JDK 1.7 true。字符串池中对象s3指向堆中对象，因此相等
 System.out.println(s2 == s3);  // true，s2和s3都是返回池中的对象
 ```
 
@@ -274,6 +275,8 @@ System.out.println(s2 == s3);  // true，s2和s3都是返回池中的对象
   * `hashCode()`是Object的实例方法
 * identifyHashCode：返回对象内存地址的hash值，即使`hashCode()`方法被重写。如果两个对象identifyHashCode相同，表示是同一个对象。
   * `identifyHashCode()`是System的静态方法
+
+> 简单来说，地址相同，一定是一个对象，equal或hashCode相同，不一定是一个对象
 
 String重写了`hashCode()`方法，如下：
 
@@ -361,8 +364,8 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 `StringBuffer`：所有操作都加了`synchronized`关键字，因此是线程安全的
 
 > 1. String适用于少量字符串操作
-> 2. StringBuilder适用单线程下进行大量字符串操作的情况
-> 3. StringBuffer使用多线程下进行大量字符串操作的情况
+> 2. StringBuilder适用单线程下进行大量字符串操作的情况（线程不安全）
+> 3. StringBuffer适用多线程下进行大量字符串操作的情况（线程安全）
 
 # Switch支持String
 

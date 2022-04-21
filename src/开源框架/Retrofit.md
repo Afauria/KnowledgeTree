@@ -108,7 +108,7 @@ final class RxJava2CallAdapter<R> implements CallAdapter<R, Object> {
 }
 ```
 
-动态代理Service接口，调用接口
+动态代理Service接口，调用接口方法，运行时解析注解，生成`ServiceMethod`，返回Call对象，如果设置了CallAdapter适配器，会包装Call对象，返回Observable对象，调用subscribe时触发
 
 ```java
 public <T> T create(final Class<T> service) {

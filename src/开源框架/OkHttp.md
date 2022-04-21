@@ -41,8 +41,8 @@
 Dispatcher内部有三个队列：
 
 1. `runningSyncCalls`进行中的同步请求
-2. `runningAsyncCalls`进行中的异步请求
-3. `readyAsyncCalls`异步请求等待队列，超过最大请求数64，或者同一个服务端超过5个正在运行的请求，使用ExecutorService线程池，默认核心线程数为0，最大线程数Max，队列为空
+2. `runningAsyncCalls`进行中的异步请求。使用ExecutorService线程池，默认核心线程数为0，最大线程数Max，任务队列为空。
+3. `readyAsyncCalls`异步请求等待队列，超过最大请求数64，或者同一个服务端超过5个正在运行的请求，则加入等待队列。
 
 # 连接复用
 
@@ -160,9 +160,10 @@ public final class ConnectionPool {
 清理算法：put的时候往线程池添加清理任务
 
 1. 超过5个空闲连接，或者超过5分钟，则清理，返回0继续清理下一个。
-2. 如果空闲最久的时间不足5分钟，则计算剩余时间，返回等待时间，wait阻塞唤醒
+2. 找到空闲最久的连接，如果空闲时间不足5分钟，则计算剩余时间，返回等待时间，wait阻塞唤醒
 3. 没有空闲连接，但是有正在使用的连接，则返回等待时间，wait等待5分钟后唤醒
-4. 如果没有空闲和正在使用的连接，则返回-1，退出清理
+4. 如果没有空闲和正在使用的连接，则返回-1，退出清理。
+4. 下次put的时候再添加清理任务
 
 ```java
 public final class ConnectionPool {
@@ -551,7 +552,7 @@ public final class Cache implements Closeable, Flushable {
 这里需要注意的是使用方式：`OkHttpClient.Builder().cache(new Cache(File, maxSize))`指定缓存路径
 
 1. `InternalCache`为OkHttp内部使用的类，没有提供接口让外部设置`InternalCache`
-2. 由于`Cache`类被声明为final，因此只能使用OkHttp提供的`Cache`类
+2. 由于`Cache`类被声明为final，因此只能使用OkHttp提供的`Cache`类，无法自定义实现
 
 ## 缓存策略
 

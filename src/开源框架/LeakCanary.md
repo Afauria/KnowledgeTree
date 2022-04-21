@@ -18,7 +18,7 @@ Java GC判断一个对象是否能被回收、是通过检测是否被GC Root持
 
 ## LearkCanary工作原理
 
-1. 通过Android生命周期Hook检测对象：将对象传给ObjectWatcher，通过弱引用持有，并关联引用队列，如果5s之后引用队列中不存在该对象，则认为是可能泄漏的存活对象，输出到Logcat。
+1. 通过Android生命周期Hook检测对象：onDestroy的时候将对象传给ObjectWatcher，通过弱引用持有，并关联引用队列，如果5s之后引用队列中不存在该对象，则认为是可能泄漏的存活对象，输出到Logcat。
    1. 销毁的 `Activity` 实例
    2. 销毁的 `Fragment` 实例
    3. 销毁的 Fragment `View` 实例
