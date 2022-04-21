@@ -1,13 +1,13 @@
 SparseArray是Android特有的api
 
-1. 内部使用`int[] mKey`和`Object[] Value`数组，避免int主动装箱，且不需要保存链表，比HashMap更省内存
+1. 内部使用`int[] mKey`和`Object[] mValue`数组，避免int自动装箱，且不需要保存链表，比HashMap更省内存
 2. 使用二分查找，倒序插入效率低，每次都要拷贝整个数组
 3. keyAt、valueAt：根据下标找到对应的值
 4. Key只能为int类型
 
-ArrayMap：与HashMap相比不需要构造entry对象
+ArrayMap：与HashMap相比不需要构造entry对象，没有避免装箱
 
-1. 内部使用两个数组，一个记录hash值，一个记录object值，使用二分法排序和查找
+1. 内部使用两个数组，一个记录hash值`int[] mHashes`，一个记录Key和Value值`Object[] mArray`，使用二分法排序和查找
 
 2. Key会自动装箱放到Object数组中
 
@@ -18,7 +18,7 @@ ArrayMap：与HashMap相比不需要构造entry对象
    mArray[(index<<1)+1] = value;
    ```
 
-5. 查找的时候，计算hashCode，查找在hash数组中的位置，x2即key的位置，x2+1即value的位置
+5. 查找的时候，计算hashCode，二分查找在hash数组中的位置，x2即key的位置，x2+1即value的位置
 
 5. 初始容量为0，每次扩容2倍，每次至少扩容4
 
@@ -38,7 +38,7 @@ public void put(int key, E value) {
         //如果找到了，直接替换，key按顺序排序
         mValues[i] = value;
     } else {
-        //找不到则取反
+        //找不到则取反，变为正数
         i = ~i;
         //如果该位置为空，则直接替换
         if (i < mSize && mValues[i] == DELETED) {
