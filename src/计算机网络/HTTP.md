@@ -205,3 +205,39 @@ https://blog.csdn.net/xiaoming100001/article/details/81109617
 
 
 
+# HttpDNS
+
+## 传统DNS过程
+
+1. 检查浏览器中是否有域名缓存
+2. 检查操作系统中是否有域名缓存：可以修改host文件
+3. 向网络配置中的本地运营商DNS（LocalDNS）发出请求
+4. LocalDNS没有的话会向根域名服务器请求解析，返回对应的顶级域名服务器的地址
+5. LocalDNS请求顶级域名服务器，返回对应的二级域名服务器
+6. LocalDNS请求二级域名服务器，查询DNS记录表，返回IP地址和DNS的TTL值
+7. LocalDNS根据TTL值缓存IP地址，返回给客户端系统，客户端系统根据TTL值缓存再本地缓存中
+
+## HttpDNS
+
+直接向HttpDNS服务器IP进行请求，返回对应的IP地址。通常由服务端自行部署
+
+优点：
+
+1. 防止DNS劫持
+2. 避免DNS搜索和解析，提高响应速度
+3. 服务器可以自行对IP地址排序，降低连接失败率
+
+使用场景
+
+1. 对首屏时延要求比较高的APP或者网页；
+2. 希望降低访问延迟、减少跨网访问的资讯、游戏类APP；
+3. 希望降低连接失败率，提升业务成功率的通用APP；
+4. 域名屡次被劫持，希望用户访问顺畅无阻的APP；
+
+
+
+https://wjrsbu.smartapps.cn/zhihu/article?id=380524458&isShared=1&_swebfr=1&_swebFromHost=baiduboxapp
+
+> TTL是 Time To Live的缩写，该字段指定IP包被路由器丢弃之前允许通过的最大网段数量。TTL是IPv4报头的一个8 bit字段。
+>
+> 注意：TTL与DNS TTL有区别。二者都是生存时间，前者指ICMP包的转发次数（跳数），后者指域名解析信息在DNS中的存在时间。
