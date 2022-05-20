@@ -2,6 +2,8 @@
 
 <img src="Android入门\Android系统架构.jpg" alt="Android系统架构" style="zoom: 50%;" />
 
+Binder使用Linux内核的动态模块加载机制
+
 # SDK说明
 
 1. tools目录：包括测试、调试、第三方工具。模拟器、数据管理工具等。
