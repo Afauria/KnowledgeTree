@@ -286,8 +286,7 @@ if(!bitmap.isRecycled())
   * 双线性采样：参考周围2x2像素的值，计算权重
 * 质量压缩，编码压缩：使用JPEG、WebP格式，设置压缩质量
 
-参数分别为：原始bitmap，修改后宽高
-Bitmap.createScaledBitmap(bit, 150, 150, true);
+参数分别为：原始bitmap，修改后宽高。Bitmap.createScaledBitmap(bit, 150, 150, true);
 
 
 

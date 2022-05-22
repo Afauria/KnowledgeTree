@@ -787,53 +787,62 @@ public abstract class IntentService extends Service {
 }
 ```
 
-# 其他
+# Handler内存泄漏
 
-Looper线程和普通线程：
+```java
+class MainActivity extends Activity {
+    //提示Handler匿名内部类可能存在内存泄漏
+    //This Handler class should be static or leaks might occur (anonymous android.os.Handler)
+    private Handler mHandler = new Handler() {};
+}
+```
 
-> * 普通线程：run方法执行完之后销毁
-> * Looper线程：run方法中开启了事件循环，循环退出才能结束线程。
+## 原因
 
-Looper线程如何退出？
+1. Handler非静态内部类持有Activity的引用
+2. 分析引用链：`Activity->Handler->Message.target->MessageQueue->Looper->sMainLooper(GCRoot)`
+3. 当该Handler存在延时消息时，Handler被`sMainLooper`引用，导致finish之后Activity无法被释放
+4. 当该Handler的所有Message处理完之后，Message回收之后才会释放引用
 
-> * 主线程Looper不可退出（调用quit会抛异常），子线程Looper可退出
-> * `quit`移除所有消息，`quitSafety`移除延时消息。二者都不再接收新的消息，回收资源、避免内存泄漏
+子线程Looper是否会导致内存泄漏？
 
-**子线程如何变为Looper线程？**
-
-> 1. 调用`Looper.prepare`创建Looper对象，并和当前线程绑定，再调用`Looper.loop`开启循环
-> 2. 或者使用HandlerThread
-
-获取Looper对象：
-
-> * `Looper.getMainLooper()`：获取主线程Looper对象
-> * `Looper.myLooper()`：获取当前线程Looper对象
-
-子线程为什么不能直接new Handler？
-
-> Handler构造函数默认使用`Looper.myLooper()`从ThreadLocal中获取当前线程的Looper对象，子线程中未创建Looper因此会抛异常。需要使用prepare创建Looper，保存到ThreadLocal中。
+> 不会。子线程中引用链：`Activity->Handler->Message.target->MessageQueue->Looper->sThreadLocal(GCRoot)`
 >
-> `Can't create handler inside thread Thread[Thread-2,5,main] that has not called Looper.prepare()`
+> 虽然`sThreadLocal`是GCRoot，但由于上文提到`sThreadLocal`中使用弱引用存储对象，因此Looper对象可以被释放。
 
-主进程的 Looper 是何时创建的？
+## 正确使用Handler
 
-> 主线程在`ActivityThread.main()->Looper.prepareMainLooper()`的时候就已经创建了Looper，因此可以直接new Handler
+1. 使用静态内部类+弱引用，如果需要调用外部类方法则使用弱引用，如果不需要则可以不引用
+2. 页面退出时移除消息
 
-子线程执行完任务如何切换到主线程刷新UI？
+```java
+class MainActivity extends Activity {
+    private Handler mHandler = new MyHandler(this);
 
-> 1. 创建主线程Handler，在子线程sendMessage或者post
-> 2. 使用`runOnUiThread`
-> 3. 使用`view.post`
+    static class MyHandler extends Handler {
+        //弱引用持有外部类对象
+        WeakReference<MainActivity> source;
 
-Android源码中的同步屏障？
+        public MyHandler(MainActivity source) {
+            this.source = new WeakReference<>(source);
+        }
 
-> 
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
 
-`nativePollOnce`原理？
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //页面退出时移除消息
+        mHandler.removeCallbacksAndMessages(null);
+    }
+}
+```
 
-> `nativePollOnce`底层使用`epoll_wait`多路复用，不会占用CPU资源。关于select、poll、epoll参考[IO模型](/Java/IO模型.md)
-
-## 主线程loop死循环或者poll阻塞为什么不会卡死？
+# 主线程loop死循环或者poll阻塞为什么不会卡死？
 
 最直接的答案：`ActivityThread.main`中开启loop死循环，一旦退出循环，则表示应用结束，代码如下
 
@@ -865,9 +874,11 @@ public final class ActivityThread extends ClientTransactionHandler {
 1. loop死循环不属于某一次消息处理，因此不会导致卡死
 2. `nativePollOnce`只有在当前没有需要处理的消息的时候才会进行阻塞，当有新消息加入，会调用nativeWake恢复。上面提到的UI绘制和Service创建等都是一个消息，会唤醒阻塞的线程。
 
-## 子线程为什么无法更新UI？
+# 子线程为什么无法更新UI？
 
-1. `ViewRootImpl`中会检查当前线程是否是原始线程，例如`requestLayout`、`requestChildFocus`
+先说结论：
+
+1. `ViewRootImpl`中会检查当前线程是否是**原始线程**，例如`requestLayout`、`requestChildFocus`
 2. 原始线程大多数情况下都是主线程，也有可能不是
 
 ```java
@@ -907,7 +918,9 @@ public final class ViewRootImpl implements ViewParent,
 
 子线程中真的不能更新UI吗？
 
-实验1：onCreate方法中创建子线程更新UI成功，子线程中延时5s再更新UI闪退
+## 实验1
+
+onCreate方法中创建子线程更新UI成功，子线程中延时5s再更新UI闪退：`Only the original thread that created a view hierarchy can touch its views.`
 
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -932,13 +945,15 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-结论：onCreate的时候ViewRootImpl还未创建，setText不会调用requestLayout，自然也不会检查线程
+结论：onCreate的时候ViewRootImpl还未创建，自然不会检查线程
 
 > 分析源码可知，ViewRootImpl在`ActivityThread.handleResumeActivity->...->WindowManagerGlobal.addView`中创建，即在onResume生命周期之后。
 
-实验2：将TextView的大小改成固定值，再在子线程中延时更新UI，不会闪退
+## 实验2
 
-> setText中会检查布局是否发生改变，决定是否调用requestLayout。代码如下（注释比较清晰）
+在布局文件中将TextView的大小改成固定值，再在子线程中延时更新UI，不会闪退
+
+结论：setText中会检查布局是否发生改变，决定是否调用requestLayout。代码如下（注释比较清晰）
 
 ```java
 public class TextView extends View implements ViewTreeObserver.OnPreDrawListener {
@@ -997,63 +1012,128 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 }
 ```
 
-实验3：在子线程中显示Dialog，并更新UI
+## 实验3
+
+点击按钮，在子线程中显示Dialog，闪退：`Can't create handler inside thread Thread[Thread-2,5,main] that has not called Looper.prepare()`。
+
+```java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+    private void showDialog() {
+        new Thread(){
+            @Override
+            public void run() {
+                //Looper.prepare();
+                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                    .setMessage("this is the content view!!!")
+                    .setTitle("this is the title view!!!")
+                    .create();
+                dialog.show();
+                //Looper.loop();
+            }
+        }.start();
+    }
+}
+```
+
+原因：子线程未开启Looper循环，Dialog初始化的时候会创建一个Handler，Handler构造函数中判断当前线程是否是Looper线程。
+
+解决：添加`Looper.prepare()`和`Looper.loop()`，开启Looper循环，运行正常
+
+## 实验4
+
+点击按钮，在子线程中显示Dialog，点击Dialog按钮，子线程更新UI正常，`runOnUiThread`主线程更新UI闪退。
+
+```java
+private void showDialog() {
+    new Thread(){
+        @Override
+        public void run() {
+            Looper.prepare();
+            final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                .setMessage("this is the content view!!!")
+                .setTitle("this is the title view!!!")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() { 
+                    @Override 
+                    public void onClick(DialogInterface dialog, int which) { 
+                        dialog.setMessage("子线程更新UI");
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() { 
+                    @Override 
+                    public void onClick(DialogInterface dialog, int which) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.setTitle("主线程更新UI");
+                            }
+                        });
+                    }
+                }) 
+                .create();
+            dialog.show();
+            Looper.loop();
+        }
+    }.start();
+}
+```
+
+原因：`Dialog.show()`中调用`WindowManagerGlobal.addView`创建ViewRootImpl，此时原始线程是子线程。`requestLayout`检查线程的时候检查原始线程，而不是UI线程。
 
 https://mp.weixin.qq.com/s/tg96p50alrqAtRih8a3AhA
 
-# Handler内存泄漏
+# 其他
 
-```java
-class MainActivity extends Activity {
-    //提示Handler匿名内部类可能存在内存泄漏
-    //This Handler class should be static or leaks might occur (anonymous android.os.Handler)
-    private Handler mHandler = new Handler() {};
-}
-```
+Looper线程和普通线程：
 
-## 原因
+> * 普通线程：run方法执行完之后销毁
+> * Looper线程：run方法中开启了事件循环，循环退出才能结束线程。
 
-1. Handler非静态内部类持有Activity的引用
-2. 分析引用链：`Activity->Handler->Message.target->MessageQueue->Looper->sMainLooper(GCRoot)`
-3. 当该Handler存在延时消息时，Handler被`sMainLooper`引用，导致finish之后Activity无法被释放
-4. 当该Handler的所有Message处理完之后，Message回收之后才会释放引用
+Looper线程如何退出？
 
-子线程Looper是否会导致内存泄漏？
+> * 主线程Looper不可退出（调用quit会抛异常），子线程Looper可退出
+> * `quit`移除所有消息，`quitSafety`移除延时消息。二者都不再接收新的消息，回收资源、避免内存泄漏
 
-> 不会。子线程中引用链：`Activity->Handler->Message.target->MessageQueue->Looper->sThreadLocal(GCRoot)`
+**子线程如何变为Looper线程？**
+
+> 1. 调用`Looper.prepare`创建Looper对象，并和当前线程绑定，再调用`Looper.loop`开启循环
+> 2. 或者使用HandlerThread
+
+获取Looper对象：
+
+> * `Looper.getMainLooper()`：获取主线程Looper对象
+> * `Looper.myLooper()`：获取当前线程Looper对象
+
+子线程为什么不能直接new Handler？
+
+> Handler构造函数默认使用`Looper.myLooper()`从ThreadLocal中获取当前线程的Looper对象，子线程中未创建Looper因此会抛异常。需要使用prepare创建Looper，保存到ThreadLocal中。
 >
-> 虽然`sThreadLocal`是GCRoot，但由于上文提到`sThreadLocal`中使用弱引用存储对象，因此Looper对象可以被释放。
+> `Can't create handler inside thread Thread[Thread-2,5,main] that has not called Looper.prepare()`
 
-## 正确使用Handler
+主进程的 Looper 是何时创建的？
 
-1. 使用静态内部类+弱引用，如果需要调用外部类方法则使用弱引用，如果不需要则可以不引用
-2. 页面退出时移除消息
+> 主线程在`ActivityThread.main()->Looper.prepareMainLooper()`的时候就已经创建了Looper，因此可以直接new Handler
 
-```java
-class MainActivity extends Activity {
-    private Handler mHandler = new MyHandler(this);
+子线程执行完任务如何切换到主线程刷新UI？
 
-    static class MyHandler extends Handler {
-        //弱引用持有外部类对象
-        WeakReference<MainActivity> source;
+> 1. 创建主线程Handler，在子线程sendMessage或者post
+> 2. 使用`runOnUiThread`
+> 3. 使用`view.post`
 
-        public MyHandler(MainActivity source) {
-            this.source = new WeakReference<>(source);
-        }
+Android源码中的同步屏障？
 
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    }
+> `ViewRootImpl.scheduleTraversals`中开启同步屏障，保证UI绘制消息优先执行，绘制完成后移除消息
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //页面退出时移除消息
-        mHandler.removeCallbacksAndMessages(null);
-    }
-}
-```
+`nativePollOnce`原理？
 
-# 
+> `nativePollOnce`底层使用`epoll_wait`多路复用，不会占用CPU资源。关于select、poll、epoll参考[IO模型](/Java/IO模型.md)
