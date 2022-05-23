@@ -1,28 +1,31 @@
 # Handler
 
+Handler是Android消息机制的上层接口，开发者只需要关心消息的发送和处理，不需要关心内部消息循环。用于异步处理消息和线程间通信。
+
 ## Handler机制
 
 简单来说就是**生产者-消费者模型**：
 
 1. Handler是生产者，可以在不同线程生产消息，并且可以有多个生产者。将消息插入到关联线程的MessageQueue。
 2. Looper是消费者，不断取出消息。只在一个线程消费，每个线程只能有一个消费者。
-3. MessageQueue使用链表存储，按时间顺序排列
+3. MessageQueue使用链表存储，按执行时间排列
 
 工作流程：
 
 1. `prepare`创建Looper对象，存储在`ThreadLocal`中，保证每个线程只有一个Looper，每个Looper持有一个`MessageQueue`
 2. 执行`loop()`循环，从MessageQueue中读取消息，如果没有消息（或者消息延迟），则通过`nativePollOnce`阻塞
-3. 外部通过Handler往MessageQueue中发送消息，唤醒线程
-4. 读取到消息之后调用Handler的`dispatchMessage`处理消息
+3. 外部通过Handler发送消息，将消息插MessageQueue中，按执行时间排序。并决定是否需要唤醒线程。
+4. Looper读取到消息之后调用Handler的`dispatchMessage`处理消息
 
 ## 消息类型
 
 1. 同步消息（普通消息）
 2. 屏障消息（同步屏障）：拦截屏障之后的同步消息，只允许异步消息执行。
-   1. `postSyncBarrier`发送同步屏障，该方法是hide的
+   1. `postSyncBarrier`发送同步屏障，该方法是hide的，只能反射调用
    1. **屏障消息没有target**，根据执行时间插入队列合适的位置。
    2. 只有屏障在队头的时候才会拦截后面的消息，屏障之前的消息无法拦截。
    3. 设置同步屏障之后，同步消息可以入队，只是没法执行
+   3. `postSyncBarrier`不会唤醒线程（因为屏障消息不需要执行），`removeSyncBarrier`会唤醒线程
 3. 异步消息：没有同步屏障时和普通消息一样，有同步屏障时会优先执行。例如`scheduleTraversals`中发送同步屏障，保证UI绘制优先执行
    1. 通过`Message.setAsynchronous`设置异步消息，Android5.1（API22）以上
    2. 创建异步消息Handler，通过该Handler发送的消息都是异步消息（该方法隐藏，开发者无法调用）
@@ -163,6 +166,10 @@ public final class Looper {
 ### MessageQueue.next()
 
 1. 如果消息还没到时间执行，则调用`nativePollOnce->native:pollInner->native:epoll_wait`阻塞，释放CPU资源
+   1. 传入-1，表示没有消息，无限等待，直到新消息插入唤醒
+   2. 传入0，表示有需要执行的消息，不进行阻塞
+   3. 大于0，表示有延时消息，等待一定时间后唤醒。如果插入了新消息，且新消息优先级大于正在等待的消息，则立即唤醒
+
 2. 如果没有同步屏障，则找到队头消息，如果有同步屏障，则找到第一个异步消息。
 3. 如果消息已经到时间了，则从队列中取出执行。如果还没到时间计算需要阻塞的时长。
 4. 在进入阻塞状态之前（即线程空闲），检查是否有IdleHandler需要执行，每次事件循环只会执行一次
@@ -310,10 +317,10 @@ public class Handler {
 发送消息有多种方式：最终都会加入消息队列
 
 ```java
-sendMessage(Message);
-  sendMessageDelayed(Message, delayMillis); //发送延时消息
-    sendMessageAtTime(Message, uptimeMillis); //在某一时刻触发消息
-      enqueueMessage(MessageQueue, Message, uptimeMills) //根据消息触发时间插入消息队列中
+Handler.sendMessage(Message);
+  Handler.sendMessageDelayed(Message, delayMillis); //发送延时消息
+    Handler.sendMessageAtTime(Message, uptimeMillis); //在某一时刻触发消息
+      Handler.enqueueMessage(MessageQueue, Message, uptimeMills) //根据消息触发时间插入消息队列中
         mQueue.enqueueMessage(Message, uptimeMills);
 ```
 
@@ -394,8 +401,8 @@ public class Handler {
 消息入队：
 
 1. 一个消息对象只能发送一次，每次发送都需要重新构造
-2. 由于多个线程可能同时发送消息，因此消息的插入和移除需要**加锁**
-3. 将消息插入队列，按时间排序
+2. 由于多个线程可能同时发送消息，因此**消息的插入和移除需要加锁**
+3. **将消息插入队列，按执行时间排序**
 4. 决定是否需要唤醒线程，唤醒线程并不一定执行消息，而是重新检查消息队列，计算下一个消息的执行时间，如果还没到，则重新计算阻塞时长。
    1. 如果队列正在阻塞，并且新消息在队头，则唤醒线程
    2. 如果队列正在阻塞，队头是屏障消息，并且新消息是队列中最早的**异步消息**，则唤醒线程
@@ -460,10 +467,77 @@ public class MessageQueue {
 }
 ```
 
+## 移除消息
+
+1. 查找符合条件的消息，删除节点：判断Handler、what、Object是否相等
+2. 如果Object传入null，则只判断Handler、what是否相等。通常使用`removeCallbacksAndMessages(null)`移除所有消息
+
+```java
+public final class MessageQueue {
+    //移除指定消息
+    void removeMessages(Handler h, int what, Object object) {
+        if (h == null) {
+            return;
+        }
+        synchronized (this) {
+            Message p = mMessages;
+            // 删除消息队列的头节点
+            while (p != null && p.target == h && p.what == what && (object == null || p.obj == object)) {
+                Message n = p.next;
+                mMessages = n;
+                p.recycleUnchecked();
+                p = n;
+            }
+            // 删除消息队列的中间节点
+            while (p != null) {
+                Message n = p.next;
+                if (n != null) {
+                    if (n.target == h && n.what == what && (object == null || n.obj == object)) {
+                        Message nn = n.next;
+                        n.recycleUnchecked();
+                        p.next = nn;
+                        continue;
+                    }
+                }
+                p = n;
+            }
+        }
+    }
+    void removeCallbacksAndMessages(Handler h, Object object) {
+        if (h == null) {
+            return;
+        }
+        synchronized (this) {
+            Message p = mMessages;
+            // 删除消息队列的头节点，如果object为null，则所有消息都会被移除
+            while (p != null && p.target == h && (object == null || p.obj == object)) {
+                Message n = p.next;
+                mMessages = n;
+                p.recycleUnchecked();
+                p = n;
+            }
+            // 删除消息队列的中间节点
+            while (p != null) {
+                Message n = p.next;
+                if (n != null) {
+                    if (n.target == h && (object == null || n.obj == object)) {
+                        Message nn = n.next;
+                        n.recycleUnchecked();
+                        p.next = nn;
+                        continue;
+                    }
+                }
+                p = n;
+            }
+        }
+    }
+}
+```
+
 ## 消息池
 
-1. 复用Message对象，避免频繁创建Message对象、分配空间
-2. 使用静态变量sPool存储**消息链表**，所有线程共享一个消息池，容量为50
+1. 复用Message对象，避免频繁创建Message对象、分配空间（**享元模式**）
+2. **使用静态变量sPool存储消息链表**，所有线程共享一个消息池，容量为50
 3. Looper中取出消息用完之后调用`recycleUnchecked`回收，释放Message持有的对象
 
 ```java
@@ -646,12 +720,13 @@ public class Activity {
 
 IdleHandler：在Looper线程空闲时执行
 
-使用场景：例如性能监控、执行GC、埋点上报等
+使用场景：例如性能监控、执行GC、埋点上报、初始化SDK等
 
-原理：将`IdleHandler`加入列表，Looper没有消息或者消息延时，在poll阻塞之前检查列表，执行空闲任务
+原理：将`IdleHandler`加入列表，当Looper没有消息要处理或者消息延时，在调用poll阻塞之前检查列表，执行空闲任务（源码见上文`MessageQueue.next`）
 
 ```java
 public final class MessageQueue {
+    //添加IdleHandler
     public void addIdleHandler(@NonNull IdleHandler handler) {
         if (handler == null) {
             throw new NullPointerException("Can't add a null IdleHandler");
@@ -812,7 +887,7 @@ class MainActivity extends Activity {
 
 ## 正确使用Handler
 
-1. 使用静态内部类+弱引用，如果需要调用外部类方法则使用弱引用，如果不需要则可以不引用
+1. 使用静态内部类+弱引用：如果需要调用外部类方法则使用弱引用，如果不需要则可以不引用
 2. 页面退出时移除消息
 
 ```java
@@ -864,10 +939,10 @@ public final class ActivityThread extends ClientTransactionHandler {
 >
 > 1. UI无法刷新：UI绘制是在一次消息循环中完成的，假设前1次的消息处理中进入了死循环，会导致UI绘制的消息无法执行。
 > 2. ANR原理如下，以Service为例：Service也是在一次消息循环中完成的，假设前一个消息无法退出，Service创建的消息无法执行，或者Service创建过程中耗时。导致Service没有在规定时间内创建完成，会出现ANR。
->    1. AMS跨进程调用应用的`ApplicationThread`方法启动Service，并通过Handler发送一个延时消息
->    2. `ApplicationThread`通过sendMessage发送消息到主线程执行，创建并启动Service
->    3. 启动完Service之后跨进程调用`AMS.serviceDoneExecuting`，通知AMS移除延时消息
->    4. 如果AMS没有收到通知，则到时间之后会触发ANR
+>     1. AMS跨进程调用应用的`ApplicationThread`方法启动Service，并通过Handler发送一个延时消息
+>       2. `ApplicationThread`通过sendMessage发送消息到主线程执行，创建并启动Service
+>       3. 启动完Service之后跨进程调用`AMS.serviceDoneExecuting`，通知AMS移除延时消息
+>       4. 如果AMS没有收到通知，则到时间之后会触发ANR
 
 总结：卡死是由于loop循环中的**单次消息处理耗时**，从而导致后面的消息无法执行。
 
@@ -914,7 +989,7 @@ public final class ViewRootImpl implements ViewParent,
 为什么设计只能在UI线程更新？
 
 > 1. 提高绘制效率：限制单线程中绘制UI，不需要加锁
-> 2. 保证线程安全：避免多个线程同时操作UI
+> 2. 保证线程安全：避免多个线程同时操作UI发生错误
 
 子线程中真的不能更新UI吗？
 
@@ -1034,10 +1109,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Looper.prepare();
-                AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                    .setMessage("this is the content view!!!")
-                    .setTitle("this is the title view!!!")
-                    .create();
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialog);
                 dialog.show();
                 //Looper.loop();
             }
@@ -1056,43 +1129,79 @@ public class MainActivity extends AppCompatActivity {
 
 ```java
 private void showDialog() {
-    new Thread(){
+    new Thread(new Runnable() {
         @Override
         public void run() {
             Looper.prepare();
-            final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
-                .setMessage("this is the content view!!!")
-                .setTitle("this is the title view!!!")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() { 
-                    @Override 
-                    public void onClick(DialogInterface dialog, int which) { 
-                        dialog.setMessage("子线程更新UI");
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() { 
-                    @Override 
-                    public void onClick(DialogInterface dialog, int which) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.setTitle("主线程更新UI");
-                            }
-                        });
-                    }
-                }) 
-                .create();
+            Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.dialog);
+            dialog.findViewById(R.id.noBtn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //主线程更新UI闪退
+                            Log.e("MainActivity", "onClick: " + Thread.currentThread());
+                            ((TextView) dialog.findViewById(R.id.title)).setText("主线程更新UI");
+                        }
+                    });
+                }
+            });
+            dialog.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //子线程更新UI正常
+                    Log.e("MainActivity", "onClick: " + Thread.currentThread());
+                    ((TextView) dialog.findViewById(R.id.title)).setText("子线程更新UI");
+                }
+            });
             dialog.show();
             Looper.loop();
         }
-    }.start();
+    }).start();
 }
 ```
 
-原因：`Dialog.show()`中调用`WindowManagerGlobal.addView`创建ViewRootImpl，此时原始线程是子线程。`requestLayout`检查线程的时候检查原始线程，而不是UI线程。
+原因：`Dialog.show()`中调用`WindowManagerGlobal.addView`创建ViewRootImpl，此时原始线程是子线程。`checkThread`检查原始线程，而不是UI线程。
 
-https://mp.weixin.qq.com/s/tg96p50alrqAtRih8a3AhA
+# TimerTask和Handler？
+
+如果需要定时执行任务，使用TimerTask还是Handler？例如App启动页中5s倒计时进入首页
+
+TimerTask写法：
+
+```java
+TimerTask timertask = new TimerTask() {
+    @Override
+    public void run() {
+        //子线程
+    }
+};
+Timer timer = new Timer();
+timer.schedule(timertask, 0, 1000);
+```
+
+Handler写法：
+
+```java
+Handler handler = new Handler();
+Runnable runnable = new Runnable() {
+    @Override
+    public void run() {
+        //主线程
+    }
+};
+handler.postDelayed(runnable, 1000);
+```
+
+结论：推荐使用Handler，使用TimerTask在子线程，需要再切换主线程更新UI
 
 # 其他
+
+Message发送后是否立即执行？
+
+> 不是。sendMessage只是将消息加入队列中，等待Looper调度
 
 Looper线程和普通线程：
 
@@ -1114,7 +1223,11 @@ Looper线程如何退出？
 > * `Looper.getMainLooper()`：获取主线程Looper对象
 > * `Looper.myLooper()`：获取当前线程Looper对象
 
-子线程为什么不能直接new Handler？
+Looper如何保证线程独有？
+
+> 使用ThreadLocal存储
+
+**子线程为什么不能直接new Handler？**
 
 > Handler构造函数默认使用`Looper.myLooper()`从ThreadLocal中获取当前线程的Looper对象，子线程中未创建Looper因此会抛异常。需要使用prepare创建Looper，保存到ThreadLocal中。
 >
@@ -1137,3 +1250,15 @@ Android源码中的同步屏障？
 `nativePollOnce`原理？
 
 > `nativePollOnce`底层使用`epoll_wait`多路复用，不会占用CPU资源。关于select、poll、epoll参考[IO模型](/Java/IO模型.md)
+
+# 结语
+
+基本上Handler各个知识点都提到了，但是感觉文章结构比较难组织，可能会有点乱。
+
+推荐阅读：
+
+1. [我感觉我学了一个假的Android...](https://mp.weixin.qq.com/s/tg96p50alrqAtRih8a3AhA)
+2. [AsyncTask 都亡了，还在研究 Handler？](https://mp.weixin.qq.com/s/KqRazRWsYgjZMJkQJQtI1A)
+3. [万字复盘 Handler 中各式 Message 的使用和原理](https://mp.weixin.qq.com/s/ZnfCoaCYX7rio8ILO7b4kw)
+4. [Android的消息机制，一文吃透](https://mp.weixin.qq.com/s/JCcLX-5Hc04tcsgbTFELeA)
+5. [关于Handler 的这 15 个问题，你都清楚吗？](https://mp.weixin.qq.com/s/vCnftbD3z07X79gHj30Kiw)
