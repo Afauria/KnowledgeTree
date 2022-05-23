@@ -520,7 +520,20 @@
             
         </li>
     
-        <li class="chapter " data-level="2.21" >
+        <li class="chapter " data-level="2.21" data-path="../Java/分析Class字节码.html">
+            
+                <a href="../Java/分析Class字节码.html">
+            
+                    
+                    分析Class字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -533,7 +546,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.22" >
+        <li class="chapter " data-level="2.23" >
             
                 <span>
             
@@ -1609,27 +1622,27 @@
             
         </li>
     
-        <li class="chapter " data-level="11.4" >
+        <li class="chapter " data-level="11.4" data-path="../设计模式/建造者模式.html">
             
-                <span>
+                <a href="../设计模式/建造者模式.html">
             
                     
                     建造者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="11.5" >
+        <li class="chapter " data-level="11.5" data-path="../设计模式/原型模式.html">
             
-                <span>
+                <a href="../设计模式/原型模式.html">
             
                     
                     原型模式
             
-                </span>
+                </a>
             
 
             
@@ -1642,14 +1655,14 @@
         
         
     
-        <li class="chapter " data-level="12.1" >
+        <li class="chapter " data-level="12.1" data-path="../设计模式/适配器模式.html">
             
-                <span>
+                <a href="../设计模式/适配器模式.html">
             
                     
                     适配器模式
             
-                </span>
+                </a>
             
 
             
@@ -1694,14 +1707,14 @@
             
         </li>
     
-        <li class="chapter " data-level="12.5" >
+        <li class="chapter " data-level="12.5" data-path="../设计模式/代理模式.html">
             
-                <span>
+                <a href="../设计模式/代理模式.html">
             
                     
                     代理模式
             
-                </span>
+                </a>
             
 
             
@@ -1753,40 +1766,40 @@
         
         
     
-        <li class="chapter " data-level="13.1" >
+        <li class="chapter " data-level="13.1" data-path="../设计模式/策略模式.html">
             
-                <span>
+                <a href="../设计模式/策略模式.html">
             
                     
                     策略模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.2" >
+        <li class="chapter " data-level="13.2" data-path="../设计模式/观察者模式.html">
             
-                <span>
+                <a href="../设计模式/观察者模式.html">
             
                     
                     观察者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.3" >
+        <li class="chapter " data-level="13.3" data-path="../设计模式/责任链模式.html">
             
-                <span>
+                <a href="../设计模式/责任链模式.html">
             
                     
                     责任链模式
             
-                </span>
+                </a>
             
 
             
@@ -1831,27 +1844,27 @@
             
         </li>
     
-        <li class="chapter " data-level="13.7" >
+        <li class="chapter " data-level="13.7" data-path="../设计模式/备忘录模式.html">
             
-                <span>
+                <a href="../设计模式/备忘录模式.html">
             
                     
                     备忘录模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.8" >
+        <li class="chapter " data-level="13.8" data-path="../设计模式/状态模式.html">
             
-                <span>
+                <a href="../设计模式/状态模式.html">
             
                     
                     状态模式
             
-                </span>
+                </a>
             
 
             
@@ -2260,6 +2273,20 @@
 </li>
 </ol>
 <p>Client&#x7AEF;&#x8C03;&#x7528;SDK&#x65B9;&#x6CD5;&#xFF0C;Service&#x7AEF;&#x5B9E;&#x73B0;&#x63A5;&#x53E3;</p>
+<p><code>Executive</code>&#xFF1A;</p>
+<ol>
+<li>&#x6DFB;&#x52A0;&#x6CE8;&#x89E3;&#xFF0C;&#x751F;&#x6210;&#x5DE5;&#x5382;&#x7C7B;&#xFF0C;create&#x5B9E;&#x4F8B;&#x5316;Executive&#xFF0C;&#x5E76;&#x4E14;&#x89E3;&#x6790;&#x76AE;&#x80A4;&#x914D;&#x7F6E;&#x7684;Executive&#x53C2;&#x6570;&#x3002;</li>
+<li>registerAll&#x7684;&#x65F6;&#x5019;&#x5C06;&#x6240;&#x6709;Executive&#x5DE5;&#x5382;&#x653E;&#x5230;&#x6C60;&#x4E2D;<code>Map<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String,</span> <span class="token attr-name">IExecutiveCreator</span><span class="token punctuation">&gt;</span></span></code></li>
+<li>bindView&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x89E3;&#x6790;&#x76AE;&#x80A4;&#x914D;&#x7F6E;&#x7684;ComponentInfo&#x53C2;&#x6570;&#xFF0C;&#x83B7;&#x53D6;Executive&#x5B57;&#x7B26;&#x4E32;</li>
+<li>&#x6839;&#x636E;Executive&#x5B57;&#x7B26;&#x4E32;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x7684;&#x5DE5;&#x5382;&#xFF0C;&#x8C03;&#x7528;create&#x65B9;&#x6CD5;&#x5B9E;&#x4F8B;&#x5316;Executive&#xFF0C;&#x5E76;&#x653E;&#x5165;&#x5F31;&#x5F15;&#x7528;Map&#x4E2D;<code>Map<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PageData.ComponentInfo,</span> <span class="token attr-name">WeakReference&lt;IExecutive</span><span class="token punctuation">&gt;</span></span>&gt;</code>&#xFF0C;&#x4E0B;&#x6B21;&#x540C;&#x4E00;&#x4E2A;&#x63A7;&#x4EF6;&#x83B7;&#x53D6;&#x4E0D;&#x9700;&#x8981;&#x518D;&#x5B9E;&#x4F8B;&#x5316;</li>
+</ol>
+<p>KeyHandler&#xFF1A;&#x8D23;&#x4EFB;&#x94FE;</p>
+<ol>
+<li>&#x7CFB;&#x7EDF;&#x5728;<code>PhoneWindowManager</code>&#x4E2D;&#x65B9;&#x6CD5;&#x4E2D;&#x6DFB;&#x52A0;&#x62E6;&#x622A;<code>interceptKeyBeforeDispatching</code>&#xFF0C;&#x5C06;Key&#x4F20;&#x7ED9;TvAPI</li>
+<li>TvAPI&#x63D0;&#x4F9B;&#x4E86;addListener&#x76D1;&#x542C;&#x65B9;&#x6CD5;</li>
+<li>&#x5176;&#x4ED6;&#x5E94;&#x7528;&#x8C03;&#x7528;addListener&#x65B9;&#x6CD5;&#xFF0C;&#x6CE8;&#x518C;&#x76D1;&#x542C;</li>
+<li>&#x6309;&#x952E;&#x5206;&#x53D1;&#x65F6;&#x904D;&#x5386;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x5206;&#x53D1;&#x7ED9;&#x4E0D;&#x540C;&#x5E94;&#x7528;&#x5904;&#x7406;&#xFF0C;&#x4F8B;&#x5982;GlobalUI&#xFF0C;&#x97F3;&#x91CF;&#x6761;</li>
+</ol>
  
           </section>
           
@@ -2336,7 +2363,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"架构设计：MVC、MVP、MVVM","level":"9.1","depth":1,"next":{"title":"写在前头","level":"10.1","depth":1,"path":"设计模式/写在前头.md","ref":"设计模式/写在前头.md","articles":[]},"previous":{"title":"Tangram","level":"8.15","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"架构设计/架构设计.md","mtime":"2022-03-30T09:13:55.042Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T10:28:55.789Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"架构设计：MVC、MVP、MVVM","level":"9.1","depth":1,"next":{"title":"写在前头","level":"10.1","depth":1,"path":"设计模式/写在前头.md","ref":"设计模式/写在前头.md","articles":[]},"previous":{"title":"Tangram","level":"8.15","depth":1,"ref":"","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"架构设计/架构设计.md","mtime":"2022-04-25T11:37:44.586Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-23T11:13:18.553Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

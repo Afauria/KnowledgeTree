@@ -87,6 +87,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="分析Class字节码.html" />
+    
     
     <link rel="prev" href="ArrayList.html" />
     
@@ -520,7 +522,20 @@
             
         </li>
     
-        <li class="chapter " data-level="2.21" >
+        <li class="chapter " data-level="2.21" data-path="分析Class字节码.html">
+            
+                <a href="分析Class字节码.html">
+            
+                    
+                    分析Class字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -533,7 +548,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.22" >
+        <li class="chapter " data-level="2.23" >
             
                 <span>
             
@@ -1609,27 +1624,27 @@
             
         </li>
     
-        <li class="chapter " data-level="11.4" >
+        <li class="chapter " data-level="11.4" data-path="../设计模式/建造者模式.html">
             
-                <span>
+                <a href="../设计模式/建造者模式.html">
             
                     
                     建造者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="11.5" >
+        <li class="chapter " data-level="11.5" data-path="../设计模式/原型模式.html">
             
-                <span>
+                <a href="../设计模式/原型模式.html">
             
                     
                     原型模式
             
-                </span>
+                </a>
             
 
             
@@ -1642,14 +1657,14 @@
         
         
     
-        <li class="chapter " data-level="12.1" >
+        <li class="chapter " data-level="12.1" data-path="../设计模式/适配器模式.html">
             
-                <span>
+                <a href="../设计模式/适配器模式.html">
             
                     
                     适配器模式
             
-                </span>
+                </a>
             
 
             
@@ -1694,14 +1709,14 @@
             
         </li>
     
-        <li class="chapter " data-level="12.5" >
+        <li class="chapter " data-level="12.5" data-path="../设计模式/代理模式.html">
             
-                <span>
+                <a href="../设计模式/代理模式.html">
             
                     
                     代理模式
             
-                </span>
+                </a>
             
 
             
@@ -1753,40 +1768,40 @@
         
         
     
-        <li class="chapter " data-level="13.1" >
+        <li class="chapter " data-level="13.1" data-path="../设计模式/策略模式.html">
             
-                <span>
+                <a href="../设计模式/策略模式.html">
             
                     
                     策略模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.2" >
+        <li class="chapter " data-level="13.2" data-path="../设计模式/观察者模式.html">
             
-                <span>
+                <a href="../设计模式/观察者模式.html">
             
                     
                     观察者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.3" >
+        <li class="chapter " data-level="13.3" data-path="../设计模式/责任链模式.html">
             
-                <span>
+                <a href="../设计模式/责任链模式.html">
             
                     
                     责任链模式
             
-                </span>
+                </a>
             
 
             
@@ -1831,27 +1846,27 @@
             
         </li>
     
-        <li class="chapter " data-level="13.7" >
+        <li class="chapter " data-level="13.7" data-path="../设计模式/备忘录模式.html">
             
-                <span>
+                <a href="../设计模式/备忘录模式.html">
             
                     
                     备忘录模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.8" >
+        <li class="chapter " data-level="13.8" data-path="../设计模式/状态模式.html">
             
-                <span>
+                <a href="../设计模式/状态模式.html">
             
                     
                     状态模式
             
-                </span>
+                </a>
             
 
             
@@ -2288,7 +2303,7 @@ D. 0 &#x6B21;</p>
 </ul>
 </li>
 </ul>
-<p><a href="HashMap/HashMap.png" data-lightbox="19fda68c-5023-493a-993c-392b9df15243" data-title=""><img src="HashMap/HashMap.png" alt=""></a></p>
+<p><a href="HashMap/HashMap.png" data-lightbox="1dd46a0e-2090-4ea7-9343-7cad12367476" data-title=""><img src="HashMap/HashMap.png" alt=""></a></p>
 <p>put&#x6B65;&#x9AA4;&#xFF1A;</p>
 <ol>
 <li>&#x8BA1;&#x7B97;Key&#x7684;hash&#x503C;&#xFF1A;<code>hash = hashCode() ^ (hashCode &gt;&gt;&gt; 16)</code>&#xFF0C;&#x9AD8;16&#x4F4D;&#x4E0E;&#x4F4E;16&#x4F4D;&#x505A;&#x5F02;&#x6216;&#x8FD0;&#x7B97;&#xFF0C;&#x51CF;&#x5C11;&#x51B2;&#x7A81;&#xFF0C;&#x9AD8;16&#x4F4D;&#x7684;&#x7279;&#x5F81;&#x4F1A;&#x88AB;&#x52A0;&#x5165;&#x5230;&#x8BA1;&#x7B97;&#x4E2D;<ol>
@@ -2342,12 +2357,6 @@ D. 0 &#x6B21;</p>
 <ol>
 <li>JDK1.8&#x4E4B;&#x524D;&#xFF0C;&#x91C7;&#x7528;&#x5934;&#x63D2;&#x6CD5;&#xFF0C;&#x5E76;&#x53D1;&#x6269;&#x5BB9;&#x4F1A;&#x5BFC;&#x81F4;&#x6B7B;&#x5FAA;&#x73AF;&#x3002;JDK1.8&#x4E4B;&#x540E;&#xFF0C;&#x91C7;&#x7528;&#x5C3E;&#x63D2;&#x6CD5;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;&#x6B7B;&#x5FAA;&#x73AF;&#xFF0C;&#x4F46;&#x4ECD;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x6570;&#x636E;&#x8986;&#x76D6;&#x7684;&#x60C5;&#x51B5;</li>
 <li>&#x591A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x8986;&#x76D6;&#x6570;&#x636E;&#x3002;&#x4F8B;&#x5982;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;push&#xFF0C;&#x8BA1;&#x7B97;hash&#x503C;&#x76F8;&#x540C;&#xFF0C;&#x5E76;&#x4E14;&#x540C;&#x65F6;&#x5224;&#x65AD;&#x4E86;&#x76EE;&#x6807;&#x4F4D;&#x7F6E;&#x4E3A;&#x7A7A;&#x3002;</li>
-</ol>
-<p>&#x4E3A;&#x4EC0;&#x4E48;&#x5934;&#x63D2;&#x6CD5;&#x4F1A;&#x5BFC;&#x81F4;&#x6B7B;&#x5FAA;&#x73AF;&#xFF1F;&#x91C7;&#x7528;&#x5934;&#x63D2;&#x6CD5;&#x4F1A;&#x5BFC;&#x81F4;&#x539F;&#x94FE;&#x8868;&#x987A;&#x5E8F;&#x88AB;&#x53CD;&#x8F6C;</p>
-<ol>
-<li>&#x5047;&#x8BBE;&#x7EBF;&#x7A0B;2loHead&#xFF08;1&#xFF09;-&gt;loTail&#xFF08;2&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x91CA;&#x653E;CPU</li>
-<li>&#x7EBF;&#x7A0B;1&#x6269;&#x5BB9;&#x5B8C;&#x6210;&#x4E4B;&#x540E;&#x94FE;&#x8868;&#x53D8;&#x6210;&#x4E86;3-&gt;2-&gt;1</li>
-<li>&#x6B64;&#x65F6;&#x7EBF;&#x7A0B;2&#x6062;&#x590D;&#xFF0C;&#x7EE7;&#x7EED;&#x904D;&#x5386;2&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x7ED3;&#x679C;&#x53D8;&#x6210;&#x4E86;loHead&#xFF08;1&#xFF09;-&gt;2-&gt;loTail&#xFF08;1&#xFF09;</li>
 </ol>
 <pre class="language-"><code class="lang-java"><span class="token comment">//HashMap.java</span>
 <span class="token keyword">final</span> <span class="token class-name">Node</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -2403,6 +2412,63 @@ D. 0 &#x6B21;</p>
     <span class="token keyword">return</span> newTab<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>&#x5934;&#x63D2;&#x6CD5;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x5047;&#x8BBE;&#x94FE;&#x8868;&#x4E3A;1-&gt;2-&gt;3&#xFF0C;&#x4E14;1&#x3001;2&#x3001;3&#x6269;&#x5BB9;&#x540E;hash&#x503C;&#x8FD8;&#x76F8;&#x7B49;&#xFF0C;&#x586B;&#x5165;&#x65B0;&#x6570;&#x7EC4;&#x7684;<code>newTable[i]</code>&#x4F4D;&#x7F6E;&#xFF0C;&#x521D;&#x59CB;&#x4E3A;&#x7A7A;</li>
+<li>&#x4FDD;&#x5B58;next=2&#xFF0C;&#x5C06;1&#x6307;&#x5411;&#x65B0;&#x6570;&#x7EC4;&#x7684;i&#x4F4D;&#x7F6E;&#xFF0C;&#x53D8;&#x4E3A;1-&gt;null&#xFF0C;<code>newTable[i]</code>&#x53D8;&#x4E3A;1</li>
+<li>&#x4FDD;&#x5B58;next=3&#xFF0C;&#x5C06;2&#x6307;&#x5411;&#x65B0;&#x6570;&#x7EC4;&#x7684;i&#x4F4D;&#x7F6E;&#xFF0C;&#x53D8;&#x4E3A;2-&gt;1-&gt;null&#xFF0C;<code>newTable[i]</code>&#x53D8;&#x4E3A;2</li>
+<li>&#x4FDD;&#x5B58;next=null&#xFF0C;&#x5C06;3&#x6307;&#x5411;&#x65B0;&#x6570;&#x7EC4;&#x7684;i&#x4F4D;&#x7F6E;&#xFF0C;&#x53D8;&#x4E3A;3-&gt;2-&gt;1-&gt;null&#xFF0C;<code>newTable[i]</code>&#x53D8;&#x4E3A;3</li>
+<li>&#x7ED3;&#x675F;&#x5FAA;&#x73AF;</li>
+</ol>
+<pre class="language-"><code class="lang-java"> <span class="token comment">/**
+      * &#x6269;&#x5BB9;&#x5904;&#x7406;
+      *newCapacity 2&#x7684;&#x5E42;&#x6B21;&#x65B9; &#x539F;&#x6765;16&#x57FA;&#x7840;&#x4E0A;
+     **/</span>
+    <span class="token keyword">void</span> <span class="token function">resize</span><span class="token punctuation">(</span><span class="token keyword">int</span> newCapacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Entry</span><span class="token punctuation">[</span><span class="token punctuation">]</span> oldTable <span class="token operator">=</span> table<span class="token punctuation">;</span> <span class="token comment">//&#x5B58;&#x653E;&#x65E7;&#x7684;table</span>
+        <span class="token keyword">int</span> oldCapacity <span class="token operator">=</span> oldTable<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token comment">//&#x5B58;&#x653E;&#x65E7;&#x7684;table&#x957F;&#x5EA6;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>oldCapacity <span class="token operator">==</span> MAXIMUM_CAPACITY<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//&#x5982;&#x679C;&#x65E7;&#x7684;table&#x957F;&#x5EA6;&#x4E3A;&#x6700;&#x5927;,&#x5219;&#x5C06;&#x9600;&#x503C;&#x4E5F;&#x6539;&#x4E3A;&#x6700;&#x5927;</span>
+            threshold <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span><span class="token comment">//&#x4E0D;&#x8FDB;&#x884C;&#x6269;&#x5BB9;&#x4E86;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token class-name">Entry</span><span class="token punctuation">[</span><span class="token punctuation">]</span> newTable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Entry</span><span class="token punctuation">[</span>newCapacity<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//&#x65B0;&#x5EFA;&#x6269;&#x5BB9;&#x540E;&#x7684;table</span>
+        <span class="token function">transfer</span><span class="token punctuation">(</span>newTable<span class="token punctuation">,</span> <span class="token function">initHashSeedAsNeeded</span><span class="token punctuation">(</span>newCapacity<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//&#x8F6C;&#x79FB;&#x65E7;&#x6570;&#x636E;&#x5230;&#x65B0;table</span>
+        table <span class="token operator">=</span> newTable<span class="token punctuation">;</span><span class="token comment">//&#x66F4;&#x6362;&#x4E3A;&#x65B0;table</span>
+        <span class="token comment">//&#x91CD;&#x65B0;&#x8BA1;&#x7B97;&#x9600;&#x503C;</span>
+        threshold <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>newCapacity <span class="token operator">*</span> loadFactor<span class="token punctuation">,</span> MAXIMUM_CAPACITY <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+    <span class="token comment">/**
+     * &#x6570;&#x636E;&#x8F6C;&#x79FB;
+     * newTable &#x65B0;table(&#x4F7F;&#x7528;&#x5934;&#x63D2;&#x6CD5;&#x5C06;&#x8001;&#x6570;&#x636E;&#x8F6C;&#x79FB;&#x5230;&#x65B0;&#x6570;&#x636E;)
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span><span class="token class-name">Entry</span><span class="token punctuation">[</span><span class="token punctuation">]</span> newTable<span class="token punctuation">,</span> <span class="token keyword">boolean</span> rehash<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> newCapacity <span class="token operator">=</span> newTable<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> e <span class="token operator">:</span> table<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token keyword">null</span> <span class="token operator">!=</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">K</span><span class="token punctuation">,</span><span class="token class-name">V</span><span class="token punctuation">&gt;</span></span> next <span class="token operator">=</span> e<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>rehash<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    e<span class="token punctuation">.</span>hash <span class="token operator">=</span> <span class="token keyword">null</span> <span class="token operator">==</span> e<span class="token punctuation">.</span>key <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token function">hash</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">indexFor</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>hash<span class="token punctuation">,</span> newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                e<span class="token punctuation">.</span>next <span class="token operator">=</span> newTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                newTable<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+                e <span class="token operator">=</span> next<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x5934;&#x63D2;&#x6CD5;&#x4F1A;&#x5BFC;&#x81F4;&#x6B7B;&#x5FAA;&#x73AF;&#xFF1F;&#x91C7;&#x7528;&#x5934;&#x63D2;&#x6CD5;&#x4F1A;&#x5BFC;&#x81F4;&#x539F;&#x94FE;&#x8868;&#x987A;&#x5E8F;&#x88AB;&#x53CD;&#x8F6C;</p>
+<ol>
+<li>&#x5047;&#x8BBE;&#x94FE;&#x8868;&#x4E3A;1-&gt;2&#xFF0C;&#x4E14;1&#x3001;2&#x6269;&#x5BB9;&#x540E;hash&#x503C;&#x8FD8;&#x76F8;&#x7B49;&#xFF0C;&#x586B;&#x5165;&#x65B0;&#x6570;&#x7EC4;&#x7684;<code>newTable[i]</code>&#x4F4D;&#x7F6E;&#xFF0C;&#x521D;&#x59CB;&#x4E3A;&#x7A7A;</li>
+<li>&#x5047;&#x8BBE;&#x7EBF;&#x7A0B;1&#x6269;&#x5BB9;&#xFF1A;next=2&#xFF0C;&#x7136;&#x540E;&#x7EBF;&#x7A0B;&#x6302;&#x8D77;&#xFF0C;&#x91CA;&#x653E;CPU</li>
+<li>&#x6B64;&#x65F6;&#x7EBF;&#x7A0B;2&#x4E5F;&#x5F00;&#x59CB;&#x6269;&#x5BB9;&#xFF1A;&#x7EBF;&#x7A0B;2&#x4E5F;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x65B0;&#x6570;&#x7EC4;<code>newTable</code>&#xFF0C;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#x53D8;&#x4E3A;2-&gt;1&#x3002;<code>newTable</code>&#x662F;&#x7EBF;&#x7A0B;&#x72EC;&#x7ACB;&#x7684;&#xFF0C;&#x4F46;&#x662F;Node&#x662F;&#x5171;&#x4EAB;&#x7684;</li>
+<li>&#x7EBF;&#x7A0B;1&#x6062;&#x590D;&#xFF1A;&#x53D8;&#x4E3A;1-&gt;null</li>
+<li>&#x518D;&#x6B21;&#x5FAA;&#x73AF;&#xFF0C;&#x7531;&#x4E8E;Node&#x88AB;&#x7EBF;&#x7A0B;2&#x4FEE;&#x6539;&#xFF0C;2.next&#x4E3A;1&#xFF0C;&#x4FDD;&#x5B58;next=1&#xFF0C;&#x5C06;2&#x6307;&#x5411;&#x65B0;&#x6570;&#x7EC4;2-&gt;1-&gt;null</li>
+<li>&#x6B64;&#x65F6;next&#x4E0D;&#x4E3A;&#x7A7A;&#xFF0C;&#x7EE7;&#x7EED;&#x5FAA;&#x73AF;&#xFF0C;&#x4FDD;&#x5B58;next=null&#xFF0C;&#x5C06;1&#x6307;&#x5411;&#x65B0;&#x4F4D;&#x7F6E;2-&gt;1-&gt;null&#xFF0C;&#x7ED3;&#x679C;&#x53D8;&#x4E3A;1-&gt;2-&gt;1&#x3002;</li>
+<li>&#x5F53;&#x5916;&#x90E8;get&#x67E5;&#x627E;1&#x3001;2&#x7684;&#x65F6;&#x5019;&#x6B63;&#x5E38;&#xFF0C;&#x5047;&#x8BBE;get&#x67E5;&#x627E;3&#xFF0C;&#x4E14;3&#x7684;&#x4E0B;&#x6807;&#x548C;1&#xFF0C;2&#x76F8;&#x540C;&#xFF0C;&#x7531;&#x4E8E;&#x94FE;&#x8868;&#x4E2D;&#x6CA1;&#x6709;3&#xFF0C;&#x6B64;&#x65F6;&#x67E5;&#x8BE2;&#x4F1A;&#x51FA;&#x73B0;&#x6B7B;&#x5FAA;&#x73AF;&#x3002;</li>
+</ol>
 <h1 id="concurrenthashmap"><a name="concurrenthashmap" class="plugin-anchor" href="#concurrenthashmap"><i class="fa fa-link" aria-hidden="true"></i></a>ConcurrentHashMap</h1>
 <p>&#x7EBF;&#x7A0B;&#x5B89;&#x5168;</p>
 <ul>
@@ -2411,8 +2477,8 @@ D. 0 &#x6B21;</p>
 <li>ConcurrentHashMap&#x952E;&#x503C;&#x4E0D;&#x5141;&#x8BB8;&#x4E3A;null</li>
 <li>ConcurrentHashMap&#x5185;&#x90E8;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x5916;&#x90E8;&#x591A;&#x6B21;&#x8C03;&#x7528;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4F8B;&#x5982;&#x5916;&#x90E8;get&#x4E4B;&#x540E;&#x53EF;&#x80FD;&#x88AB;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x4FEE;&#x6539;</li>
 </ul>
-<p><a href="HashMap/Java7ConcurrentHashMap.png" data-lightbox="ca2d535e-554a-43ee-80d9-5ae6de00036e" data-title=""><img src="HashMap/Java7ConcurrentHashMap.png" alt=""></a></p>
-<p><a href="HashMap/Java8ConcurrentHashMap.png" data-lightbox="f42f6193-192b-481a-886a-fdc1342f9c8c" data-title=""><img src="HashMap/Java8ConcurrentHashMap.png" alt=""></a></p>
+<p><a href="HashMap/Java7ConcurrentHashMap.png" data-lightbox="6076cf79-6f3d-4dad-aef1-1067a5ba2f81" data-title=""><img src="HashMap/Java7ConcurrentHashMap.png" alt=""></a></p>
+<p><a href="HashMap/Java8ConcurrentHashMap.png" data-lightbox="01651bac-1db4-4d69-bba0-1c766195c150" data-title=""><img src="HashMap/Java8ConcurrentHashMap.png" alt=""></a></p>
 <h1 id="&#x5176;&#x4ED6;"><a name="&#x5176;&#x4ED6;" class="plugin-anchor" href="#&#x5176;&#x4ED6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5176;&#x4ED6;</h1>
 <h2 id="&#x94FE;&#x8868;&#x548C;&#x6570;&#x7EC4;"><a name="&#x94FE;&#x8868;&#x548C;&#x6570;&#x7EC4;" class="plugin-anchor" href="#&#x94FE;&#x8868;&#x548C;&#x6570;&#x7EC4;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x94FE;&#x8868;&#x548C;&#x6570;&#x7EC4;</h2>
 <ul>
@@ -2463,13 +2529,24 @@ D. 0 &#x6B21;</p>
       href="ArrayList.html"
       class="
         navigation navigation-prev
-        navigation-unique
+        
       "
       aria-label="Previous page: ArrayList"
     >
       <i class="fa fa-angle-left"></i>
     </a>
-       
+     
+    <a
+      href="分析Class字节码.html"
+      class="
+        navigation navigation-next
+        
+      "
+      aria-label="Next page: 分析Class字节码"
+    >
+      <i class="fa fa-angle-right"></i>
+    </a>
+      
   </div>
   <script>
     function showModal() {
@@ -2499,7 +2576,7 @@ D. 0 &#x6B21;</p>
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"HashMap","level":"2.20","depth":1,"next":{"title":"Java动态代理","level":"2.21","depth":1,"ref":"","articles":[]},"previous":{"title":"ArrayList","level":"2.19","depth":1,"path":"Java/ArrayList.md","ref":"Java/ArrayList.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Java/HashMap.md","mtime":"2022-04-12T07:25:46.745Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T10:28:55.789Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"HashMap","level":"2.20","depth":1,"next":{"title":"分析Class字节码","level":"2.21","depth":1,"path":"Java/分析Class字节码.md","ref":"Java/分析Class字节码.md","articles":[]},"previous":{"title":"ArrayList","level":"2.19","depth":1,"path":"Java/ArrayList.md","ref":"Java/ArrayList.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"Java/HashMap.md","mtime":"2022-05-23T01:24:31.734Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-23T11:13:18.553Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

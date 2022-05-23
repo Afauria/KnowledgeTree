@@ -59,3 +59,6 @@ https://www.jianshu.com/p/ea4fc6aefaa8
 
 https://www.jianshu.com/p/0b22194b131c
 
+Binder调用在子线程，Binder线程池
+
+ApplicationThread需要将AMS调用通过Handler发到主线程执行

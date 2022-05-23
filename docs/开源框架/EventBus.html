@@ -522,7 +522,20 @@
             
         </li>
     
-        <li class="chapter " data-level="2.21" >
+        <li class="chapter " data-level="2.21" data-path="../Java/分析Class字节码.html">
+            
+                <a href="../Java/分析Class字节码.html">
+            
+                    
+                    分析Class字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.22" >
             
                 <span>
             
@@ -535,7 +548,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.22" >
+        <li class="chapter " data-level="2.23" >
             
                 <span>
             
@@ -1611,27 +1624,27 @@
             
         </li>
     
-        <li class="chapter " data-level="11.4" >
+        <li class="chapter " data-level="11.4" data-path="../设计模式/建造者模式.html">
             
-                <span>
+                <a href="../设计模式/建造者模式.html">
             
                     
                     建造者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="11.5" >
+        <li class="chapter " data-level="11.5" data-path="../设计模式/原型模式.html">
             
-                <span>
+                <a href="../设计模式/原型模式.html">
             
                     
                     原型模式
             
-                </span>
+                </a>
             
 
             
@@ -1644,14 +1657,14 @@
         
         
     
-        <li class="chapter " data-level="12.1" >
+        <li class="chapter " data-level="12.1" data-path="../设计模式/适配器模式.html">
             
-                <span>
+                <a href="../设计模式/适配器模式.html">
             
                     
                     适配器模式
             
-                </span>
+                </a>
             
 
             
@@ -1696,14 +1709,14 @@
             
         </li>
     
-        <li class="chapter " data-level="12.5" >
+        <li class="chapter " data-level="12.5" data-path="../设计模式/代理模式.html">
             
-                <span>
+                <a href="../设计模式/代理模式.html">
             
                     
                     代理模式
             
-                </span>
+                </a>
             
 
             
@@ -1755,40 +1768,40 @@
         
         
     
-        <li class="chapter " data-level="13.1" >
+        <li class="chapter " data-level="13.1" data-path="../设计模式/策略模式.html">
             
-                <span>
+                <a href="../设计模式/策略模式.html">
             
                     
                     策略模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.2" >
+        <li class="chapter " data-level="13.2" data-path="../设计模式/观察者模式.html">
             
-                <span>
+                <a href="../设计模式/观察者模式.html">
             
                     
                     观察者模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.3" >
+        <li class="chapter " data-level="13.3" data-path="../设计模式/责任链模式.html">
             
-                <span>
+                <a href="../设计模式/责任链模式.html">
             
                     
                     责任链模式
             
-                </span>
+                </a>
             
 
             
@@ -1833,27 +1846,27 @@
             
         </li>
     
-        <li class="chapter " data-level="13.7" >
+        <li class="chapter " data-level="13.7" data-path="../设计模式/备忘录模式.html">
             
-                <span>
+                <a href="../设计模式/备忘录模式.html">
             
                     
                     备忘录模式
             
-                </span>
+                </a>
             
 
             
         </li>
     
-        <li class="chapter " data-level="13.8" >
+        <li class="chapter " data-level="13.8" data-path="../设计模式/状态模式.html">
             
-                <span>
+                <a href="../设计模式/状态模式.html">
             
                     
                     状态模式
             
-                </span>
+                </a>
             
 
             
@@ -2241,13 +2254,104 @@
           <section class="normal markdown-section">
              <p>&#x4F7F;&#x7528;&#xFF1A;</p>
 <ol>
-<li>&#x65B9;&#x6CD5;&#x6DFB;&#x52A0;&#x6CE8;&#x89E3;</li>
+<li>&#x65B9;&#x6CD5;&#x6DFB;&#x52A0;&#x6CE8;&#x89E3;<code>@Subscribe</code></li>
 <li>&#x6CE8;&#x518C;<code>EventBus.getDefault().register();</code></li>
 <li>post&#x53D1;&#x9001;&#x6D88;&#x606F;&#xFF0C;&#x6839;&#x636E;&#x53C2;&#x6570;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53CD;&#x5C04;&#x8C03;&#x7528;</li>
 </ol>
 <p>&#x65E7;&#x7248;&#x672C;&#x901A;&#x8FC7;&#x65B9;&#x6CD5;&#x540D;&#xFF0C;&#x53CD;&#x5C04;&#x627E;&#x5230;&#x6CE8;&#x518C;&#x7C7B;&#x7684;&#x524D;&#x7F00;&#x4E3A;onEvent&#x7684;&#x65B9;&#x6CD5;&#x6CE8;&#x518C;&#xFF1A;onEvent&#x3001;onEventMainThread&#x3001;onEventBackgroundThread&#x548C;onEventAsync</p>
-<p>EventBus3.0&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#xFF1A;&#x8FD0;&#x884C;&#x65F6;&#x6CE8;&#x89E3;&#xFF0C;&#x6CE8;&#x518C;&#x7684;&#x65F6;&#x5019;&#x53CD;&#x5C04;&#x89E3;&#x6790;&#x6CE8;&#x89E3;&#xFF0C;&#x751F;&#x6210;SubscribeMethod&#x65B9;&#x6CD5;&#xFF0C;&#x5B58;&#x5165;<code>Subsctiption(&#x65B9;&#x6CD5;&#x6240;&#x5728;&#x7684;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;SubscribeMethod)</code>&#xFF0C;&#x518D;&#x5B58;&#x5165;Map&#x4E2D;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>eventType,</span> <span class="token attr-name">Subscriptions</span><span class="token punctuation">&gt;</span></span></code></p>
+<p>EventBus3.0&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#xFF1A;</p>
+<ol>
+<li>&#x8FD0;&#x884C;&#x65F6;&#x6CE8;&#x89E3;&#xFF0C;register&#x6CE8;&#x518C;&#x7684;&#x65F6;&#x5019;&#x53CD;&#x5C04;&#x89E3;&#x6790;&#x6CE8;&#x89E3;</li>
+<li>&#x67E5;&#x627E;&#x8BE5;&#x7C7B;&#x4F7F;&#x7528;&#x4E86;&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x751F;&#x6210;SubscribeMethod&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x7F13;&#x5B58;&#x4E0B;&#x6765;<code>Map<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Class,</span> <span class="token attr-name">List&lt;SubscribeMethod</span><span class="token punctuation">&gt;</span></span>&gt;</code></li>
+<li>&#x5B58;&#x5165;<code>Subsctiption(&#x65B9;&#x6CD5;&#x6240;&#x5728;&#x7684;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;SubscribeMethod)</code>&#xFF0C;&#x518D;&#x5B58;&#x5165;Map&#x4E2D;<code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>eventType,</span> <span class="token attr-name">Subscriptions</span><span class="token punctuation">&gt;</span></span></code></li>
+</ol>
 <p>&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#x6839;&#x636E;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#xFF08;eventType&#xFF09;&#x627E;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x8BA2;&#x9605;&#x8005;&#x5217;&#x8868;&#xFF0C;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x4F20;&#x5165;&#x7C7B;&#x7684;&#x5BF9;&#x8C61;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">post</span><span class="token punctuation">(</span><span class="token class-name">Object</span> event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// currentPostingThreadState&#x662F;&#x4E00;&#x4E2A;PostingThreadState&#x7C7B;&#x578B;&#x7684;ThreadLocal</span>
+        <span class="token comment">// PostingThreadState&#x7C7B;&#x4FDD;&#x5B58;&#x4E86;&#x4E8B;&#x4EF6;&#x961F;&#x5217;&#x548C;&#x7EBF;&#x7A0B;&#x6A21;&#x5F0F;&#x7B49;&#x4FE1;&#x606F;</span>
+        <span class="token class-name">PostingThreadState</span> postingState <span class="token operator">=</span> currentPostingThreadState<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> eventQueue <span class="token operator">=</span> postingState<span class="token punctuation">.</span>eventQueue<span class="token punctuation">;</span>
+        <span class="token comment">// &#x5C06;&#x8981;&#x53D1;&#x9001;&#x7684;&#x4E8B;&#x4EF6;&#x6DFB;&#x52A0;&#x5230;&#x4E8B;&#x4EF6;&#x961F;&#x5217;</span>
+        eventQueue<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// isPosting&#x9ED8;&#x8BA4;&#x4E3A;false</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>postingState<span class="token punctuation">.</span>isPosting<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// &#x662F;&#x5426;&#x4E3A;&#x4E3B;&#x7EBF;&#x7A0B;</span>
+            postingState<span class="token punctuation">.</span>isMainThread <span class="token operator">=</span> <span class="token function">isMainThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            postingState<span class="token punctuation">.</span>isPosting <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>postingState<span class="token punctuation">.</span>canceled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">EventBusException</span><span class="token punctuation">(</span><span class="token string">&quot;Internal error. Abort state was not reset&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token comment">// &#x904D;&#x5386;&#x4E8B;&#x4EF6;&#x961F;&#x5217;</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>eventQueue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// &#x53D1;&#x9001;&#x5355;&#x4E2A;&#x4E8B;&#x4EF6;</span>
+                    <span class="token comment">// eventQueue.remove(0)&#xFF0C;&#x4ECE;&#x4E8B;&#x4EF6;&#x961F;&#x5217;&#x79FB;&#x9664;&#x4E8B;&#x4EF6;</span>
+                    <span class="token function">postSingleEvent</span><span class="token punctuation">(</span>eventQueue<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> postingState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+                postingState<span class="token punctuation">.</span>isPosting <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                postingState<span class="token punctuation">.</span>isMainThread <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">postSingleEvent</span><span class="token punctuation">(</span><span class="token class-name">Object</span> event<span class="token punctuation">,</span> <span class="token class-name">PostingThreadState</span> postingState<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Error</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> eventClass <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> subscriptionFound <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token comment">// eventInheritance&#x9ED8;&#x8BA4;&#x4E3A;true&#xFF0C;&#x8868;&#x793A;&#x662F;&#x5426;&#x5411;&#x4E0A;&#x67E5;&#x627E;&#x4E8B;&#x4EF6;&#x7684;&#x7236;&#x7C7B;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>eventInheritance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// &#x67E5;&#x627E;&#x5F53;&#x524D;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x7684;Class&#xFF0C;&#x8FDE;&#x540C;&#x5F53;&#x524D;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x7684;Class&#x4FDD;&#x5B58;&#x5230;&#x96C6;&#x5408;</span>
+            <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Class</span><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> eventTypes <span class="token operator">=</span> <span class="token function">lookupAllEventTypes</span><span class="token punctuation">(</span>eventClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> countTypes <span class="token operator">=</span> eventTypes<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// &#x904D;&#x5386;Class&#x96C6;&#x5408;&#xFF0C;&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> h <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> h <span class="token operator">&lt;</span> countTypes<span class="token punctuation">;</span> h<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> eventTypes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                subscriptionFound <span class="token operator">|=</span> <span class="token function">postSingleEventForEventType</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> postingState<span class="token punctuation">,</span> clazz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            subscriptionFound <span class="token operator">=</span> <span class="token function">postSingleEventForEventType</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> postingState<span class="token punctuation">,</span> eventClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>subscriptionFound<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>logNoSubscriberMessages<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                logger<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token class-name">Level</span><span class="token punctuation">.</span>FINE<span class="token punctuation">,</span> <span class="token string">&quot;No subscribers registered for event &quot;</span> <span class="token operator">+</span> eventClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sendNoSubscriberEvent <span class="token operator">&amp;&amp;</span> eventClass <span class="token operator">!=</span> <span class="token class-name">NoSubscriberEvent</span><span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token operator">&amp;&amp;</span>
+                    eventClass <span class="token operator">!=</span> <span class="token class-name">SubscriberExceptionEvent</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">post</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">NoSubscriberEvent</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">postSingleEventForEventType</span><span class="token punctuation">(</span><span class="token class-name">Object</span> event<span class="token punctuation">,</span> <span class="token class-name">PostingThreadState</span> postingState<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> eventClass<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">CopyOnWriteArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Subscription</span><span class="token punctuation">&gt;</span></span> subscriptions<span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// &#x83B7;&#x53D6;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x7684;Subscription&#x96C6;&#x5408;</span>
+            subscriptions <span class="token operator">=</span> subscriptionsByEventType<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>eventClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// &#x5982;&#x679C;&#x5DF2;&#x8BA2;&#x9605;&#x4E86;&#x5BF9;&#x5E94;&#x7C7B;&#x578B;&#x7684;&#x4E8B;&#x4EF6;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>subscriptions <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>subscriptions<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Subscription</span> subscription <span class="token operator">:</span> subscriptions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// &#x8BB0;&#x5F55;&#x4E8B;&#x4EF6;</span>
+                postingState<span class="token punctuation">.</span>event <span class="token operator">=</span> event<span class="token punctuation">;</span>
+                <span class="token comment">// &#x8BB0;&#x5F55;&#x5BF9;&#x5E94;&#x7684;subscription</span>
+                postingState<span class="token punctuation">.</span>subscription <span class="token operator">=</span> subscription<span class="token punctuation">;</span>
+                <span class="token keyword">boolean</span> aborted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// &#x6700;&#x7EC8;&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;</span>
+                    <span class="token function">postToSubscription</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">,</span> postingState<span class="token punctuation">.</span>isMainThread<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    aborted <span class="token operator">=</span> postingState<span class="token punctuation">.</span>canceled<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+                    postingState<span class="token punctuation">.</span>event <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                    postingState<span class="token punctuation">.</span>subscription <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                    postingState<span class="token punctuation">.</span>canceled <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>aborted<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
 <pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Documented</span>
 <span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
@@ -2257,7 +2361,8 @@
     <span class="token keyword">int</span> <span class="token function">priority</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>&#x7EBF;&#x7A0B;&#xFF1A;</p>
+<h1 id="&#x7EBF;&#x7A0B;"><a name="&#x7EBF;&#x7A0B;" class="plugin-anchor" href="#&#x7EBF;&#x7A0B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7EBF;&#x7A0B;</h1>
+<h2 id="&#x7C7B;&#x578B;"><a name="&#x7C7B;&#x578B;" class="plugin-anchor" href="#&#x7C7B;&#x578B;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7C7B;&#x578B;</h2>
 <pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">ThreadMode</span> <span class="token punctuation">{</span>
   <span class="token comment">//&#x4F7F;&#x7528;&#x4E8B;&#x4EF6;&#x53D1;&#x9001;&#x7EBF;&#x7A0B;</span>
   POSTING<span class="token punctuation">,</span>
@@ -2271,8 +2376,65 @@
   ASYNC
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="&#x539F;&#x7406;"><a name="&#x539F;&#x7406;" class="plugin-anchor" href="#&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x539F;&#x7406;</h2>
+<pre class="language-"><code class="lang-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">postToSubscription</span><span class="token punctuation">(</span><span class="token class-name">Subscription</span> subscription<span class="token punctuation">,</span> <span class="token class-name">Object</span> event<span class="token punctuation">,</span> <span class="token keyword">boolean</span> isMainThread<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// &#x5224;&#x65AD;&#x8BA2;&#x9605;&#x4E8B;&#x4EF6;&#x65B9;&#x6CD5;&#x7684;&#x7EBF;&#x7A0B;&#x6A21;&#x5F0F;</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span>subscription<span class="token punctuation">.</span>subscriberMethod<span class="token punctuation">.</span>threadMode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// &#x9ED8;&#x8BA4;&#x7684;&#x7EBF;&#x7A0B;&#x6A21;&#x5F0F;&#xFF0C;&#x5728;&#x90A3;&#x4E2A;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x5C31;&#x5728;&#x90A3;&#x4E2A;&#x7EBF;&#x7A0B;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+            <span class="token keyword">case</span> POSTING<span class="token operator">:</span>
+                <span class="token function">invokeSubscriber</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token comment">// &#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+            <span class="token keyword">case</span> MAIN<span class="token operator">:</span>
+                <span class="token comment">// &#x5982;&#x679C;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>isMainThread<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">invokeSubscriber</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                     <span class="token comment">// &#x5982;&#x679C;&#x662F;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x5C06;&#x4E8B;&#x4EF6;&#x5165;&#x961F;&#x5217;&#xFF0C;&#x901A;&#x8FC7;Handler&#x5207;&#x6362;&#x5230;&#x4E3B;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+                    <span class="token comment">// mainThreadPoster &#x4E0D;&#x4E3A;&#x7A7A;</span>
+                    mainThreadPoster<span class="token punctuation">.</span><span class="token function">enqueue</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token comment">// &#x65E0;&#x8BBA;&#x5728;&#x90A3;&#x4E2A;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x90FD;&#x5148;&#x5C06;&#x4E8B;&#x4EF6;&#x5165;&#x961F;&#x5217;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7; Handler &#x5207;&#x6362;&#x5230;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F9D;&#x6B21;&#x5904;&#x7406;&#x4E8B;&#x4EF6;&#x3002;</span>
+            <span class="token comment">// mainThreadPoster &#x4E0D;&#x4E3A;&#x7A7A;</span>
+            <span class="token keyword">case</span> MAIN_ORDERED<span class="token operator">:</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>mainThreadPoster <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    mainThreadPoster<span class="token punctuation">.</span><span class="token function">enqueue</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token function">invokeSubscriber</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> BACKGROUND<span class="token operator">:</span>
+                <span class="token comment">// &#x5982;&#x679C;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x5148;&#x5C06;&#x4E8B;&#x4EF6;&#x5165;&#x961F;&#x5217;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x7EBF;&#x7A0B;&#x6C60;&#x4F9D;&#x6B21;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>isMainThread<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    backgroundPoster<span class="token punctuation">.</span><span class="token function">enqueue</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token comment">// &#x5982;&#x679C;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x5728;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x7EBF;&#x7A0B;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</span>
+                    <span class="token function">invokeSubscriber</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token comment">// &#x65E0;&#x8BBA;&#x5728;&#x90A3;&#x4E2A;&#x7EBF;&#x7A0B;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#xFF0C;&#x90FD;&#x5C06;&#x4E8B;&#x4EF6;&#x5165;&#x961F;&#x5217;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7;&#x7EBF;&#x7A0B;&#x6C60;&#x5904;&#x7406;&#x3002;</span>
+            <span class="token keyword">case</span> ASYNC<span class="token operator">:</span>
+                asyncPoster<span class="token punctuation">.</span><span class="token function">enqueue</span><span class="token punctuation">(</span>subscription<span class="token punctuation">,</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span><span class="token string">&quot;Unknown thread mode: &quot;</span> <span class="token operator">+</span> subscription<span class="token punctuation">.</span>subscriberMethod<span class="token punctuation">.</span>threadMode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p><a href="https://upload-images.jianshu.io/upload_images/1633070-2cc84089d0fff8dc.png?imageMogr2/auto-orient/strip|imageView2/2/w/854/format/webp" data-lightbox="10be26e6-bc7e-4038-98dc-b9dbd7eca8b0" data-title="img" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/1633070-2cc84089d0fff8dc.png?imageMogr2/auto-orient/strip|imageView2/2/w/854/format/webp" alt="img"></a></p>
+<p><a href="https://upload-images.jianshu.io/upload_images/1633070-3637c94ce7ff4b07.png?imageMogr2/auto-orient/strip|imageView2/2/w/688/format/webp" data-lightbox="51667822-c24d-4ea7-80c0-6b81312de1fc" data-title="img" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/1633070-3637c94ce7ff4b07.png?imageMogr2/auto-orient/strip|imageView2/2/w/688/format/webp" alt="img"></a></p>
+<p><a href="https://upload-images.jianshu.io/upload_images/1633070-b3b3a17a97d95d02.png?imageMogr2/auto-orient/strip|imageView2/2/w/609/format/webp" data-lightbox="f5c8f006-686f-4059-993a-77f08fe11943" data-title="img" target="_blank"><img src="https://upload-images.jianshu.io/upload_images/1633070-b3b3a17a97d95d02.png?imageMogr2/auto-orient/strip|imageView2/2/w/609/format/webp" alt="img"></a></p>
 <p>&#x7C98;&#x6027;&#x4E8B;&#x4EF6;&#xFF1A;&#x53EF;&#x4EE5;&#x5148;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x518D;&#x6CE8;&#x518C;&#xFF0C;&#x4FDD;&#x5B58;&#x5230;&#x961F;&#x5217;&#x4E2D;</p>
 <p><a href="https://www.jianshu.com/p/d9516884dbd4" target="_blank">https://www.jianshu.com/p/d9516884dbd4</a></p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x4F7F;&#x7528;&#x7F16;&#x8BD1;&#x65F6;&#x6CE8;&#x89E3;&#xFF1F;</p>
+<blockquote>
+<ol>
+<li>apt&#x751F;&#x6210;&#x9759;&#x6001;&#x4EE3;&#x7406;&#x7C7B;&#xFF0C;&#x7EE7;&#x627F;SubscribeMethod</li>
+<li>register&#x7684;&#x65F6;&#x5019;&#x5B58;&#x5165;Map&#x4E2D;</li>
+<li>post&#x7684;&#x65F6;&#x5019;&#x627E;&#x5230;&#x4EE3;&#x7406;&#x7C7B;&#xFF0C;&#x4F46;&#x662F;&#x8981;&#x8C03;&#x7528;&#x54EA;&#x4E2A;&#x65B9;&#x6CD5;&#x5462;&#xFF1F;</li>
+</ol>
+</blockquote>
  
           </section>
           
@@ -2360,7 +2522,7 @@
 
     var gitbook = gitbook || [];
     gitbook.push(function () {
-      gitbook.page.hasChanged({"page":{"title":"EventBus","level":"8.5","depth":1,"next":{"title":"ARouter","level":"8.6","depth":1,"path":"开源框架/ARouter.md","ref":"开源框架/ARouter.md","articles":[]},"previous":{"title":"RxJava","level":"8.4","depth":1,"path":"开源框架/RxJava.md","ref":"开源框架/RxJava.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"开源框架/EventBus.md","mtime":"2022-04-10T11:06:20.477Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-21T10:28:55.789Z"},"basePath":"..","book":{"language":""}});
+      gitbook.page.hasChanged({"page":{"title":"EventBus","level":"8.5","depth":1,"next":{"title":"ARouter","level":"8.6","depth":1,"path":"开源框架/ARouter.md","ref":"开源框架/ARouter.md","articles":[]},"previous":{"title":"RxJava","level":"8.4","depth":1,"path":"开源框架/RxJava.md","ref":"开源框架/RxJava.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-lou","-sharing","splitter","expandable-chapters-small","anchors","github","github-buttons","sharing-plus","favicon","lightbox","prism","prism-themes","mermaid-gb3","back-to-top-button","copy-code-button"],"root":"src","styles":{"website":"./styles/website.css"},"pluginsConfig":{"prism":{"css":["prism-themes/themes/prism-xonokai.css"]},"github":{"//":"右上角添加github图标","url":"https://github.com/Afauria","size":"large"},"splitter":{},"search":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"theme-lou":{"output":"docs","hide-elements":[".summary .gitbook-link",".summary .divider",".summary>:first-child",".summary>:nth-child(2)"],"color":"#FF4848","book-anchor-title":"大纲","copyright":{"author":"Afauria"},"forbidCopy":false,"logo":"./src/static/logo.png","book-summary-title":"好好学习，天天向上","search-placeholder":"搜索","copyrightLogo":"./src/static/copyright.png","favicon":"./src/static/favicon.ico","appleTouchIconPrecomposed152":"./src/static/avatar.png"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"mermaid-gb3":{},"favicon":{"shortcut":"./static/favicon.jpg","bookmark":"./static/favicon.jpg","appleTouch":"./static/favicon.jpg","appleTouchMore":{"120x120":"./static/favicon.jpg","180x180":"./static/favicon.jpg"}},"lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"buttons":[{"user":"Afauria","repo":"KnowledgeTree","type":"star","size":"large","count":true}]},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"//":"true表示直接显示在顶端，all表示点击分享符号展开的","qq":false,"all":["google","facebook","weibo","twitter","qq","qzone","linkedin","pocket"],"douban":false,"facebook":false,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"Afauria","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"hello":"everyone","themeLou":{"nav":[{"target":"_self","url":"./","name":"首页"},{"target":"_self","url":"./GUIDE.html","name":"使用说明"},{"target":"_blank","url":"https://afauria.github.io","name":"我的博客"},{"target":"_blank","url":"https://github.com/Afauria","name":"GitHub"}],"footer":{"donate":{"button":"赞赏","avatar":"./static/avatar.png","nickname":"Afauria","message":"随意打赏，但不要超过一顿早餐钱！","text":"『 欢迎加V 🌹 互相学习 』","wxpay":"./static/wx_pay.jpg","alipay":"./static/ali_pay.jpg"},"copyright":true}}},"title":"Day Day Up","language":"zh-hans","links":{"sidebar":{}},"gitbook":"*","description":"好好学习，天天向上"},"file":{"path":"开源框架/EventBus.md","mtime":"2022-05-23T01:24:31.754Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-23T11:13:18.553Z"},"basePath":"..","book":{"language":""}});
     });
   </script>
 </div>

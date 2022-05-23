@@ -71,6 +71,8 @@ fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, r
 }   
 ```
 
+超大图、长图局部加载：BitmapRegionDecoder，传入Rect
+
 # 防止OOM
 
 LruCache、软引用、使用匿名内存、onLowMemory清除内存
@@ -282,10 +284,9 @@ if(!bitmap.isRecycled())
 * 采样压缩：inSampleSize
   * 邻近采样：2个像素丢弃一个像素
   * 双线性采样：参考周围2x2像素的值，计算权重
-* 质量压缩：使用JPEG、WebP格式，设置压缩质量
+* 质量压缩，编码压缩：使用JPEG、WebP格式，设置压缩质量
 
-参数分别为：原始bitmap，修改后宽高
-Bitmap.createScaledBitmap(bit, 150, 150, true);
+参数分别为：原始bitmap，修改后宽高。Bitmap.createScaledBitmap(bit, 150, 150, true);
 
 
 
@@ -363,3 +364,7 @@ private void setPicToImageView(ImageView imageView, File imageFile){
 参考资料：
 
 * [开发者文档](https://developer.android.google.cn/topic/performance/graphics?hl=zh_cn)
+
+https://blog.csdn.net/weixin_29057163/article/details/117654397
+
+https://blog.csdn.net/android_jianbo/article/details/103331332
