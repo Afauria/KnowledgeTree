@@ -90,6 +90,9 @@
 * [Handler](Android源码/Handler.md)
 * [RecyclerView](Android源码/RecyclerView.md)
 * [Binder原理](Android源码/Binder原理.md)
+* [AIDL](Android源码/AIDL.md)
+* [SystemService调用机制](Android源码/SystemService调用机制.md)
+* ServiceManager
 * [Activity启动过程](Android源码/Activity启动过程.md)
 * [View加载流程](Android源码/View加载流程.md)
 * [事件分发](Android源码/事件分发.md)
@@ -97,7 +100,6 @@
 * PMS
 * WMS
 * 系统启动流程
-* ServiceManager
 
 ## 开源框架
 

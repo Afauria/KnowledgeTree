@@ -1,4 +1,4 @@
-## ServiceManager 概述
+# ServiceManager 概述
 
 Binder 是 Android 中使用最广泛的 IPC 机制，正因为有了 Binder，Android 系统中形形色色的进程与组件才能真正统一成有机的整体。Binder 通信机制与 TCP/IP 有共通之处，其组成元素可以这样来类比：
 
@@ -15,11 +15,11 @@ ServiceManager 是为了完成 Binder Server 的 Name（域名）和 Handle（IP
 
 但 ServiceManager 自身也是一个 Binder Server（服务器），怎么找到它的 "IP 地址"呢？Binder 机制对此做了特别规定：ServiceManager 在 Binder 通信过程中的 Handle 永远是 0。
 
-## ServiceManager 启动原理
+# ServiceManager 启动原理
 
 Android 系统第一个启动的 init 进程解析 init.rc 脚本时构建出系统的初始运行状态，Android 系统服务大多是在这个脚本中描述并被相继启动的，包括 zygote、mediaserver、surfaceflinger 以及 servicemanager 等，其中 servicemanager 描述如下：
 
-```
+```ini
 #servicemanager.rc 
 service servicemanager /system/bin/servicemanager    
 class core    user system    group system    critical    onrestart restart healthd    onrestart restart zygote    onrestart restart media    onrestart restart surfaceflinger    onrestart restart drm
@@ -129,7 +129,7 @@ int binder_parse(struct binder_state *bs, struct binder_io *bio, uintptr_t ptr, 
 
 对于 BR_TRANSACTION 命令主要做了两个工作，一是调用 func() 具体处理消息；二是调用 inder_send_reply() 将消息处理结果告知给 binder 驱动，注意这里的 func 是由 service_manager.c main 函数中传过来的方法指针，也就是 svcmgr_handler() 方法。
 
-## 服务注册与查询
+# 服务注册与查询
 
 经过上面 ServiceManager 服务启动的过程分析，已经知道由 binder 驱动主动发过来的 BR_TRANSACTION 命令最终在 service_manager.c 的 svcmgr_handler() 方法中处理，那服务的注册与查询请求想必就是在这个方法中实现的了，确实如此，简化后的关键代码如下：
 
@@ -166,7 +166,7 @@ int svcmgr_handler(struct binder_state *bs, struct binder_transaction_data *txn,
 
 svcmgr_handler() 方法执行完后会进一步调用 inder_send_reply() 将执行结果回复给 binder 驱动，然后进入下一轮循环继续等待处理消息。
 
-## 总结
+# 总结
 
 * ServiceManager 在 init.rc 中描述，由 init 进程启动，运行在一个单独的进程。
 * ServiceManager 启动后主要做了三件事：
