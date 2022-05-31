@@ -1,12 +1,46 @@
 # Activity、Window、DecorView关系
 
-<img src="View加载流程/DecorView.png" style="zoom: 80%;" />
+<img src="View加载流程/DecorView.png" style="zoom: 100%;" />
 
 * Activity：持有一个PhoneWindow，定义了一套骨架，提供给开发者直接交互。例如设置View、处理事件、生命周期钩子
-* Window：用于绘制UI和响应事件的矩形区域，独立绘制，不与其他界面互相影响
-* DecorView：顶级View，包括TitleView、和Activity设置的ContentView
-* ViewRootImpl：用来衔接Window和DecorView
+* Window：用于绘制UI和响应事件的矩形区域，独立绘制，不与其他界面互相影响，持有DecorView对象
+* DecorView：顶级View，包括TitleView和Activity设置的ContentView，持有Window对象
+* ViewRootImpl：用来衔接Window和DecorView，控制View绘制和事件分发等。ViewRootImpl是DecorView的parent
 * Surface：每个窗口包含一个由WMS分配的Surface，用于绘制，绘制完之后通过`SurfaceFlinger`进行合成，输出到FrameBuffer中
+
+## WindowManager
+
+WindowManager、WindowManagerImpl、WindowManagerGlobal、IWindowManager、IWindow、PhoneWindow关系
+
+WindowManager创建
+
+```java
+ActivityThread#performLaunchActivity()
+  activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent); //实例化Activity
+  Activity#attach() //调用attach方法
+    mWindow = PhoneWindow //初始化PhoneWindow
+    mWindowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE) //获取WindowManager
+```
+
+
+
+```java
+//Activity.java
+// ActivityThread实例化Activity之后调用
+final void attach(...) {
+    attachBaseContext(context);
+    // 创建PhoneWindow
+    mWindow = new PhoneWindow(this, window, activityConfigCallback);
+    // 设置Callback
+    mWindow.setCallback(this);
+    // 通过getSystemService获取WindowManager对象，Window关联Activity的Token
+    mWindow.setWindowManager((WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
+        mToken, mComponent.flattenToString(), (info.flags & ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
+    mWindowManager = mWindow.getWindowManager();
+}
+```
+
+
 
 # setContentView源码
 
@@ -14,7 +48,14 @@
 
 **此时只是解析和创建完ViewTree，并没有添加到WindowManager，也没有开始测量和绘制**
 
-`Activity#setContentView`：调用`PhoneWindow`的`setContentView()`方法
+```java
+Activity#setContentView()
+  PhoneWindow#setContentView()
+    PhoneWindow#installDecor() //创建DecorView，根据主题设置标题栏、透明度、是否全屏等
+    mLayoutInflater.inflate(layoutResID, mContentParent) //inflate解析layout，填入DecorView的ContentParent中
+```
+
+`Activity#setContentView`：
 
 ```java
 // Activity.java
@@ -30,7 +71,7 @@ public void setContentView(@LayoutRes int layoutResID) {
 1. `installDecor()`创建DecorView：
    1. 将Window设置到DecorView中
    2. 通过Id找到ContentParent
-   3. 根据主题样式设置feature、flag等，例如导航栏、透明状态栏等
+   3. 根据主题样式设置feature、flag等，例如标题栏、透明度、是否全屏等
 2. inflate ContentView到父布局中
 
 ```java

@@ -89,13 +89,13 @@ ActivityThread.handleDestroyActivity
 ActivityManager.getService().unbindService(sd.getIServiceConnection());
 ```
 
-
-
 **注：BroadcastReceiver的Context不能用于绑定服务，因为广播生命周期较短。但可以在广播中startService()**
 
 ![](Service/Service生命周期.png)
 
-Android 8.0不允许应用启动后台服务，需要使用`startForegroundService`启动前台服务，并且必须在创建服务后的五秒内调用该服务的 `startForeground()` 函数。否则会抛出异常
+## 启动并绑定Service生命周期
+
+![](Service/Service启动并绑定生命周期.png)
 
 # Service和Thread的区别
 
@@ -105,7 +105,7 @@ Thread是程序执行的最小单元，可以用Thread执行异步的操作。
 - Activity销毁后，不再持有Thread的引用，无法对Thread进行控制。例如做心跳服务
 - 另外，不同的Activity不能控制同一个Thread。
 
-Service是android提供的机制，本地服务是运行在主进程的（UI线程），远程服务是运行在独立进程的主线程
+Service是Android提供的机制，本地服务是运行在主进程的（UI线程），远程服务是运行在独立进程的主线程
 
 - 只有一个Service实例，可以在任何有Context的地方控制同一个Service。
 
@@ -130,17 +130,16 @@ Service是android提供的机制，本地服务是运行在主进程的（UI线�
 
 > 在Service的基础上创建一个Notification，然后使用Service的startForeground()方法即可启动为前台服务.
 
+Android 8.0不允许应用启动后台服务，需要使用`startForegroundService`启动前台服务，并且必须在创建服务后的五秒内调用该服务的 `startForeground()` 函数。否则会抛出异常
+
 # IntentService
 
-IntentService是专门用来解决Service中不能执行耗时操作这一问题的，创建一个IntentService也很简单，只要继承IntentService并覆写onHandlerIntent函数，在该函数中就可以执行耗时操作了。
+Service生命周期在主线程执行，当需要执行耗时任务时，需要开启新线程。Android封装了`IntentService`，避免开发者手动创建线程。
 
-1. 默认直接实现了`onBind(Intent)`方法，直接返回null，并定义了抽象方法`onHandleIntent(Intent)`，用户自定义子类时，需要实现此方法；
-2. 默认实现了`onStartCommand`，并将Intent传递给`onHandleIntent`
-3. 重写`onHandleIntent()`处理耗时任务，并且已经自动在新的线程中，**用户无需自定义新线程；**
-4. 子类需要重写默认的构造方法，且在构造方法中调用父类带参数的构造方法。设置子线程名称
-5. `onHandleIntent`执行完毕后，IntentService自动结束，无需手动停止服务
-6. 如果要重写其他生命周期，需要调用父类方法保证子线程能够正常启动
-7. **使用消息队列处理多个Intent，共用一个线程，不是多线程并发。**
+1. 继承`IntentService`，重写`onHandlerIntent`方法。
+2. 内部使用`HandlerThread`创建Looper线程，发送消息，在子线程中调用`onHandlerIntent`，执行完之后会自动结束服务。
+3. 通过startService启动服务，多次启动服务，会按顺序调用多次`onHandleIntent`。
+4. 使用消息队列处理多个Intent，共用一个Looper线程，排队执行，不是多线程并发
 
 **如果要使用多线程，需要继承Service，然后在onStartCommand中创建子线程。每次startService都会开启一个子线程**
 
@@ -150,66 +149,41 @@ IntentService原理：使用Handler+HandlerThread实现单线程模型。Handler
 public abstract class IntentService extends Service {
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
-    private String mName;
-    private boolean mRedelivery;
     //使用Handler+HandlerThread实现单线程模型。Handler内部维护消息队列，多个Intent排队处理
     private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
-            super(looper);
-        }
-
+        public ServiceHandler(Looper looper) { super(looper); }
         @Override
         public void handleMessage(Message msg) {
-            //子线程执行，重写该方法
+            //3. 处理消息
             onHandleIntent((Intent)msg.obj);
-            //终止服务
+            //4. 传入startId
             stopSelf(msg.arg1);
         }
     }
-    public IntentService(String name) {
-        super();
-        mName = name;
-    }
-    public void setIntentRedelivery(boolean enabled) {
-        mRedelivery = enabled;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        //创建HandlerThread线程，继承Thread。
+        //1. 创建一个Looper线程
         HandlerThread thread = new HandlerThread("IntentService[" + mName + "]");
         thread.start();
-
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
     }
-
     @Override
     public void onStart(@Nullable Intent intent, int startId) {
-        //obtainMessage会创建一个message，并将target设置为this
+        //2. 发送消息
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         msg.obj = intent;
         mServiceHandler.sendMessage(msg);
     }
-    @Override
-    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        onStart(intent, startId);
-        return mRedelivery ? START_REDELIVER_INTENT : START_NOT_STICKY;
-    }
-
+    //5. 退出Looper循环，释放线程
     @Override
     public void onDestroy() {
         mServiceLooper.quit();
     }
-    @Override
-    @Nullable
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+    //在工作线程中处理消息
     @WorkerThread
     protected abstract void onHandleIntent(@Nullable Intent intent);
 }
 ```
-

@@ -11,12 +11,29 @@
 
 ## 分类
 
-* 全局广播：发出的广播所有应用都可以接收，或者可以接收其他应用的广播。
-* 本地广播：只能接收应用内部广播，发出的广播只有应用内部能接收。
+按注册方式：
+
 * 静态广播：静态注册的广播，应用程序关闭后也能接收到广播。每次接收都会创建新的`BroadcastReceiver`对象，onReceive执行完后销毁。
 * 动态广播：动态注册的广播，生命周期与注册的组件相同
+
+按作用范围：
+
+* 全局广播：发出的广播所有应用都可以接收，或者可以接收其他应用的广播。
+* 本地广播：只能接收应用内部广播，发出的广播只有应用内部能接收。
+
+按发送方式：
+
 * 无序广播/标准广播：所有的接收者都会接收事件，不可以被拦截，不可以被修改。
 * 有序广播：按照优先级，一级一级的向下传递，接收者可以修改广播数据，也可以终止广播事件。
+* 粘性广播：
+
+按发送者：
+
+* 系统广播
+* 自定义广播
+* 保护广播
+
+前台广播、后台广播
 
 # 使用
 
@@ -91,8 +108,9 @@ abortBroadcast();
 
 # 本地广播
 
-* 全局广播存在数据安全问题，使用本地广播可以与其他应用程序进行隔离，增强安全性
-* 本地广播只能动态注册
+1. 全局广播会被其他应用监听访问，存在数据安全问题，本地广播只在应用内生效。
+2. 全局广播通过AMS跨进程发送，本地广播不需要跨进程通信，效率更高
+3. 本地广播只能动态注册
 
 ```java
 //使用LocalBroadcastManager类
@@ -110,3 +128,19 @@ localBroadcastManager.sendBroadcast(intent);
 localBroadcastManager.sendBroadcastSync(intent);
 ```
 
+# 版本适配
+
+Android8.0限制应用接收静态注册的隐式广播（不带package也不带component）。反过来说，setPackage之后能被收到就是显式广播，不在限制范围内。
+
+另外，原生的部分广播不在限制范围内，例如开机广播，所以开机广播能够静态注册并接收
+
+![](Broadcast/隐式广播限制.png)
+
+# 结语
+
+* [高版本隐式广播限制](https://developer.android.google.cn/guide/components/broadcast-exceptions)
+* [Intent类型](https://developer.android.google.cn/guide/components/intents-filters#Types)
+
+https://javajgs.com/archives/78133
+
+https://www.jianshu.com/p/ca3d87a4cdf3

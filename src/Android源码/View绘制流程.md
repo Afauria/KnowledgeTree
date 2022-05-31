@@ -181,3 +181,28 @@ void doTraversal() {
 }
 ```
 
+
+
+
+
+
+
+forceLayout和requestLayout？
+
+> forceLayout不会主动触发布局，而是添加PFLAG_FORCE_LAYOUT，在下一次布局时检查Flag，对自身进行布局
+
+```java
+public class View {
+     /**
+     * Forces this view to be laid out during the next layout pass.
+     * This method does not call requestLayout() or forceLayout()
+     * on the parent.
+     */
+    public void forceLayout() {
+        if (mMeasureCache != null) mMeasureCache.clear();
+        mPrivateFlags |= PFLAG_FORCE_LAYOUT;
+        mPrivateFlags |= PFLAG_INVALIDATED;
+    }
+}
+```
+

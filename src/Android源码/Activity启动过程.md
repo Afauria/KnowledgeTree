@@ -842,10 +842,8 @@ final void attach(...) {
     // 设置Callback
     mWindow.setCallback(this);
     // 通过getSystemService获取WindowManager对象，Window关联Activity的Token
-    mWindow.setWindowManager(
-        (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
-        mToken, mComponent.flattenToString(),
-        (info.flags & ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
+    mWindow.setWindowManager((WindowManager)context.getSystemService(Context.WINDOW_SERVICE),
+        mToken, mComponent.flattenToString(), (info.flags & ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
     mWindowManager = mWindow.getWindowManager();
 }
 ```

@@ -749,7 +749,7 @@ public final class MessageQueue {
 
 # HandlerThread
 
-HandlerThread：继承Thread，在run方法中创建Looper对象（prepare），并执行loop循环，即在子线程开启消息循环
+HandlerThread原理：继承Thread，在run方法中创建Looper对象（prepare），并执行loop循环，即在子线程开启消息循环，调用quit结束消息循环，退出线程。
 
 * 避免开发者手动定义线程类，重写run方法，实现Looper循环
 * 拥有自己的消息队列，它不会干扰或阻塞UI线程。
@@ -810,9 +810,13 @@ public class HandlerThread extends Thread {
 
 Service生命周期在主线程执行，当需要执行耗时任务时，需要开启新线程。Android封装了`IntentService`，避免开发者手动创建线程。
 
-1. 继承`IntentService`，重写`onHandlerIntent`方法。
-2. 内部使用`HandlerThread`创建Looper线程，发送消息，在子线程中调用`onHandlerIntent`，执行完之后会自动结束服务。
-3. 通过startService启动服务，多次启动服务，会按顺序调用多次`onHandleIntent`。
+使用：继承`IntentService`，重写`onHandlerIntent`方法。
+
+原理：使用Handler+HandlerThread实现单线程模型。Handler内部维护消息队列，多个Intent排队处理
+
+1. 内部使用`HandlerThread`创建Looper线程，发送消息，在子线程中调用`onHandlerIntent`，执行完之后会自动结束服务。
+2. 通过startService启动服务，多次启动服务，会按顺序调用多次`onHandleIntent`。
+3. 使用消息队列处理多个Intent，共用一个Looper线程，排队执行，不是多线程并发
 
 > `stopSelf(startId)`表示结束该请求Id的服务，当接收到新的请求时startId会更新，stopSelf失效，因此不会停止Service
 >
@@ -823,7 +827,7 @@ Service生命周期在主线程执行，当需要执行耗时任务时，需要�
 public abstract class IntentService extends Service {
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
-
+    //使用Handler+HandlerThread实现单线程模型。Handler内部维护消息队列，多个Intent排队处理
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) { super(looper); }
         @Override
