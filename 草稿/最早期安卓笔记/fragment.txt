@@ -1,3 +1,0 @@
-使用setArguments进行数据传递
-setArgument要在与activity关联之前
-不要重写fragment构造方法，因为每次fragment重构时（如横竖屏切换，activity会重构，fragment也会重构）会自动使用默认构造方法，而不是重写的方法。用static newInstance方法，argument携带数据，会保留fragment数据

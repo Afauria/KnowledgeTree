@@ -35,7 +35,7 @@
 * [Service](Android/Service.md)
 * [BroadcastReceiver](Android/Broadcast.md)
 * ContentProvider
-* Fragment
+* [Fragment](Android/Fragment.md)
 * [Context](Android/Context.md)
 * [持久化](Android/持久化.md)
 * [序列化](Android/序列化.md)
@@ -58,6 +58,25 @@
 * 字节码Hook
 * JNI
 * ADB
+* [桌面小部件：AppWidget](Android/AppWidget.md)
+* [Slice](Android/Slice.md)
+
+## Android源码
+
+* [Handler🔥](Android源码/Handler.md)
+* [RecyclerView](Android源码/RecyclerView.md)
+* [Binder机制](Android源码/Binder机制.md)
+* [Binder-AIDL🔥](Android源码/Binder-AIDL.md)
+* [Binder-连接池🔥](Android源码/Binder-连接池.md)
+* [SystemService调用机制](Android源码/SystemService调用机制.md)
+* ServiceManager
+* [Activity启动过程](Android源码/Activity启动过程.md)
+* [View加载流程](Android源码/View加载流程.md)
+* [事件分发](Android源码/事件分发.md)
+* AMS
+* PMS
+* WMS
+* 系统启动流程
 
 ## Android性能
 
@@ -84,23 +103,6 @@
 * [基础](Kotlin/基础.md)
 * [协程](Kotlin/协程.md)
 * anko
-
-## Android源码
-
-* [Handler](Android源码/Handler.md)
-* [RecyclerView](Android源码/RecyclerView.md)
-* [Binder机制](Android源码/Binder机制.md)
-* [Binder-AIDL](Android源码/Binder-AIDL.md)
-* [Binder-连接池](Android源码/Binder-连接池.md)
-* [SystemService调用机制](Android源码/SystemService调用机制.md)
-* ServiceManager
-* [Activity启动过程](Android源码/Activity启动过程.md)
-* [View加载流程](Android源码/View加载流程.md)
-* [事件分发](Android源码/事件分发.md)
-* AMS
-* PMS
-* WMS
-* 系统启动流程
 
 ## 开源框架
 

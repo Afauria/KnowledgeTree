@@ -256,18 +256,20 @@ class BinderPoolImpl extends IBinderPool.Stub {
 
 > 可以使用DCL加锁
 
-## 全局绑定
+## 客户端全局绑定
 
-上面的连接池Binder在Activity中绑定，Activity退出解绑。但是一般情况很少出现一个页面需要绑定多个Binder对象的场景，因此使用Binder连接池的时候，客户端通常需要**全局绑定**。
+上面的连接池Binder在Activity中绑定，Activity退出解绑。但是一般情况很少出现一个页面需要绑定多个Binder对象的场景，因此使用Binder连接池的时候，**客户端通常需要全局绑定**。
 
 1. 使用Application的Context绑定服务，跟随整个应用生命周期
 2. 使用`iBinder.linkToDeath(mBinderPoolDeathRecipient, 0);`监听Binder对象死亡或者连接断开时，自动重连
 3. 客户端封装**线程安全的单例类**，供全局使用
 4. 有可能出现还没绑定成功，立马调用`queryBinder`方法的场景，有两种解决思路
    1. 将请求封装成Runnable，加到延迟队列中，`onServiceConnected`连接成功后，从队列中取出任务执行
-   2. 在子线程调用`connectToService`方法，使用wait等待，主线程回调`onServiceConnected`之后唤醒
+   2. 提供监听器给外部注册，`onServiceConnected`之后回调给外部，自行处理
+   2. 在子线程中调用AIDL接口，首次调用时，初始化调用`connectToService`方法，并立马wait等待，主线程回调`onServiceConnected`之后唤醒。
 
 ```java
+//这里继承IBinderPool即可，不需要继承IBinderPool.Stub
 public class BinderPool extends IBinderPool.Stub {
     private static final String TAG = "BinderPool";
     private static volatile BinderPool sInstance;
@@ -304,7 +306,7 @@ public class BinderPool extends IBinderPool.Stub {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected: "+Thread.currentThread());
+            Log.d(TAG, "onServiceConnected: " + Thread.currentThread());
             mRemoteProxy = IBinderPool.Stub.asInterface(service);
             //监听Binder对象死亡
             try {
@@ -374,8 +376,3 @@ public class BinderPool extends IBinderPool.Stub {
 # 结语
 
 参考资料：[【Android】Binder连接池](https://www.jianshu.com/p/3ca35499c630)
-
-
-
-
-

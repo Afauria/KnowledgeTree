@@ -402,3 +402,15 @@ public static void main(String[] var0) {
 ```
 
 > **switch只支持整型**，char、String、枚举都是转为整型之后进行比较
+
+# 字符串分割
+
+1. 字符`|`、`*`、`+`都得加上转义字符，前面加上`\`。
+2. 而如果是`\`，那么就得写成`\\\\`。
+3. 如果一个字符串中有多个分隔符，可以用`|`作为连字符。
+
+```java
+String str = "Java string-split#test";
+str.split(" |-|#"); 
+//分割为[Java,string,split,test]
+```

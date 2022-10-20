@@ -1,9 +1,0 @@
-//获取不在当前屏幕的控件，用inflater加载布局
-           
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View listView = inflater.inflate(R.layout.dropdown_list_item,null);
-            ListItemView listItemView = new ListItemView();
-            listItemView.layout = (LinearLayout) listView.findViewById(R.id.itemlayout_container);
-            listItemView.listText = (TextView) listView.findViewById(R.id.listtext);
-            listItemView.listText.setTextColor(0);
-            listItemView.layout.setBackground(drawable);
