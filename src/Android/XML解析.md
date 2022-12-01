@@ -254,7 +254,7 @@ public class PULLXml {
         List<Student> list = null;
         Student student = null;
         //创建xmlPull解析器
-        XmlPullParserFactory.newInstance().newPullParser();
+        //XmlPullParserFactory.newInstance().newPullParser();
         XmlPullParser parser = Xml.newPullParser();
         ///初始化xmlPull解析器
         parser.setInput(is, "utf-8");

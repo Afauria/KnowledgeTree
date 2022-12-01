@@ -1,3 +1,7 @@
+[Android应用启动流程](https://www.aengus.top/?p=51)
+
+https://mp.weixin.qq.com/s/yEAdDRijRav9bYgvR8a8QQ
+
 **什么叫体系化的论述呢？例如启动优化：**
 
 1. 首先你要做好App 启动阶段，**系统framework是如何启动这个 App 的**，这个阶段是否可以优化？

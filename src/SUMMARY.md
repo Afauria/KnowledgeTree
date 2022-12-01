@@ -1,7 +1,7 @@
 # Summary
 
 * [首页](README.md)
-* [使用说明](GUIDE.md)
+* [站点说明](GUIDE.md)
 
 ## JAVA
 

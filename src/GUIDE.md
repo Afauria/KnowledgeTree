@@ -135,3 +135,11 @@ Failed to load prism syntax: shell
 GitBook mermaid渲染有问题
 
 > 添加`mermaid-gb3`插件（还是无法渲染，不过解决了报错问题）
+
+# 结语
+
+参考资料
+
+* [GitBook文档（中文版）](https://chrisniael.gitbooks.io/gitbook-documentation/content/index.html)
+* [GitBook指南](http://gitbook.zhangjikai.com/)
+* [GitBook 简明教程](http://www.chengweiyang.cn/gitbook/index.html)

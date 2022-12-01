@@ -122,6 +122,15 @@ DVM中解释器边运行边解释，运行速度慢。
 
 开发阶段可以配置编译模版，指定热点代码，ART优先编译这部分代码。
 
+# Google Nexus和Google Pixel
+
+* Nexus：Google授权合作硬件厂商生产的Android手机，由三星、LG、HTC、华为、华硕等代工。
+* Pixel：Google自主品牌手机，由Google自行设计硬件。
+
+Nexus长久以来被视作专业开发者用的工程机，能第一时间升级最新版本的Android系统。最初是希望推动Android系统覆盖尽可能多的硬件，这也是造成性能不如Apple的原因。另外Google作为一家软件公司，也不可能在Android刚刚问世的时候专门去开一家手机厂，但实际上此举却成全了各大代工厂品牌，Nexus在销量上远不如代工厂的自有品牌。
+
+由于Nexus定位和策略，以及命名混乱（例如Nexus 7代号被用于平板）等原因，Google推出了自主手机品牌Pixel，取代Nexus。
+
 # 结语
 
 参考资料：
